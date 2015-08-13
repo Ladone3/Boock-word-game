@@ -1,0 +1,334 @@
+﻿class Player extends GameObject{
+	// Коды клавиш
+	//===============================
+	private var kUp:Number    = 38;
+	private var kDown:Number  = 40;
+	private var kLeft:Number  = 37;
+	private var kRight:Number = 39;
+	private var kFight:Number = 32;
+	private var kJump:Number  = 38;
+	
+	//private var kUp:Number    = 87;
+	//private var kDown:Number  = 83;
+	//private var kLeft:Number  = 65;
+	//private var kRight:Number = 68;
+	//private var kFight:Number = 97;
+	//private var kJump:Number = 98;
+	// Блокировка анимации
+	//===============================
+	private var counter:Counter;
+	
+	// Характеристики персонажа
+	//===============================
+	private var jumpPower:Number = 20;
+	private var runPower:Number = 6;
+	public var damage:Number = 10;
+	public var radius:Number = 10;
+	public var hpmax:Number = 20;
+	public var hpline;
+	// Состояние персонажа	
+	//===============================
+	private var readyToJump:Boolean = false;
+	private var inAero:Boolean;
+	private var switcher:Switcher;
+	private var indic:MovieClip;
+	private var auraContainer:AuraContainer;
+	//===============================
+	private var direction:Boolean;
+	public function set direct(b:Boolean){
+		if(!this.counter.notOver){ 
+			this.direction = b;
+		}
+	}
+	public function get direct():Boolean{
+		return this.direction;
+	}
+	
+	// Переопределение	
+	public function getType():Number{
+		return 1;
+	}
+	
+	// Переопределение
+	//================================================
+	public function set law(lawRef:AbstractLaw){
+		this.lawRef = lawRef;
+	}
+	
+	private function lifeOrDie(){
+		if((!life)&&(!this.counter.notOver)){
+			this.remov();
+		}
+	}
+	//=====================================================
+	//=====================================================
+	//=====================================================
+	public function setfreeState(){
+		if(this.inAero){
+			if(this.direct){
+				this.switcher.state = 7;
+			}else{
+				this.switcher.state = 8;
+			}
+		}else{
+			if(this.direct){
+				this.switcher.state = 1;
+			}else{
+				this.switcher.state = 2;
+			}
+		}
+		this.readyToJump = false;
+	}
+	
+	public function runLeft(){
+		if((!this.inAero)&&(Math.abs(this.xBoost)<Math.abs(runPower))&&(this.xBoost>-runPower)){
+			this.xBoost = -runPower;
+		} else if(this.xBoost>0){
+			this.xBoost -= runPower;
+		}
+		this.switcher.state = 4;
+		this.direct = false;
+		this.readyToJump = true;
+	}
+	
+	public function runRight(){
+		if((!this.inAero)&&(Math.abs(this.xBoost)<Math.abs(runPower))&&(this.xBoost<runPower)){
+			this.xBoost = runPower;
+		} else if(this.xBoost<0){
+			this.xBoost += runPower;
+		}
+		this.switcher.state = 3;
+		this.direct = true;
+		this.readyToJump = true;
+	}
+	
+	public function planLeft(){
+		if((Math.abs(this.xBoost)<Math.abs(runPower))&&(this.xBoost>-runPower)){
+			this.xBoost = -runPower;
+		} else if(this.xBoost>0){
+			this.xBoost -= runPower;
+		}
+		this.direct = false;
+	}
+	
+	public function planRight(){
+		if((Math.abs(this.xBoost)<Math.abs(runPower))&&(this.xBoost<runPower)){
+			this.xBoost = runPower;
+		} else if(this.xBoost<0){
+			this.xBoost += runPower;
+		}
+		this.direct = true;
+	}
+
+	public function landing(){
+		if(this.direct){
+			this.switcher.state = 9;
+		}else{
+			this.switcher.state = 10;
+		}
+		this.counter.delay = 10;
+	}
+	
+	public function jump(){
+		if(!this.inAero){
+			if(this.readyToJump){
+				this.yBoost = -jumpPower;
+			}else{
+				if(this.direct){
+					this.switcher.state = 5;
+				}else{
+					this.switcher.state = 6;
+				}
+				this.counter.delay = 4;
+				this.readyToJump = true;
+			}
+		}else{
+			if(this.yBoost<-jumpPower/3){
+				this.yBoost -= jumpPower/10;
+			}
+			setfreeState();
+		}
+	}
+
+	public function blow(){
+		if(this.direct){
+			this.switcher.state = 11;
+			this.blowPermission(this.radius,this.damage,0.5);
+		}else{
+			this.switcher.state = 12;
+			this.blowPermission(this.radius,this.damage,0.5);
+		}
+		this.counter.delay=10;
+	}
+	
+	public function setDie(){
+		if(this.direct){
+			this.switcher.state = 13;
+		}else{
+			this.switcher.state = 14;
+		}
+	}
+	
+	public function setTreatment(t:Number){
+		this.hpline.treatment(t);
+	}
+	
+	public function setDamage(d:Number,dd:Boolean){
+	
+		this.hpline.damage(d);
+		if(this.switcher.state!= 13 
+		&& this.switcher.state!= 14
+		/*&& this.switcher.state!= 15
+		&& this.switcher.state!= 16
+		&& this.switcher.state!= 17
+		&& this.switcher.state!= 18*/){
+			this.counter.delay = 0;
+		}
+		if(this.direct){
+			if(dd){
+				this.switcher.state = 15;
+			}else{
+				this.switcher.state = 17;
+			}
+		}else{
+			if(dd){
+				this.switcher.state = 16;
+			}else{
+				this.switcher.state = 18;
+			}
+		}
+		this.counter.delay = 25;
+	}
+	//=====================================================
+	//=====================================================
+	//=====================================================
+		
+	private function aeroState(nameValue:String, lastState:Boolean, newState:Boolean, dop):Boolean{
+		var lastAeroState = this.inAero;
+		this.inAero = ((!newState)&&(!lastState));
+		if((lastAeroState) && (!this.inAero) && (this.yBoost>=lawRef.MaxAttractiveSpeed)){
+			this.counter.delay=0;
+			this.landing();
+		}else if((lastAeroState) && (!this.inAero)){
+			this.counter.delay=0;
+		}
+		return newState;
+	}	
+	
+	public function Player(){
+		this.auraContainer = new AuraContainer(this);
+		this.counter = new Counter();
+		this.switcher = new Switcher(26,this,this.counter);
+		this.mov = true;
+		this.inAero = true;
+		this.direct = true;
+		this.watch("touchDown", aeroState, 1);
+		this.switcher.state = 1;
+		this.hpline = new HPLine();
+		this.hpline.setHPLine(hpmax);
+	}	
+	
+	public function setScale(k:Number){
+		this._xscale *= k;
+		this._yscale *= k;
+	}
+	
+	public function keyReading(){
+		if(!this.counter.notOver && this.life){
+			if(Key.isDown(kLeft)||Key.isDown(kFight)||Key.isDown(kRight)||Key.isDown(kJump)){
+				if(this.inAero){
+				//============================================================
+					if(Key.isDown(kJump)){
+						this.jump();
+					}
+					if(Key.isDown(kLeft) && (!Key.isDown(kRight))){
+						this.planLeft();
+					}
+					if(Key.isDown(kRight) && (!Key.isDown(kLeft))){
+						this.planRight();
+					}
+					if(Key.isDown(kRight) && Key.isDown(kLeft) && (!Key.isDown(kJump))){
+						setfreeState();
+					}
+					
+				//============================================================
+				}else{
+				//============================================================
+					if(Key.isDown(kFight)){
+						this.blow();
+					}
+					
+					if(Key.isDown(kJump)){
+						this.jump();
+					}
+
+					if(Key.isDown(kLeft) 
+						&& (!(Key.isDown(kRight)||Key.isDown(kJump)))
+					){
+						this.runLeft();
+					}
+					if(Key.isDown(kRight)
+						&& (!(Key.isDown(kLeft)||Key.isDown(kJump)))
+					){
+						this.runRight();
+					}
+					if(Key.isDown(kRight) && Key.isDown(kLeft) && (!Key.isDown(kJump))){
+						setfreeState();
+					}
+				//============================================================
+				}
+			}else{
+				setfreeState();
+			}
+		}
+	}
+	
+	
+	
+	private function checkForDeath(){
+		if(this.hpline.HP!=undefined && this.hpline.HP<=0 && this.life && !this.counter.notOver){
+			this.life = false;
+			this.setDie();
+		}
+	}
+	
+	//Переопределение
+	public function onEnterFrameAction(){
+		super.onEnterFrameAction();
+		this.counter.iterateCounter();
+		this.keyReading();
+		this.checkForDeath();
+		this.auraContainer.handIteration();
+	}
+	
+	//=============================================================================	
+	public function blowPermission(radius:Number, damage:Number,k:Number):Boolean{
+		var nWidth = this.radius*2; //this._x+100,this._y,50,this.damage
+		var nHeight = nWidth;
+		for(var i=0; i < GameObject.count || i<this.lawRef.length; i++){			
+			if(this.lawRef[i]!=this && this.lawRef[i]!=null){
+				var offset:Number = 0;
+				if(direct){
+					offset = 100;
+				}else{
+					offset = -100;
+				}
+				var temp1 = this.getBounds(_root);
+				var nXMin = temp1.xMin + this._width/2 - radius + offset;
+				var nYMin = temp1.yMin + this._height/2 - radius;
+				var temp2 = this.lawRef[i].getBounds(_root);
+				if((nXMin >= temp2.xMin - nWidth)&&(nYMin >= temp2.yMin - nHeight)&&(nXMin <= temp2.xMax)&&(nYMin <= temp2.yMax)&&(this[i].life)){                                                                                              
+						this.lawRef[i].hpline.damage(damage);
+						if(direct){
+							this.lawRef[i].xA = damage/2*k;
+						}else{
+							this.lawRef[i].xA = -damage/2*k;
+						}
+						return true;
+				}
+			}
+		}
+		return false;
+	}
+}
+
