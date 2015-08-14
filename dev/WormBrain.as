@@ -7,7 +7,7 @@
 	public function moves(){
 		super.moves();
 		if(this.sa==2) this.sa = 1;
-		if(this.sa==3) this.sa = 1
+		//if(this.sa==3) this.sa = 1;
 	}
 	
 	// Переопределение

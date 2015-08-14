@@ -25,6 +25,7 @@
 	public var damage:Number = 10;
 	public var radius:Number = 10;
 	public var hpmax:Number = 20;
+	public var stunDelay:Number = 25;
 	public var hpline;
 	// Состояние персонажа	
 	//===============================
@@ -197,7 +198,7 @@
 				this.switcher.state = 18;
 			}
 		}
-		this.counter.delay = 25;
+		this.counter.delay = this.stunDelay;
 	}
 	//=====================================================
 	//=====================================================

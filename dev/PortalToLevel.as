@@ -14,6 +14,12 @@
 		return true;
 	}
 	
+	// Переопределение
+	public function deinit(){
+		this.nocatch = true;
+		return false;
+	}
+	
 	//Переопределение
 	public function onEnterFrameCatchPlayer(){
 		var nWidth = this._width;
