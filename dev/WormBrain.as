@@ -5,10 +5,12 @@
 	
 	// Переопределение
 	public function moves(){
-		super.moves();
-		if(this.sa==2) this.sa = 1;
+		this.fightMoves(slave.law.findObject(slave, 1000));
+		if(this.sa==2) this.sa = 3;
 		//if(this.sa==3) this.sa = 1;
 	}
+	
+
 	
 	// Переопределение
 	public function doAnAct(){

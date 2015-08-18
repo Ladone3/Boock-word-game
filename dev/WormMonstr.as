@@ -1,8 +1,8 @@
 ﻿class WormMonstr extends Computer{
 	// Характеристики персонажа
 	//===============================
-	private var jumpPower:Number = 0;
-	private var runPower:Number = 7;
+	private var jumpPower:Number = 1;
+	private var runPower:Number = 15;
 	public var damage:Number = 30;
 	public var radius:Number = 15;
 	public var hpmax:Number = 160;
