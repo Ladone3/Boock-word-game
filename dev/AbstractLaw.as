@@ -48,7 +48,7 @@
 	}
 	
 	public function	AbstractLaw(){
-		this._name = " AbstractLaw";
+		this._name = "AbstractLaw";
 		//AsBroadcaster.initialize(this);
 		for(var i=0; i<GameObject.count || i<this.length; i++){			
 			this[i] = _root["gameobject"+i];
