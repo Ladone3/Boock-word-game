@@ -23,16 +23,14 @@
 	
 	public function	MenuItem(){
 		stop();
-		this.switcher = new Switcher(2,this,new Counter());
+		this.switcher = new Switcher(3,this,new Counter());
 		this.ID = menuItemCount++;
 		
 		this.jumpNumber = int(this._name.substr(4,this._name.length));
-		
 		this._name = "MenuItem"+this.ID;
 		if(_root["MenuCore"]){
 			this.mCore =_root["MenuCore"];
 			this.mCore.addItems(this);
-			if(this.mCore.getFocusItem()==null)this.mCore.setFocusItem(this);
 		}
 	} 
 	
@@ -40,19 +38,28 @@
 		this.mCore.setFocusItem(this);
 	}
 	
+	public function onPress(){
+		this.preActivate();
+	}
+	
 	public function onRelease(){
 		this.activate();
 	}
 	
 	public function catchFocus(){
-		this.switcher.state = 2;
+		this.switcher.state = 3;
 	}
 	
 	public function freeFocus(){
 		this.switcher.state = 1;
 	}
 	
+	public function preActivate(){
+		this.switcher.state = 2;
+	}
+	
 	public function activate(){
+		MenuItem.menuItemCount = 0;
 		_root.gotoAndStop(this.jumpNumber);
 	}
 }

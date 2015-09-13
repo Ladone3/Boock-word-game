@@ -1,8 +1,7 @@
 ﻿class MenuCore extends MovieClip {
-	private var idCounter:Number = 0;
-	private var items:Array = new Array();
+	private var items:Array;
 	private var cur:MenuItem = null;
-	private var counter:Counter;
+	private var curNumber = -1;
 	private var minId:Number = 0;
 	private var maxId:Number = 0;
 	
@@ -12,12 +11,14 @@
 	private var kRight:Number = 39;
 	private var kActivate:Number = Key.SPACE;//Key.ENTER;
 	
-	public function getNewId(){
-		return idCounter++;
+	public function addItems(item:MenuItem){
+		this.curNumber = this.items.length;
+		this.items[this.items.length] = item;
+		this.setFocusItem(item);
 	}
 	
-	public function addItems(item:MenuItem){
-		this.items[this.items.length] = item;
+	public function getFocusItemNumber():Number{
+		return this.curNumber;
 	}
 	
 	public function getFocusItem():MenuItem{
@@ -26,47 +27,59 @@
 	
 	public function setFocusItem(item:MenuItem){
 		this.freeAll();
-		this.cur = item;
-		item.catchFocus();
+		for(var i=0; i<this.items.length; i++){	
+			if(this.items[i]==item){
+				this.cur=item;
+				item.catchFocus();
+				this.curNumber = i;
+			}
+		}
+	}
+	
+	public function setFocusItemByNumber(item:Number){
+		this.freeAll();
+		if(0<=item<this.items.length){
+			this.cur=this.items[item];
+			this.items[item].catchFocus();
+			this.curNumber = item;
+		}
 	}
 	
 	public function	MenuCore(){
+		this.items = new Array();
 		this._name = "MenuCore";
-		this.counter = new Counter();
-		//this.minId =
-		for(var i=0; i<MenuItem.count || i<idCounter; i++){	
+		for(var i=0; i<MenuItem.count; i++){	
 			if(_root["MenuItem"+i]){
-				var index = this.getNewId();
-				items[index] = _root["MenuItem"+i];
-				items[index].mCore = this;
-				items[index].ID=index;
+				addItems(_root["MenuItem"+i]);
 			}
 		}
-		this.setFocusItem(items[0]);
+		
+		Key.addListener(this);
 	} 
-	
-	public function onEnterFrame() {
-		if(!this.counter.notOver){
-			if(Key.isDown(kUp)||Key.isDown(kRight)) this.nextItem();
-			if(Key.isDown(kLeft)||Key.isDown(kDown)) this.prevItem();
-			if(Key.isDown(kActivate)) this.cur.activate();
-		}
-		this.counter.iterateCounter();
+		
+	public function onKeyUp(){
+		if(Key.getCode() == this.kActivate) this.cur.activate();
 	}
 	
+	public function onKeyDown(){
+		if((Key.getCode() == this.kUp) || (Key.getCode() == this.kRight)) this.nextItem();
+		if((Key.getCode() == this.kLeft) || (Key.getCode() == this.kDown)) this.prevItem();
+		if(Key.getCode() == this.kActivate) this.cur.preActivate();
+	}
+		
 	public function freeAll(){
-		for(var i=0; i<MenuItem.count || i<idCounter; i++){		
+		for(var i=0; i<this.items.length; i++){		
 			items[i].freeFocus();
 		}
+		this.cur = null;
+		this.curNumber = -1;
 	}
 	
 	public function nextItem(){
-		setFocusItem(this.cur.number+1>=items.length ? items[0] : items[this.cur.number+1]);
-		this.counter.delay=10;
+		this.setFocusItemByNumber(this.getFocusItemNumber()+1>=items.length ? 0 : this.getFocusItemNumber()+1);
 	}
 	
 	public function prevItem(){
-		setFocusItem(this.cur.number-1<0 ? items[items.length-1] : items[this.cur.number-1]);
-		this.counter.delay=10;
+		this.setFocusItemByNumber(this.getFocusItemNumber()-1<0 ? items.length-1 : this.getFocusItemNumber()-1);
 	}
 }
