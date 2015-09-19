@@ -34,7 +34,7 @@
 					this._alpha-=10;
 					this.complete=true;
 			}else{
-				this.remov();
+				this.remove();
 			}
 		}
 	}

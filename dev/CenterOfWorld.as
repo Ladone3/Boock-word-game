@@ -4,7 +4,6 @@
 		this.abstractLaw = new AbstractLaw();
 		this._name = "CenterOfWorld";
 		_root._alpha=0;
-		trace("New CenterOfWorld!");
 	}
 
 	private var frame:Number=0;
@@ -33,14 +32,29 @@
 	
 	
 	public function goToAndStopFrame(frame:Number){
+		_global.last_level = _root._currentframe;
 		this.startFrame = false;
 		this.frame=frame;
 	}
 	public function goToAndStopToNextFrame(){
+		_global.player.hpline._alpha = 100;
 		this.goToAndStopFrame(_root._currentframe+1);
 	}
 	
 	public function goToAndStopToPrevFrame(){
+		_global.player.hpline._alpha = 100;
 		this.goToAndStopFrame(_root._currentframe-1);
+	}
+
+	public function goToLastLevel(){
+		_global.player.hpline._alpha = 100;
+		this.goToAndStopFrame(_global.last_level);
+	}
+
+	public function goToLimbo(){
+		_global.player.hpline._alpha = 0;
+		_global.player.life = true;
+		_global.player.hpline.treatment(_global.player.hpline.HPM);
+		this.goToAndStopFrame(_global.limbo_level);
 	}
 }

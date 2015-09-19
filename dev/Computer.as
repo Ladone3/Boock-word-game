@@ -90,9 +90,9 @@
 	}
 	
 	//Переопределение
-	public function remov(){
+	public function remove(){
 		if(this.law[this.ID]!=null && !this.counter.notOver()){
-			super.remov();
+			super.remove();
 			//this.law[this.ID]=null;
 		}
 	}
@@ -107,12 +107,6 @@
 	public function takeObject(object:GameObject):Boolean{
 		return (object.getType()==0 || object.getType()==2);
 		//|| object.getType()==4 || object.getType()==6);//!=2
-	}
-	
-	// Переопределение
-	public function onEnterFrame() {
-		this.counter.iterateCounter();
-		super.onEnterFrame();
 	}
 	
 	// Переопределение

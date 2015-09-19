@@ -77,7 +77,7 @@
 					if(this.mcs[0]._alpha>=100) this.complete=true;
 				}	
 			}else{
-				if(complete) this.remov();
+				if(complete) this.remove();
 			}
 		}
 	}

@@ -58,7 +58,7 @@
 	
 	private function lifeOrDie(){
 		if((!life)&&(!this.counter.notOver)){
-			this.remov();
+			this.remove();
 		}
 	}
 	//=====================================================
@@ -284,7 +284,11 @@
 		}
 	}
 	
-	
+	// Переопределение
+	public function onEnterFrame() {
+		this.counter.iterateCounter();
+		super.onEnterFrame();
+	}
 	
 	private function checkForDeath(){
 		if(this.hpline.HP!=undefined && this.hpline.HP<=0 && this.life && !this.counter.notOver){

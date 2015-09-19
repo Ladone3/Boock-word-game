@@ -48,7 +48,7 @@ class GameObject extends MovieClip {
 	
 	private function lifeOrDie(){
 		if(!this.lifeState){
-			this.remov();
+			this.remove();
 		}
 	}
 	
@@ -121,7 +121,7 @@ class GameObject extends MovieClip {
 	
 	// Удалить объект
 	//=========================================================
-	public function remov(){
+	public function remove(){
 		//trace("GameObjectCount-1 = " + (GameObjectCount-1) + " ID = " + this.ID);
 		/*
 		if(this.ID!=(GameObjectCount-1)){

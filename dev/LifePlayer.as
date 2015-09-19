@@ -10,4 +10,21 @@
 	public function takeObject(object:GameObject):Boolean{
 		return (object.getType()==0);
 	}
+	
+	//Переопределение
+	public function remove(){
+		if(!this.counter.notOver){
+			_root["CenterOfWorld"].goToLimbo();
+		}
+	}
+	
+	//Переопределение
+	public function setDie(){
+		if(this.direct){
+			this.switcher.state = 13;
+		}else{
+			this.switcher.state = 14;
+		}
+		this.counter.delay = 100;
+	}
 }

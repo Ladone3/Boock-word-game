@@ -40,7 +40,7 @@
 			//trace("1) trace");
 			if(!this.counter.notOver){ 
 				//trace("2) trace");
-				this.remov();
+				this.remove();
 			}
 		}
 	}
@@ -183,7 +183,7 @@
 		drawSpring(this._x,this._y,this.parentMovieClip._x, this.parentMovieClip._y,visible);
 	}
 	
-	public function remov(){
+	public function remove(){
 		//trace("I wont be removed!");
 		if((Math.abs(this._x-this.parentMovieClip._x)<100) && (Math.abs(this._y-this.parentMovieClip._y)<200)){
 		//trace("MaceCount-1 = " + (MaceCount-1) + " ID = " + this.ID);
@@ -270,7 +270,7 @@
 		|| (this._y > this.lawRef.borderY2+this.lawRef.heightWindow*(3/5))
 		){
 			trace("this._x = "+ this._x);
-			this.remov();
+			this.remove();
 		}
 		var nWidth = this._width;
 		var nHeight = this._height;

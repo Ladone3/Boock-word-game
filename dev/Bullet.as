@@ -44,7 +44,7 @@
 			//trace("1) Counter = " + this.counter.delay + " (" + this.counter.notOver + ")");
 			if(!this.counter.notOver){ 
 				//trace("2) Counter = " + this.counter.delay + " (" + this.counter.notOver + ")");
-				this.remov();
+				this.remove();
 			}
 		}
 	}
@@ -116,7 +116,7 @@
 		//trace(this._name+" created");
 	}
 	
-	public function remov(){
+	public function remove(){
 		//trace("BulletCount-1 = " + (BulletCount-1) + " ID = " + this.ID);
 		if(this.ID!=(BulletCount-1)){
 			//trace(this._name+" deleted");
@@ -153,7 +153,7 @@
 		|| (this._y < this.lawRef.borderY1-this.lawRef.heightWindow*(3/5))
 		|| (this._y > this.lawRef.borderY2+this.lawRef.heightWindow*(3/5))
 		){
-			this.remov();
+			this.remove();
 		}
 		var nWidth = this._width;
 		var nHeight = this._height;

@@ -35,7 +35,6 @@
 	}
 	
 	public function Ladone3Tray(){
-		remov(this.hpline);
 		this.hpline = _root.attachMovie("LineOfHealth", "HPLineView", 4);
 		this.hpline._xScale =30;
 		this.hpline._yScale =30;
@@ -344,7 +343,6 @@
 					if(fight && !this.blowing
 						//&&!(Key.isDown(kLeft)||Key.isDown(kRight)||Key.isDown(kJump))
 					){
-						trace("!!!!");
 						this.aeroBlow();
 					}
 					
@@ -386,7 +384,7 @@
 				setfreeState();
 			}
 			
-		}	
+		}		
 		this.blowing = Key.isDown(kFight);
 		
 	}
@@ -399,21 +397,9 @@
 	
 	//Переопределение
 	public function setDie(){
-		if(this.direct){
-			this.switcher.state = 13;
-		}else{
-			this.switcher.state = 14;
-		}
+		super.setDie();
 		this.ladoneHandL.Iteraion(false,false,false,false,false,this.direct);
 		this.ladoneHandR.Iteraion(false,false,false,false,false,this.direct);
-	}
-	
-	//Переопределение
-	public function remov(){
-		//f(this.law[this.ID]!=null){
-			//super.remov();
-			//this.law[this.ID]=null;
-		//}
 	}
 }
 

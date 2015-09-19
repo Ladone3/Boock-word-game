@@ -42,7 +42,7 @@
 		this.onEnterFrameCatchPlayer();
 		this.counter.iterateCounter();
 		if(this.used && !this.counter.notOver){
-			this.remov();
+			this.remove();
 		}else{
 			if(this.used){
 				this.lawRef.Target.setTreatment(this.power/10);

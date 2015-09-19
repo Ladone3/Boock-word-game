@@ -14,9 +14,6 @@
 		for(var i=0; i<GameObject.count || i<this.length; i++){
 			if(this[i].deinit()){
 				this[i].removeMovieClip();
-				trace("Remove "+this[i]._name);
-			}else{
-				trace("Don't Remove "+this[i]._name);
 			}
 		}
 		/*

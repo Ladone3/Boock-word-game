@@ -46,6 +46,7 @@
 	}
 	
 	public function	MenuCore(){
+		_root._alpha = 100;
 		this.items = new Array();
 		this._name = "MenuCore";
 		for(var i=0; i<MenuItem.count; i++){	

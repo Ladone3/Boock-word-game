@@ -25,7 +25,7 @@ class Infighting extends Bullet{
 		super.onEnterFrame();
 		if((!this.counter2.notOver) && this.started){
 			//this.explosion();
-			this.remov();
+			this.remove();
 		}
 		this.counter2.iterateCounter();
 	}
