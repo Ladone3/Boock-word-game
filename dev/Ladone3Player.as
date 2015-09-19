@@ -73,6 +73,17 @@
 		}
 	}
 	
+	//Переопределение
+	public function remove(){
+		this.hpline.removeMovieClip();
+		this.hpline = null;
+		this.ladoneHandL.removeMovieClip();
+		this.ladoneHandL = null;
+		this.ladoneHandR.removeMovieClip();
+		this.ladoneHandR = null;
+		super.remove();
+	}
+	
 	// Переопределение
 	//==============================================	
 	public function runLeft(){

@@ -1,6 +1,6 @@
 class PortalToGameOver extends PortalToLevel{
 	// Переопределение
 	public function doTeleportation(){
-		_root["CenterOfWorld"].goToAndStopFrame(1);
+		_root["CenterOfWorld"].goToMenu();
 	}
 }

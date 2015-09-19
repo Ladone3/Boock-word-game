@@ -57,4 +57,12 @@
 		_global.player.hpline.treatment(_global.player.hpline.HPM);
 		this.goToAndStopFrame(_global.limbo_level);
 	}
+	
+	public function goToMenu(){
+		_global.player.hpline.removeMovieClip();
+		_global.player.hpline = null;
+		_global.player.remove();
+		_global.player = null;
+		this.goToAndStopFrame(_global.menu_frame);
+	}
 }

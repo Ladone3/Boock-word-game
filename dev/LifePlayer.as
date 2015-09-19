@@ -12,9 +12,11 @@
 	}
 	
 	//Переопределение
-	public function remove(){
-		if(!this.counter.notOver){
-			_root["CenterOfWorld"].goToLimbo();
+	private function lifeOrDie(){
+		if((!life)&&(!this.counter.notOver)){
+			if(!this.counter.notOver){
+				_root["CenterOfWorld"].goToLimbo();
+			}
 		}
 	}
 	

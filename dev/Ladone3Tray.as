@@ -47,6 +47,13 @@
 		}
 	}
 	
+	//Переопределение
+	public function remove(){
+		this.hpline.removeMovieClip();
+		this.hpline = null;
+		super.remove();
+	}
+	
 	public function planLeft(){
 		if(this.runState){
 			if((Math.abs(this.xBoost)<Math.abs(runPower))&&(this.xBoost>-runPower)){
