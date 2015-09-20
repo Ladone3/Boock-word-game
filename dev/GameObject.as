@@ -173,7 +173,7 @@ class GameObject extends MovieClip {
 		AllGameObjectCount++;
 		this._name = "gameobject"+(ID);
 
-		if(_root["CenterOfWorld"].abstractLaw!=undefined){
+		if(_root["CenterOfWorld"]){
 			this.law = _root["CenterOfWorld"].abstractLaw;
 			this.law[ID]=this;
 		}
@@ -215,11 +215,13 @@ class GameObject extends MovieClip {
 	
 	// Определяем обработчик onEnterFrame() 
 	public function onEnterFrame() {
-		if(moveble && life){
-			onEnterFrameAction();
+		if(!_global.doPause){
+			if(moveble && life){
+				onEnterFrameAction();
+			}
+			//tracr("this.lifeOrDie()");
+			this.lifeOrDie();
 		}
-		//tracr("this.lifeOrDie()");
-		this.lifeOrDie();
 	}
 	
 	public function takeObject(object:GameObject):Boolean{

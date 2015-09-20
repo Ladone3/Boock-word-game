@@ -188,15 +188,17 @@
 	
 	// Переопределение
 	public function onEnterFrame() {
-		this._x+=this.xSpeed;
-		this._y+=this.ySpeed;
-		if((this.life)&&(this.onIterate())){
-			//trace("3) Counter = " + this.counter.delay + " (" + this.counter.notOver + ")");
-			explosion();
-		} else {
-			//trace("4) Counter = " + this.counter.delay + " (" + this.counter.notOver + ")");
-			this.lifeOrDie();
+		if(!_global.doPause){
+			this._x+=this.xSpeed;
+			this._y+=this.ySpeed;
+			if((this.life)&&(this.onIterate())){
+				//trace("3) Counter = " + this.counter.delay + " (" + this.counter.notOver + ")");
+				explosion();
+			} else {
+				//trace("4) Counter = " + this.counter.delay + " (" + this.counter.notOver + ")");
+				this.lifeOrDie();
+			}
+			this.counter.iterateCounter();
 		}
-		this.counter.iterateCounter();
 	}
 }

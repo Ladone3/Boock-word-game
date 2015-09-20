@@ -60,7 +60,6 @@
 		return this.lawRef;
 	}
 
-	
 	public function set ang(angle:Number){
 		this.angle = angle;
 		this.xSpeed = this.velocity*Math.cos((this.angle*Math.PI)/180);
@@ -123,10 +122,6 @@
 	}
 	
 	private function drawSpring(xpos1:Number, ypos1:Number, xpos2:Number, ypos2:Number, visible:Boolean){
-//		var alpha = 30;
-//		if(!visible){
-//			alpha = 0;
-//		}
 		_root.createEmptyMovieClip("line_mc", ropeDepth);
 		//_root.line_mc.lineStyle(2, 70, alpha, true, "normal", "round", "miter", 1);
 		_root.line_mc.moveTo(xpos1, ypos1);
@@ -175,22 +170,17 @@
 			lastxPos1 += d*cos+(10*cos0);
 			lastyPos1 += d*sin-(10*sin0);
 			_root.line_mc.lineTo(lastxPos1, lastyPos1);
-
 		}
-		//_root.line_mc.lineTo(xpos2, ypos2);
 	}
 	private function drawRope(visible:Boolean){
 		drawSpring(this._x,this._y,this.parentMovieClip._x, this.parentMovieClip._y,visible);
 	}
 	
 	public function remove(){
-		//trace("I wont be removed!");
 		if((Math.abs(this._x-this.parentMovieClip._x)<100) && (Math.abs(this._y-this.parentMovieClip._y)<200)){
-		//trace("MaceCount-1 = " + (MaceCount-1) + " ID = " + this.ID);
 			this.parentMovieClip.cmc = null;
 			this.drawRope(false);
 			if(this.ID!=(MaceCount-1)){
-				//trace(this._name+" deleted");
 				var del = this;
 				var moved = MaceMass[MaceCount-1];
 				moved._name = del._name;
@@ -200,14 +190,12 @@
 				delete(del);
 				MaceCount--;
 			} else {
-				//trace(this._name+" deleted");
 				this.removeMovieClip();
 				delete(this);
 				MaceMass[this.ID]=null;
 				MaceCount--;
 			}
 		}else{
-		
 			this.life = false;
 			this.HomewardBound();
 		}
@@ -248,16 +236,18 @@
 	}
 	
 	private function explosion(){
+		trace("this._x: "+this._x);
+		trace("this._y: "+this._y);
 		this.xSpeed = 0;
 		this.ySpeed = 0;
 		this.switcher.state = 2;
-		_root.attachMovie("BlowEffect", "blowEffect0", _root.getNextHighestDepth());
-		_root.blowEffect0._x = this._x;
-		_root.blowEffect0._y = this._y;
-		_root.blowEffect0._rotation = this._rotation;
-		_root.blowEffect0._xscale = this._xscale/3;
-		_root.blowEffect0._yscale = this._yscale/3;
-		_root.blowEffect0._alpha = 50;
+		var blowEffect = _root.attachMovie("BlowEffect", "blowEffect_"+this._name, _root.getNextHighestDepth());
+		blowEffect._x = (this ? this._x : this.lawRef.Target._x);
+		blowEffect._y = (this ? this._y : this.lawRef.Target._y);
+		blowEffect._rotation = this._rotation;
+		blowEffect._xscale = this._xscale/3;
+		blowEffect._yscale = this._yscale/3;
+		blowEffect._alpha = 50;
 		this.counter.delay = 2;
 		this.life = false;
 	}
@@ -302,25 +292,27 @@
 	
 	// Переопределение
 	public function onEnterFrame() {
-		//trace("Cycle trace");
-		this._x+=this.xSpeed;
-		this._y+=this.ySpeed;
-		if((this.life)&&(this.onIterate())){
-			//trace("3) Counter = " + this.counter.delay + " (" + this.counter.notOver + ")");
-			explosion();
-		} else {
-			//trace("4) Counter = " + this.counter.delay + " (" + this.counter.notOver + ")");
-			this.lifeOrDie();
-		}
-		this.counter.iterateCounter();
-		if(this.life){
-			this.distance--;
-			if(this.distance<=0){
-				this.xSpeed = 0;
-				this.ySpeed = 0;
-				this.life=false;
+		if(!_global.doPause){
+			//trace("Cycle trace");
+			this._x+=this.xSpeed;
+			this._y+=this.ySpeed;
+			if((this.life)&&(this.onIterate())){
+				//trace("3) Counter = " + this.counter.delay + " (" + this.counter.notOver + ")");
+				explosion();
+			} else {
+				//trace("4) Counter = " + this.counter.delay + " (" + this.counter.notOver + ")");
+				this.lifeOrDie();
 			}
+			this.counter.iterateCounter();
+			if(this.life){
+				this.distance--;
+				if(this.distance<=0){
+					this.xSpeed = 0;
+					this.ySpeed = 0;
+					this.life=false;
+				}
+			}
+			this.drawRope(true);
 		}
-		this.drawRope(true);
 	}
 }

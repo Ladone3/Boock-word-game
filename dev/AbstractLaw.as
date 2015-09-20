@@ -16,13 +16,6 @@
 				this[i].removeMovieClip();
 			}
 		}
-		/*
-		this._name = "";
-		this.Target._name = "";
-		this.fonImage._name = "";
-		this.IndicatorPlace._name = "";
-		this.cameraBorder._name = "";
-		*/
 	}
 	
 	private function attractiveForce(i:Number) {
@@ -51,11 +44,14 @@
 			this[i] = _root["gameobject"+i];
 			this[i].law = this;
 		}
-		if(_root["FonImage"]!=undefined){
+		if(_root["FonImage"]){
 			this.fonImage = _root["FonImage"];
 		}
-		if(_root["CameraBorder"]!=undefined){
+		if(_root["CameraBorder"]){
 			this.cameraBorder = _root["CameraBorder"].getBounds(_root);
+		}
+		if(_root["EscMenu"]){
+			this.MenuPlace = _root["EscMenu"];
 		}
 	} 
 			
@@ -65,6 +61,7 @@
 	public var Target:Player=null;
 	public var fonImage:MovieClip=null;
 	public var IndicatorPlace:MovieClip=null;
+	public var MenuPlace:MovieClip=null;
 	public var cameraBorder:Object=0;
 	public var widthWindow:Number = 1024;
 	public var heightWindow:Number = 768;
@@ -77,6 +74,7 @@
 			if(this.cameraBorder==0 || this.cameraBorder.xMax>_root._x){
 				_root._x+= this.borderX1 - Target._x;
 				this.IndicatorPlace._x -= this.borderX1 - Target._x;
+				this.MenuPlace._x -= this.borderX1 - Target._x;;
 				this.fonImage._x -= (this.borderX1 - Target._x)*0.8;
 				this.borderX1 = Target._x;
 				this.borderX2 = Target._x+widthWindow*(1/5);
@@ -86,6 +84,7 @@
 			if(this.cameraBorder==0 || this.cameraBorder.xMin<_root._x){
 				_root._x -= Target._x - this.borderX2;
 				this.IndicatorPlace._x += Target._x - this.borderX2;
+				this.MenuPlace._x += Target._x - this.borderX2;
 				this.fonImage._x += (Target._x - this.borderX2)*0.8;
 				this.borderX2 = Target._x;
 				this.borderX1 = Target._x-widthWindow*(1/5);
@@ -96,6 +95,7 @@
 			if(this.cameraBorder==0 || this.cameraBorder.yMin<-_root._y){
 				_root._y+=this.borderY1-Target._y;
 				this.IndicatorPlace._y -= this.borderY1-Target._y;
+				this.MenuPlace._y -= this.borderY1-Target._y;
 				this.fonImage._y -= (this.borderY1-Target._y)*0.5;
 				this.borderY1 = Target._y;
 				this.borderY2 = Target._y+heightWindow*(1/5);
@@ -105,6 +105,7 @@
 			if(this.cameraBorder==0 || this.cameraBorder.yMax>-_root._y){
 				_root._y-=Target._y-this.borderY2;
 				this.IndicatorPlace._y += Target._y-this.borderY2;
+				this.MenuPlace._y += Target._y-this.borderY2;
 				this.fonImage._y += (Target._y-this.borderY2)*0.5;
 				this.borderY2 = Target._y;
 				this.borderY1 = Target._y-heightWindow*(1/5);
@@ -115,7 +116,7 @@
 	
 	// Поиск игрока в радиусе (Пока одного)
 	//=============================================================================	
-	public function findObject(go:GameObject, radius:Number):Number{		
+	public function findObject(go:GameObject):Number{	
 		if(this.Target!=null){
 				var obj1 = go.getBounds(_root);
 				var x1 = obj1.xMin;
@@ -124,17 +125,13 @@
 				var x2 = obj2.xMin;
 				var y2 = obj2.yMin;
 				var dist = Math.pow(Math.pow(x1-x2,2)+Math.pow(y1-y2,2),0.5);
-				if(dist<radius){
-					if(x1>x2){
-						return -dist;
-					}else{
-						return dist;
-					}
+				if(x1>x2){
+					return -dist;
 				}else{
-					return 0;
+					return dist;
 				}
 		}else{
-			return 0;
+			return Number.POSITIVE_INFINITY;
 		}
 	}
 }

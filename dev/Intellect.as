@@ -22,6 +22,11 @@
 	// 2 - Прыгать
 	// 3 - Бить
 	// 4 - Сменить направление
+	public var DO_STAY:Number = 0;
+	public var DO_RUN:Number = 1;
+	public var DO_JUMP:Number = 2;
+	public var DO_BLOW:Number = 3;
+	public var DO_REDIRECT:Number = 4;
 	
 	private function clearButtons(){
 		this.slave.kUp = false;
@@ -62,40 +67,31 @@
 	
 	public function freeMoves(dist:Number){
 		this.stateActivity = Math.round(Math.random()*4);
-		if(this.stateActivity!=3){
-			this.stateActivity = Math.round(Math.random()*4);
-		}else if(this.stateActivity!=3){
-			this.stateActivity = Math.round(Math.random()*4);
-		}else if(this.stateActivity!=3){
+		
+		if(this.stateActivity!=DO_BLOW){
 			this.stateActivity = Math.round(Math.random()*4);
 		}
-		if(this.stateActivity!=4){
+		if(this.stateActivity!=DO_REDIRECT){
 			this.timer.delay = 20;
 		}
 	}
 	
 	public function fightMoves(dist:Number){
-		var opp = Math.round(Math.random()*100);
-		if(opp > 20){
-			if((dist<0 && slave.direct)||(dist>0 && !slave.direct)){
-				this.stateActivity = 4;
-			}else{
-				this.stateActivity = 1;				
-			}
+		if((dist<0 && slave.direct)||(dist>0 && !slave.direct)){
+			this.stateActivity = DO_REDIRECT;
 		}else{
-			this.stateActivity = Math.round(Math.random()*4);
-			if(this.stateActivity!=3){
-				this.stateActivity = Math.round(Math.random()*4);
-			}
-			if(this.stateActivity!=4){
-				this.timer.delay = 20;
+			if(!slave.hitTest(slave.law.Target)){
+				this.stateActivity = DO_RUN;				
+			}else{
+				this.stateActivity = DO_BLOW;
 			}
 		}
 	}
 	
 	public function moves(){
-		var dist:Number = slave.law.findObject(slave, 500);
-		if(Math.abs(dist)>10){
+		var opp = Math.round(Math.random()*100);
+		var dist:Number = slave.law.findObject(slave);
+		if(Math.abs(dist)<400 && opp<75){
 			this.fightMoves(dist);
 		}else{
 			this.freeMoves(dist);
@@ -104,19 +100,19 @@
 	
 	public function doAnAct(){
 		switch (this.stateActivity) {
-				case (0): 
+				case (DO_STAY): 
 					this.clearButtons();
 					break ; 
-				case (1): 
+				case (DO_RUN): 
 					this.run();
 					break ;
-				case (2): 
+				case (DO_JUMP): 
 					this.jumps();
 					break ; 				  
-				case (3): 
+				case (DO_BLOW): 
 					this.blows();
 					break ; 
-				case (4): 
+				case (DO_REDIRECT): 
 					this.revers();
 					break ; 
 
