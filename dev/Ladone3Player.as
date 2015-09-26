@@ -20,32 +20,24 @@
 	public var radius:Number = 25;
 	public var damage:Number = 20;
 	public var hpmax:Number = 200;
+	
 	// Переопределение	
 	public function getType():Number{
 		return 3;
 	}
-		
-	// Переопределение
-	//================================================
-	public function set law(lawRef:AbstractLaw){
-		this.lawRef = lawRef;
-		this.lawRef.Target = this;
-		this.lawRef.IndicatorPlace = this.hpline;
-		//trace("be there!!!");
-	}
-	
+			
 	// Переопределение
 	//================================================
 	public function blow(){
 		if(!this.blowing){
 			if(this.direct){
-				if(this.lawRef.blowPermission(this.radius, this.damage*2, 1)){
+				if(_global.abstractLaw.blowPermission(this.radius, this.damage*2, 1)){
 					this.switcher.state = 11;
 					this.counter.delay=10;
 					this.blowing = Key.isDown(kFight);
 				}
 			}else{
-				if(this.lawRef.blowPermission(this.radius, this.damage*2, 1)){
+				if(_global.abstractLaw.blowPermission(this.radius, this.damage*2, 1)){
 					this.switcher.state = 12;
 					this.counter.delay=10;
 					this.blowing = Key.isDown(kFight);
@@ -67,10 +59,6 @@
 		this.hpline.setHPLineView(hpmax);
 		this.hpline._x=200;
 		this.hpline._y=70;
-		if(_root["CenterOfWorld"].abstractLaw!=undefined){
-			this.law = _root["CenterOfWorld"].abstractLaw;
-			this.law[ID]=this;
-		}
 	}
 	
 	//Переопределение

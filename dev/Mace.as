@@ -49,17 +49,6 @@
 	//=======================================================
 	private var counter:Counter;
 	
-	// Ссылка на разрешитель столкновений и законов физики
-	//=======================================================
-	private var lawRef:AbstractLaw; 
-	public function set law(lawRef:AbstractLaw){
-		this.lawRef = lawRef;
-	}
-	
-	public function get law():AbstractLaw{
-		return this.lawRef;
-	}
-
 	public function set ang(angle:Number){
 		this.angle = angle;
 		this.xSpeed = this.velocity*Math.cos((this.angle*Math.PI)/180);
@@ -103,9 +92,6 @@
 		this.ID = MaceCount++;
 		this._name = "mace"+(ID);
 		MaceMass[ID] = this;
-		if(_root["CenterOfWorld"].abstractLaw!=undefined){
-			this.law = _root["CenterOfWorld"].abstractLaw;
-		}
 		this._alpha = 0;
 		this.xSpeed = this.velocity*Math.cos((this.angle*Math.PI)/180);
 		this.ySpeed = -this.velocity*Math.sin((this.angle*Math.PI)/180);
@@ -242,8 +228,8 @@
 		this.ySpeed = 0;
 		this.switcher.state = 2;
 		var blowEffect = _root.attachMovie("BlowEffect", "blowEffect_"+this._name, _root.getNextHighestDepth());
-		blowEffect._x = (this ? this._x : this.lawRef.Target._x);
-		blowEffect._y = (this ? this._y : this.lawRef.Target._y);
+		blowEffect._x = (this ? this._x : _global.player._x);
+		blowEffect._y = (this ? this._y : _global.player._y);
 		blowEffect._rotation = this._rotation;
 		blowEffect._xscale = this._xscale/3;
 		blowEffect._yscale = this._yscale/3;
@@ -254,10 +240,10 @@
 	
 	public function onIterate():Boolean{
 		var temp:Boolean = false;
-		if((this._x < (this.lawRef.borderX1-this.lawRef.widthWindow*(3/5)))
-		|| (this._x > this.lawRef.borderX2+this.lawRef.widthWindow*(3/5))
-		|| (this._y < this.lawRef.borderY1-this.lawRef.heightWindow*(3/5))
-		|| (this._y > this.lawRef.borderY2+this.lawRef.heightWindow*(3/5))
+		if((this._x < (_global.abstractLaw.borderX1-_global.abstractLaw.widthWindow*(3/5)))
+		|| (this._x > _global.abstractLaw.borderX2+_global.abstractLaw.widthWindow*(3/5))
+		|| (this._y < _global.abstractLaw.borderY1-_global.abstractLaw.heightWindow*(3/5))
+		|| (this._y > _global.abstractLaw.borderY2+_global.abstractLaw.heightWindow*(3/5))
 		){
 			trace("this._x = "+ this._x);
 			this.remove();
@@ -265,24 +251,24 @@
 		var nWidth = this._width;
 		var nHeight = this._height;
 		var temp1 = this.getBounds(_root);
-		for(var i=0; i<GameObject.count || i<this.lawRef.length; i++){	
-			if(this.lawRef[i]!= this.pmc && this.lawRef[i]!= this.pmc.pmc && this.lawRef[i]!=null){
+		for(var i=0; i<GameObject.count || i<_global.abstractLaw.length; i++){	
+			if(_global.abstractLaw[i]!= this.pmc && _global.abstractLaw[i]!= this.pmc.pmc && _global.abstractLaw[i]!=null){
 				var nXMin = temp1.xMin;
 				var nYMin = temp1.yMin;
-				var temp2 = this.lawRef[i].getBounds(_root);
+				var temp2 = _global.abstractLaw[i].getBounds(_root);
 				
 				if((nXMin >= temp2.xMin - nWidth)&&(nYMin >= temp2.yMin - nHeight)
-				&&(nXMin <= temp2.xMax)&&(nYMin <= temp2.yMax)&&(this.lawRef[i].life)){
+				&&(nXMin <= temp2.xMax)&&(nYMin <= temp2.yMax)&&(_global.abstractLaw[i].life)){
 					temp = true;
-					if(this.lawRef[i].getType()==2){
+					if(_global.abstractLaw[i].getType()==2){
 						if(temp2.xMin<=nXMin){
-							this.lawRef[i].setDamage(this.damage,true);
+							_global.abstractLaw[i].setDamage(this.damage,true);
 						}else{
-							this.lawRef[i].setDamage(this.damage,false);
+							_global.abstractLaw[i].setDamage(this.damage,false);
 						}
 					}
-					this.lawRef[i].xA = this.xS/2;
-					this.lawRef[i].yA = this.yS/2;
+					_global.abstractLaw[i].xA = this.xS/2;
+					_global.abstractLaw[i].yA = this.yS/2;
 					break;
 				}
 			}

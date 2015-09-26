@@ -25,10 +25,10 @@
 		var nWidth = this._width;
 		var nHeight = this._height;
 		var temp1 = this.getBounds(_root);
-		if(this.lawRef.Target!=null){
-				if(this.hitTest(this.lawRef.Target)&&(_root._alpha>=100)){
+		if(_global.player!=null){
+				if(this.hitTest(_global.player)&&(_root._alpha>=100)){
 					this.nocatch = false;
-					this.lawRef.Target.setDamage(this.lawRef.Target.hpline.HPM)
+					_global.player.setDamage(_global.player.hpline.HPM)
 				}else{
 					this.nocatch = true;
 				}

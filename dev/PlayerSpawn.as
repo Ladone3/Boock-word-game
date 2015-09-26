@@ -46,8 +46,6 @@
 	private function configurationPart(a:MovieClip){
 		a._x=this._x;
 		a._y=this._y;
-		_global.playerX = a._x;
-		_global.playerY = a._y;
 	}
 	
 	// Переопределение

@@ -64,8 +64,7 @@
 	
 	public function onEnterFrameCatchPlayer(){
 		if(this.once){
-			if(this.lawRef.Target!=null && this.onRadius(this.lawRef.Target, 400)){
-			//&& this.hitTest(this.lawRef.Target)){
+			if(_global.player!=null && this.onRadius(_global.player, 400)){
 				this.spawn();
 				this.once=false;
 			}	

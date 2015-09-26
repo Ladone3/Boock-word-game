@@ -45,7 +45,7 @@
 			this.remove();
 		}else{
 			if(this.used){
-				this.lawRef.Target.setTreatment(this.power/10);
+				_global.player.setTreatment(this.power/10);
 				this._alpha-=10;
 			}
 		}
@@ -56,10 +56,10 @@
 		var nWidth = this._width;
 		var nHeight = this._height;
 		var temp1 = this.getBounds(_root);
-		if(this.lawRef.Target!=null){
-				if(this.hitTest(this.lawRef.Target)){
-					if(acceptMedBox(this,this.lawRef.Target) && this.notUsed()){
-						//this.lawRef.Target.setTreatment(this.power);
+		if(_global.player!=null){
+				if(this.hitTest(_global.player)){
+					if(acceptMedBox(this,_global.player) && this.notUsed()){
+						//_global.player.setTreatment(this.power);
 						this.useIt();
 					}
 				}

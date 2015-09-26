@@ -50,12 +50,6 @@
 		return 1;
 	}
 	
-	// Переопределение
-	//================================================
-	public function set law(lawRef:AbstractLaw){
-		this.lawRef = lawRef;
-	}
-	
 	private function lifeOrDie(){
 		if((!life)&&(!this.counter.notOver)){
 			this.remove();
@@ -207,7 +201,7 @@
 	private function aeroState(nameValue:String, lastState:Boolean, newState:Boolean, dop):Boolean{
 		var lastAeroState = this.inAero;
 		this.inAero = ((!newState)&&(!lastState));
-		if((lastAeroState) && (!this.inAero) && (this.yBoost>=lawRef.MaxAttractiveSpeed)){
+		if((lastAeroState) && (!this.inAero) && (this.yBoost>=_global.abstractLaw.MaxAttractiveSpeed)){
 			this.counter.delay=0;
 			this.landing();
 		}else if((lastAeroState) && (!this.inAero)){
@@ -310,8 +304,8 @@
 	public function blowPermission(radius:Number, damage:Number,k:Number):Boolean{
 		var nWidth = this.radius*2; //this._x+100,this._y,50,this.damage
 		var nHeight = nWidth;
-		for(var i=0; i < GameObject.count || i<this.lawRef.length; i++){			
-			if(this.lawRef[i]!=this && this.lawRef[i]!=null){
+		for(var i=0; i < GameObject.count || i<_global.abstractLaw.length; i++){			
+			if(_global.abstractLaw[i]!=this && _global.abstractLaw[i]!=null){
 				var offset:Number = 0;
 				if(direct){
 					offset = 100;
@@ -321,13 +315,13 @@
 				var temp1 = this.getBounds(_root);
 				var nXMin = temp1.xMin + this._width/2 - radius + offset;
 				var nYMin = temp1.yMin + this._height/2 - radius;
-				var temp2 = this.lawRef[i].getBounds(_root);
+				var temp2 = _global.abstractLaw[i].getBounds(_root);
 				if((nXMin >= temp2.xMin - nWidth)&&(nYMin >= temp2.yMin - nHeight)&&(nXMin <= temp2.xMax)&&(nYMin <= temp2.yMax)&&(this[i].life)){                                                                                              
-						this.lawRef[i].hpline.damage(damage);
+						_global.abstractLaw[i].hpline.damage(damage);
 						if(direct){
-							this.lawRef[i].xA = damage/2*k;
+							_global.abstractLaw[i].xA = damage/2*k;
 						}else{
-							this.lawRef[i].xA = -damage/2*k;
+							_global.abstractLaw[i].xA = -damage/2*k;
 						}
 						return true;
 				}

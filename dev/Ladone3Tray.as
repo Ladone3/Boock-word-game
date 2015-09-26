@@ -25,15 +25,7 @@
 	public function getType():Number{
 		return 5;
 	}
-		
-	// Переопределение
-	//================================================
-	public function set law(lawRef:AbstractLaw){
-		this.lawRef = lawRef;
-		this.lawRef.Target = this;
-		this.lawRef.IndicatorPlace = this.hpline;
-	}
-	
+			
 	public function Ladone3Tray(){
 		this.hpline = _root.attachMovie("LineOfHealth", "HPLineView", 4);
 		this.hpline._xScale =30;
@@ -41,10 +33,6 @@
 		this.hpline.setHPLineView(hpmax);
 		this.hpline._x=200;
 		this.hpline._y=70;
-		if(_root["CenterOfWorld"].abstractLaw!=undefined){
-			this.law = _root["CenterOfWorld"].abstractLaw;
-			this.law[ID]=this;
-		}
 	}
 	
 	//Переопределение

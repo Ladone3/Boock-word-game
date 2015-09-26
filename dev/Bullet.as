@@ -53,18 +53,6 @@
 	//=======================================================
 	private var counter:Counter;
 	
-	// Ссылка на разрешитель столкновений и законов физики
-	//=======================================================
-	private var lawRef:AbstractLaw; 
-	public function set law(lawRef:AbstractLaw){
-		this.lawRef = lawRef;
-	}
-	
-	public function get law():AbstractLaw{
-		return this.lawRef;
-	}
-
-	
 	public function set ang(angle:Number){
 		this.angle = angle;
 		this.xSpeed = this.velocity*Math.cos((this.angle*Math.PI)/180);
@@ -106,9 +94,6 @@
 		this.ID = BulletCount++;
 		this._name = "bullet"+(ID);
 		BulletMass[ID] = this;
-		if(_root["CenterOfWorld"].abstractLaw!=undefined){
-			this.law = _root["CenterOfWorld"].abstractLaw;
-		}
 		this._alpha = 0;
 		this.xSpeed = this.velocity*Math.cos((this.angle*Math.PI)/180);
 		this.ySpeed = -this.velocity*Math.sin((this.angle*Math.PI)/180);
@@ -148,36 +133,35 @@
 	
 	public function onIterate():Boolean{
 		var temp:Boolean = false;
-		if((this._x < (this.lawRef.borderX1-this.lawRef.widthWindow*(3/5)))
-		|| (this._x > this.lawRef.borderX2+this.lawRef.widthWindow*(3/5))
-		|| (this._y < this.lawRef.borderY1-this.lawRef.heightWindow*(3/5))
-		|| (this._y > this.lawRef.borderY2+this.lawRef.heightWindow*(3/5))
+		if((this._x < (_global.abstractLaw.borderX1-_global.abstractLaw.widthWindow*(3/5)))
+		|| (this._x > _global.abstractLaw.borderX2+_global.abstractLaw.widthWindow*(3/5))
+		|| (this._y < _global.abstractLaw.borderY1-_global.abstractLaw.heightWindow*(3/5))
+		|| (this._y > _global.abstractLaw.borderY2+_global.abstractLaw.heightWindow*(3/5))
 		){
 			this.remove();
 		}
 		var nWidth = this._width;
 		var nHeight = this._height;
 		var temp1 = this.getBounds(_root);
-		for(var i=0; i<GameObject.count || i<this.lawRef.length; i++){	
-			if(this.lawRef[i]!= this.pmc && this.lawRef[i]!= this.pmc.pmc 
-			&& this.lawRef[i]!=null && ((takeWall)||((!takeWall) && this.lawRef[i].getType()!=0))){
+		for(var i=0; i<GameObject.count || i<_global.abstractLaw.length; i++){	
+			if(_global.abstractLaw[i]!= this.pmc && _global.abstractLaw[i]!= this.pmc.pmc 
+			&& _global.abstractLaw[i]!=null && ((takeWall)||((!takeWall) && _global.abstractLaw[i].getType()!=0))){
 				var nXMin = temp1.xMin;
 				var nYMin = temp1.yMin;
-				var temp2 = this.lawRef[i].getBounds(_root);
+				var temp2 = _global.abstractLaw[i].getBounds(_root);
 				
-				if(this.hitTest(this.lawRef[i])
-				&&(this.lawRef[i].life)){
+				if(this.hitTest(_global.abstractLaw[i])
+				&&(_global.abstractLaw[i].life)){
 					temp = true;
-					//trace("this.lawRef[i].name"+this.lawRef[i]._name);
-					if(this.lawRef[i].getType()==2){
+					if(_global.abstractLaw[i].getType()==2){
 						if(temp2.xMin<=nXMin){
-							this.lawRef[i].setDamage(this.damage,true);
+							_global.abstractLaw[i].setDamage(this.damage,true);
 						}else{
-							this.lawRef[i].setDamage(this.damage,false);
+							_global.abstractLaw[i].setDamage(this.damage,false);
 						}
 					}
-					this.lawRef[i].xA = (this.xS/10)*this.damage;
-					this.lawRef[i].yA = (this.yS/10)*this.damage;
+					_global.abstractLaw[i].xA = (this.xS/10)*this.damage;
+					_global.abstractLaw[i].yA = (this.yS/10)*this.damage;
 					break;
 
 				}

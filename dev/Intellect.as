@@ -1,11 +1,9 @@
 ﻿class Intellect {
 	private var slave:Computer;
 	private var timer:Counter;
-	private var law:AbstractLaw;
 	
 	public function Intellect(slave:Computer){
 		this.slave = slave;
-		this.law = this.slave.law();
 		this.timer = new Counter();
 		//trace("timer = " + this.timer.delay);
 	}
@@ -80,7 +78,7 @@
 		if((dist<0 && slave.direct)||(dist>0 && !slave.direct)){
 			this.stateActivity = DO_REDIRECT;
 		}else{
-			if(!slave.hitTest(slave.law.Target)){
+			if(!slave.hitTest(_global.player)){
 				this.stateActivity = DO_RUN;				
 			}else{
 				this.stateActivity = DO_BLOW;
@@ -90,7 +88,7 @@
 	
 	public function moves(){
 		var opp = Math.round(Math.random()*100);
-		var dist:Number = slave.law.findObject(slave);
+		var dist:Number = _global.abstractLaw.findObject(slave);
 		if(Math.abs(dist)<400 && opp<75){
 			this.fightMoves(dist);
 		}else{

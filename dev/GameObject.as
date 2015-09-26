@@ -51,18 +51,7 @@ class GameObject extends MovieClip {
 			this.remove();
 		}
 	}
-	
-	// Ссылка на разрешитель столкновений и законов физики
-	//=======================================================
-	private var lawRef:AbstractLaw; 
-	public function set law(lawRef:AbstractLaw){
-		this.lawRef = lawRef;
-	}
-	
-	public function get law():AbstractLaw{
-		return this.lawRef;
-	}
-	
+		
 	public static var objectsList:Array = new Array();
 	
 	// Ускорение по X
@@ -127,11 +116,11 @@ class GameObject extends MovieClip {
 		if(this.ID!=(GameObjectCount-1)){
 			trace(this._name+" deleted");
 			var del = this;
-			var moved = this.law[GameObjectCount-1];
+			var moved = _global.abstractLaw[GameObjectCount-1];
 			moved._name = del._name;
 			moved.ID = del.ID;
-			this.law[this.ID] = moved;
-			this.law[GameObjectCount-1] = null;
+			_global.abstractLaw[this.ID] = moved;
+			_global.abstractLaw[GameObjectCount-1] = null;
 			this.removeMovieClip();
 			delete(del);
 			GameObjectCount--;
@@ -139,12 +128,12 @@ class GameObject extends MovieClip {
 			trace(this._name+" deleted");
 			this.removeMovieClip();
 			delete(this);
-			this.law[this.ID]=null;
+			_global.abstractLaw[this.ID]=null;
 			GameObjectCount--;
 		}
 		*/
 		trace(this._name+" deleted");
-		this.law[this.ID]=null;
+		_global.abstractLaw[this.ID]=null;
 		this.swapDepths(100000);
 		this.removeMovieClip();
 		delete(this);	
@@ -172,11 +161,7 @@ class GameObject extends MovieClip {
 		this.ID = GameObjectCount++;
 		AllGameObjectCount++;
 		this._name = "gameobject"+(ID);
-
-		if(_root["CenterOfWorld"]){
-			this.law = _root["CenterOfWorld"].abstractLaw;
-			this.law[ID]=this;
-		}
+		if(_global.abstractLaw) _global.abstractLaw[ID]=this; 
 	}
 	
 	public function deinit():Boolean{
@@ -198,7 +183,7 @@ class GameObject extends MovieClip {
 			calcSpeeds();
 			var wantX = this.xSpeed;
 			var wantY = this.ySpeed; 
-			if(lawRef!=null){
+			if(_global.abstractLaw){
 				var p = this.permissionToMov(new Point(wantX, wantY));
 				this._x = this._x + p.x;
 				this._y = this._y + p.y;
@@ -231,19 +216,16 @@ class GameObject extends MovieClip {
 	public function clearCalc(){
 		var i=0
 		do{
-			if(this==this.lawRef[i]){
-				//trace("!!!!!!!!!!!!!!"+this);
-				//trace("!!!!!!!!!!!!!!"+this.lawRef[i]);
-				for(var j=0; j<count || j<this.lawRef.length; j++){
-					if(this.lawRef[j]!=null && this.lawRef[j].calcObj){
-						this.lawRef[j].isCalc = true;
+			if(this==_global.abstractLaw[i]){
+				for(var j=0; j<count || j<_global.abstractLaw.length; j++){
+					if(_global.abstractLaw[j]!=null && _global.abstractLaw[j].calcObj){
+						_global.abstractLaw[j].isCalc = true;
 					}
 				}
-				//trace("Clear!!!!!!!!!!!!!!!"+this);
 				break;
 			}
 			i++;
-		}while((i<count || i<this.lawRef.length)&&(!this.lawRef[i].life));
+		}while((i<count || i<_global.abstractLaw.length)&&(!_global.abstractLaw[i].life));
 	}
 	
 	public function permissionToMov(np:Point):Point{
@@ -258,14 +240,11 @@ class GameObject extends MovieClip {
 		var nWidth = this._width;
 		var nHeight = this._height;
 		var temp1 = this.getBounds(_root);
-		//trace("=======> "+this);
-		for(var i=0; i<count || i<this.lawRef.length; i++){
-			//trace("?> "+this.lawRef[i]);
-			if(this.lawRef[i].calcObj && this.lawRef[i].isCalc && this.lawRef[i]!=null  && takeObject(this.lawRef[i])){
-				//trace("!> "+this.lawRef[i]);
+		for(var i=0; i<count || i<_global.abstractLaw.length; i++){
+			if(_global.abstractLaw[i].calcObj && _global.abstractLaw[i].isCalc && _global.abstractLaw[i]!=null  && takeObject(_global.abstractLaw[i])){
 				var nXMin = temp1.xMin + np.x;
 				var nYMin = temp1.yMin + np.y;
-				var temp2 = this.lawRef[i].getBounds(_root);
+				var temp2 = _global.abstractLaw[i].getBounds(_root);
 				if((nXMin >= temp2.xMin - nWidth)&&(nYMin >= temp2.yMin - nHeight)&&(nXMin <= temp2.xMax)&&(nYMin <= temp2.yMax)){
 					var razn1 = nXMin - (temp2.xMin - nWidth);
 					var razn2 = nYMin - (temp2.yMin - nHeight);

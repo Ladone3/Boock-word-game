@@ -1,4 +1,9 @@
 ﻿class LifePlayer extends Player{
+	
+	public function LifePlayer(){
+		_global.player = this;
+	}
+
 	//Переопределение
 	public function permissionToMov(np:Point):Point{
 		var nnp:Point = super.permissionToMov(np);

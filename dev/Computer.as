@@ -91,9 +91,8 @@
 	
 	//Переопределение
 	public function remove(){
-		if(this.law[this.ID]!=null && !this.counter.notOver()){
+		if(_global.abstractLaw[this.ID]!=null && !this.counter.notOver()){
 			super.remove();
-			//this.law[this.ID]=null;
 		}
 	}
 		
@@ -123,7 +122,7 @@
 	public function blowPermission(radius:Number, damage:Number,k:Number):Boolean{
 		var nWidth = this.radius*2; //this._x+100,this._y,50,this.damage
 		var nHeight = nWidth;
-		if(this.lawRef.Target!=null){
+		if(_global.player!=null){
 			var offset:Number = 0;
 			if(direct){
 				offset = 100;
@@ -133,13 +132,13 @@
 			var temp1 = this.getBounds(_root);
 			var nXMin = temp1.xMin + this._width/2 - radius + offset;
 			var nYMin = temp1.yMin + this._height/2 - radius;
-			var temp2 = this.lawRef.Target.getBounds(_root);
-			if((nXMin >= temp2.xMin - nWidth)&&(nYMin >= temp2.yMin - nHeight)&&(nXMin <= temp2.xMax)&&(nYMin <= temp2.yMax)&&(this.lawRef.Target.life)){                                                                                              
-					this.lawRef.Target.hpline.damage(damage);
+			var temp2 = _global.player.getBounds(_root);
+			if((nXMin >= temp2.xMin - nWidth)&&(nYMin >= temp2.yMin - nHeight)&&(nXMin <= temp2.xMax)&&(nYMin <= temp2.yMax)&&(_global.player.life)){                                                                                              
+					_global.player.hpline.damage(damage);
 					if(direct){
-						this.lawRef.Target.xA = damage/2*k;
+						_global.player.xA = damage/2*k;
 					}else{
-						this.lawRef.Target.xA = -damage/2*k;
+						_global.player.xA = -damage/2*k;
 					}
 					return true;
 			}

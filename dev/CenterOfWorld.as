@@ -1,9 +1,8 @@
 ﻿class CenterOfWorld extends MovieClip {
-	public var abstractLaw:AbstractLaw;
 	private var kEsk:Number = 27;	
 	
 	public function CenterOfWorld(){
-		this.abstractLaw = new AbstractLaw();
+		_global.abstractLaw = new AbstractLaw();
 		this._name = "CenterOfWorld";
 		_root._alpha=0;
 	} 
@@ -13,8 +12,8 @@
 	
 	public function onEnterFrame() {
 		if(!_global.doPause){
-			this.abstractLaw.forceIteration();
-			this.abstractLaw.chaseCamera();
+			_global.abstractLaw.forceIteration();
+			_global.abstractLaw.chaseCamera();
 			if(this.startFrame && _root._alpha<100){
 				_root._alpha+=10;
 			}
@@ -23,13 +22,13 @@
 				_root._alpha-=10;
 				if(_root._alpha<=0){
 					this.startFrame=true;
-					this.abstractLaw.IndicatorPlace._x += _root._x;
-					this.abstractLaw.IndicatorPlace._y += _root._y;
-					this.abstractLaw.MenuPlace._x += _root._x;
-					this.abstractLaw.MenuPlace._y += _root._y;
+					_global.abstractLaw.IndicatorPlace._x += _root._x;
+					_global.abstractLaw.IndicatorPlace._y += _root._y;
+					_global.abstractLaw.MenuPlace._x += _root._x;
+					_global.abstractLaw.MenuPlace._y += _root._y;
 					_root._x = 0;
 					_root._y = 0; 
-					this.abstractLaw.deinit();
+					_global.abstractLaw.deinit();
 					_root.gotoAndStop(frame);
 				}
 			}

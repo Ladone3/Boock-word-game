@@ -42,7 +42,6 @@
 		//AsBroadcaster.initialize(this);
 		for(var i=0; i<GameObject.count || i<this.length; i++){			
 			this[i] = _root["gameobject"+i];
-			this[i].law = this;
 		}
 		if(_root["FonImage"]){
 			this.fonImage = _root["FonImage"];
@@ -58,7 +57,6 @@
 
 	// Работа камеры
 	//=============================================================================
-	public var Target:Player=null;
 	public var fonImage:MovieClip=null;
 	public var IndicatorPlace:MovieClip=null;
 	public var MenuPlace:MovieClip=null;
@@ -70,45 +68,45 @@
 	public var borderY1:Number = heightWindow*(2/5);
 	public var borderY2:Number = heightWindow*(3/5);
 	public function chaseCamera(){
-		if(Target._x < this.borderX1){
+		if(_global.player._x < this.borderX1){
 			if(this.cameraBorder==0 || this.cameraBorder.xMax>_root._x){
-				_root._x+= this.borderX1 - Target._x;
-				this.IndicatorPlace._x -= this.borderX1 - Target._x;
-				this.MenuPlace._x -= this.borderX1 - Target._x;;
-				this.fonImage._x -= (this.borderX1 - Target._x)*0.8;
-				this.borderX1 = Target._x;
-				this.borderX2 = Target._x+widthWindow*(1/5);
+				_root._x+= this.borderX1 - _global.player._x;
+				this.IndicatorPlace._x -= this.borderX1 - _global.player._x;
+				this.MenuPlace._x -= this.borderX1 - _global.player._x;;
+				this.fonImage._x -= (this.borderX1 - _global.player._x)*0.8;
+				this.borderX1 = _global.player._x;
+				this.borderX2 = _global.player._x+widthWindow*(1/5);
 			}
 		}
-		if(Target._x > this.borderX2){
+		if(_global.player._x > this.borderX2){
 			if(this.cameraBorder==0 || this.cameraBorder.xMin<_root._x){
-				_root._x -= Target._x - this.borderX2;
-				this.IndicatorPlace._x += Target._x - this.borderX2;
-				this.MenuPlace._x += Target._x - this.borderX2;
-				this.fonImage._x += (Target._x - this.borderX2)*0.8;
-				this.borderX2 = Target._x;
-				this.borderX1 = Target._x-widthWindow*(1/5);
+				_root._x -= _global.player._x - this.borderX2;
+				this.IndicatorPlace._x += _global.player._x - this.borderX2;
+				this.MenuPlace._x += _global.player._x - this.borderX2;
+				this.fonImage._x += (_global.player._x - this.borderX2)*0.8;
+				this.borderX2 = _global.player._x;
+				this.borderX1 = _global.player._x-widthWindow*(1/5);
 			}
 		}
 		
-		if(Target._y < this.borderY1){
+		if(_global.player._y < this.borderY1){
 			if(this.cameraBorder==0 || this.cameraBorder.yMin<-_root._y){
-				_root._y+=this.borderY1-Target._y;
-				this.IndicatorPlace._y -= this.borderY1-Target._y;
-				this.MenuPlace._y -= this.borderY1-Target._y;
-				this.fonImage._y -= (this.borderY1-Target._y)*0.5;
-				this.borderY1 = Target._y;
-				this.borderY2 = Target._y+heightWindow*(1/5);
+				_root._y+=this.borderY1-_global.player._y;
+				this.IndicatorPlace._y -= this.borderY1-_global.player._y;
+				this.MenuPlace._y -= this.borderY1-_global.player._y;
+				this.fonImage._y -= (this.borderY1-_global.player._y)*0.5;
+				this.borderY1 = _global.player._y;
+				this.borderY2 = _global.player._y+heightWindow*(1/5);
 			}
 		}
-		if(Target._y > this.borderY2){
+		if(_global.player._y > this.borderY2){
 			if(this.cameraBorder==0 || this.cameraBorder.yMax>-_root._y){
-				_root._y-=Target._y-this.borderY2;
-				this.IndicatorPlace._y += Target._y-this.borderY2;
-				this.MenuPlace._y += Target._y-this.borderY2;
-				this.fonImage._y += (Target._y-this.borderY2)*0.5;
-				this.borderY2 = Target._y;
-				this.borderY1 = Target._y-heightWindow*(1/5);
+				_root._y-=_global.player._y-this.borderY2;
+				this.IndicatorPlace._y += _global.player._y-this.borderY2;
+				this.MenuPlace._y += _global.player._y-this.borderY2;
+				this.fonImage._y += (_global.player._y-this.borderY2)*0.5;
+				this.borderY2 = _global.player._y;
+				this.borderY1 = _global.player._y-heightWindow*(1/5);
 			}
 		}
 	}
@@ -117,11 +115,11 @@
 	// Поиск игрока в радиусе (Пока одного)
 	//=============================================================================	
 	public function findObject(go:GameObject):Number{	
-		if(this.Target!=null){
+		if(this._global.player!=null){
 				var obj1 = go.getBounds(_root);
 				var x1 = obj1.xMin;
 				var y1 = obj1.yMin;
-				var obj2 = this.Target.getBounds(_root);
+				var obj2 = this._global.player.getBounds(_root);
 				var x2 = obj2.xMin;
 				var y2 = obj2.yMin;
 				var dist = Math.pow(Math.pow(x1-x2,2)+Math.pow(y1-y2,2),0.5);
