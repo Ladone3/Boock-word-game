@@ -161,7 +161,7 @@ class GameObject extends MovieClip {
 		this.ID = GameObjectCount++;
 		AllGameObjectCount++;
 		this._name = "gameobject"+(ID);
-		if(_global.abstractLaw) _global.abstractLaw[ID]=this; 
+		if(_global.abstractLaw) _global.abstractLaw.addObject(this); 
 	}
 	
 	public function deinit():Boolean{

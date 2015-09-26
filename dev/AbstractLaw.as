@@ -37,11 +37,15 @@
 			}
 	}
 	
+	public function addObject(go:GameObject){
+		this[this.length]=go;
+	}
+	
 	public function	AbstractLaw(){
 		this._name = "AbstractLaw";
 		//AsBroadcaster.initialize(this);
-		for(var i=0; i<GameObject.count || i<this.length; i++){			
-			this[i] = _root["gameobject"+i];
+		for(var i=0; i<GameObject.count || i<this.length; i++){	
+			if(_root["gameobject"+i])this.addObject(_root["gameobject"+i]);
 		}
 		if(_root["FonImage"]){
 			this.fonImage = _root["FonImage"];
@@ -58,7 +62,6 @@
 	// Работа камеры
 	//=============================================================================
 	public var fonImage:MovieClip=null;
-	public var IndicatorPlace:MovieClip=null;
 	public var MenuPlace:MovieClip=null;
 	public var cameraBorder:Object=0;
 	public var widthWindow:Number = 1024;
@@ -71,7 +74,7 @@
 		if(_global.player._x < this.borderX1){
 			if(this.cameraBorder==0 || this.cameraBorder.xMax>_root._x){
 				_root._x+= this.borderX1 - _global.player._x;
-				this.IndicatorPlace._x -= this.borderX1 - _global.player._x;
+				_global.player.hpline._x -= this.borderX1 - _global.player._x;
 				this.MenuPlace._x -= this.borderX1 - _global.player._x;;
 				this.fonImage._x -= (this.borderX1 - _global.player._x)*0.8;
 				this.borderX1 = _global.player._x;
@@ -81,7 +84,7 @@
 		if(_global.player._x > this.borderX2){
 			if(this.cameraBorder==0 || this.cameraBorder.xMin<_root._x){
 				_root._x -= _global.player._x - this.borderX2;
-				this.IndicatorPlace._x += _global.player._x - this.borderX2;
+				_global.player.hpline._x += _global.player._x - this.borderX2;
 				this.MenuPlace._x += _global.player._x - this.borderX2;
 				this.fonImage._x += (_global.player._x - this.borderX2)*0.8;
 				this.borderX2 = _global.player._x;
@@ -92,7 +95,7 @@
 		if(_global.player._y < this.borderY1){
 			if(this.cameraBorder==0 || this.cameraBorder.yMin<-_root._y){
 				_root._y+=this.borderY1-_global.player._y;
-				this.IndicatorPlace._y -= this.borderY1-_global.player._y;
+				_global.player.hpline._y -= this.borderY1-_global.player._y;
 				this.MenuPlace._y -= this.borderY1-_global.player._y;
 				this.fonImage._y -= (this.borderY1-_global.player._y)*0.5;
 				this.borderY1 = _global.player._y;
@@ -102,7 +105,7 @@
 		if(_global.player._y > this.borderY2){
 			if(this.cameraBorder==0 || this.cameraBorder.yMax>-_root._y){
 				_root._y-=_global.player._y-this.borderY2;
-				this.IndicatorPlace._y += _global.player._y-this.borderY2;
+				_global.player.hpline._y += _global.player._y-this.borderY2;
 				this.MenuPlace._y += _global.player._y-this.borderY2;
 				this.fonImage._y += (_global.player._y-this.borderY2)*0.5;
 				this.borderY2 = _global.player._y;
@@ -115,19 +118,26 @@
 	// Поиск игрока в радиусе (Пока одного)
 	//=============================================================================	
 	public function findObject(go:GameObject):Number{	
-		if(this._global.player!=null){
-				var obj1 = go.getBounds(_root);
-				var x1 = obj1.xMin;
-				var y1 = obj1.yMin;
-				var obj2 = this._global.player.getBounds(_root);
-				var x2 = obj2.xMin;
-				var y2 = obj2.yMin;
-				var dist = Math.pow(Math.pow(x1-x2,2)+Math.pow(y1-y2,2),0.5);
-				if(x1>x2){
-					return -dist;
-				}else{
-					return dist;
-				}
+		if(_global.player){
+			/*
+			var obj1 = go.getBounds(_root);
+			var obj2 = _global.player.getBounds(_root);
+			
+			var x1 = (obj1.xMin-obj1.xMax)/2;
+			var y1 = (obj1.yMin-obj1.yMax)/2;
+			var x2 = (obj2.xMin-obj2.xMax)/2;
+			var y2 = (obj2.yMin-obj2.yMax)/2;
+			*/
+			var x1 = go._x;
+			var y1 = go._y;
+			var x2 = _global.player._x;
+			var y2 = _global.player._y;
+			var dist = Math.pow(Math.pow(x1-x2,2)+Math.pow(y1-y2,2),0.5);
+			if(x1>x2){
+				return -dist;
+			}else{
+				return dist;
+			}
 		}else{
 			return Number.POSITIVE_INFINITY;
 		}

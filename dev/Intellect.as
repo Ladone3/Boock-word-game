@@ -2,6 +2,10 @@
 	private var slave:Computer;
 	private var timer:Counter;
 	
+	public function getSlave(){
+		return this.slave;
+	}
+	
 	public function Intellect(slave:Computer){
 		this.slave = slave;
 		this.timer = new Counter();
@@ -89,7 +93,7 @@
 	public function moves(){
 		var opp = Math.round(Math.random()*100);
 		var dist:Number = _global.abstractLaw.findObject(slave);
-		if(Math.abs(dist)<400 && opp<75){
+		if(Math.abs(dist)<1000 && opp<75){
 			this.fightMoves(dist);
 		}else{
 			this.freeMoves(dist);

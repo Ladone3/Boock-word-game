@@ -7,8 +7,7 @@
 		this._alpha = 0;
 		this._name = "EscMenu";
 		this.counter = new Counter();
-		if(_root["CenterOfWorld"]) this.abstractLaw = _root["CenterOfWorld"].abstractLaw;
-		this.abstractLaw.MenuPlace = this;
+		if(_global.abstractLaw) _global.abstractLaw.MenuPlace = this;
 	} 
 	
 	public function onEnterFrame() {

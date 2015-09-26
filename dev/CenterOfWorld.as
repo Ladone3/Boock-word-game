@@ -22,13 +22,14 @@
 				_root._alpha-=10;
 				if(_root._alpha<=0){
 					this.startFrame=true;
-					_global.abstractLaw.IndicatorPlace._x += _root._x;
-					_global.abstractLaw.IndicatorPlace._y += _root._y;
+					_global.player.hpline._x += _root._x;
+					_global.player.hpline._y += _root._y;
 					_global.abstractLaw.MenuPlace._x += _root._x;
 					_global.abstractLaw.MenuPlace._y += _root._y;
 					_root._x = 0;
 					_root._y = 0; 
 					_global.abstractLaw.deinit();
+					_global.abstractLaw = null;
 					_root.gotoAndStop(frame);
 				}
 			}

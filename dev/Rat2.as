@@ -6,5 +6,10 @@
 	public var damage:Number = 50;
 	public var radius:Number = 20;
 	public var hpmax:Number = 160;
+	
+	// Переопределение
+	public function getBrain():Intellect{
+		return new Rat2Intellect(this);
+	}
 }
 

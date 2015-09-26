@@ -104,8 +104,7 @@
 
 	// Переопределение
 	public function takeObject(object:GameObject):Boolean{
-		return (object.getType()==0 || object.getType()==2);
-		//|| object.getType()==4 || object.getType()==6);//!=2
+		return (object.getType()==0 || object.getType()==2);// || object.getType()==4 || object.getType()==6 || object.getType()==3 || object.getType()==5);
 	}
 	
 	// Переопределение
