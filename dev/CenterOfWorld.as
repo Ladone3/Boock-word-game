@@ -5,6 +5,7 @@
 		_global.abstractLaw = new AbstractLaw();
 		this._name = "CenterOfWorld";
 		_root._alpha=0;
+		this._alpha=0;
 	} 
 			
 	private var frame:Number=0;
