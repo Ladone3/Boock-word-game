@@ -157,11 +157,13 @@
 	}
 	
 	public function setDie(){
+		this.counter.delay = 0;
 		if(this.direct){
 			this.switcher.state = 13;
 		}else{
 			this.switcher.state = 14;
 		}
+		this.counter.delay=34;
 	}
 	
 	public function setTreatment(t:Number){
@@ -285,7 +287,7 @@
 	}
 	
 	private function checkForDeath(){
-		if(this.hpline.HP!=undefined && this.hpline.HP<=0 && this.life && !this.counter.notOver){
+		if(this.hpline.HP!=undefined && this.hpline.HP<=0 && this.life){
 			this.life = false;
 			this.setDie();
 		}

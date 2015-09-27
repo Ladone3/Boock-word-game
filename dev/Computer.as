@@ -106,17 +106,7 @@
 	public function takeObject(object:GameObject):Boolean{
 		return (object.getType()==0 || object.getType()==2);// || object.getType()==4 || object.getType()==6 || object.getType()==3 || object.getType()==5);
 	}
-	
-	// Переопределение
-	public function setDie(){
-		if(this.direct){
-			this.switcher.state = 13;
-		}else{
-			this.switcher.state = 14;
-		}
-		this.counter.delay = 34;
-	}
-	
+		
 	// Переопределение
 	public function blowPermission(radius:Number, damage:Number,k:Number):Boolean{
 		var nWidth = this.radius*2; //this._x+100,this._y,50,this.damage

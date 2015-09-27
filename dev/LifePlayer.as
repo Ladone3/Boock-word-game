@@ -27,6 +27,7 @@
 	
 	//Переопределение
 	public function setDie(){
+		this.counter.delay = 0;
 		if(this.direct){
 			this.switcher.state = 13;
 		}else{
