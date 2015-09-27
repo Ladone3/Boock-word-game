@@ -31,6 +31,7 @@
 					_root._y = 0; 
 					_global.abstractLaw.deinit();
 					_global.abstractLaw = null;
+					_root.clear();
 					_root.gotoAndStop(frame);
 				}
 			}
