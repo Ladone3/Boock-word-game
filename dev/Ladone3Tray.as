@@ -19,7 +19,7 @@
 	private var runPower:Number = 6;
 	public var damage:Number = 40;
 	public var radius:Number = 10;
-	public var hpmax:Number = 300;
+	public var hpmax:Number = 30000;
 	
 	// Переопределение	
 	public function getType():Number{
@@ -158,7 +158,7 @@
 	private function blowCatching(fight:Boolean){
 		if(fight){
 			this.stateBlow++;
-			if(this.stateBlow>3){
+			if(this.stateBlow>4){
 				this.stateBlow = 1;
 			}
 			this.comboCounter=5;
@@ -167,13 +167,12 @@
 				this.comboCounter--;
 			}else{
 				this.stateBlow = 0;
-				//trace("break by counter");
 			}
 		}
 	}
 	
 	public function comboBlow(){
-		//trace("this.stateBlow="+this.stateBlow);
+
 		switch (this.stateBlow) {
 			case (1): 
 				this.blow();
@@ -183,6 +182,9 @@
 				break;	
 			case (3): 
 				this.blow2();
+				break;	
+			case (4): 
+				this.blow3();
 				break;	
 			default:
 				this.blow();
@@ -233,6 +235,7 @@
 		this.counter.delay=30;
 	}
 	
+	/* // не забудь об этой фишке
 	public function blow3(){
 		var b = _root.attachMovie("TrayBlow4Bullet", "b", (Bullet.AllCount+GameObject.AllCount+2));
 		b._yscale=this._yscale;
@@ -251,7 +254,11 @@
 		this.counter.delay = 4;
 		this.readyToJump = true;
 	}
+	*/
 	
+	public function blow3(){
+		this.counter.delay = 15;
+	}
 	public function aeroBlow(){
 		var b = _root.attachMovie("TrayBlow1Bullet", "b", (Bullet.AllCount+GameObject.AllCount+2));
 		b._yscale=this._yscale;

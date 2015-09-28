@@ -173,21 +173,18 @@
 	public function setDamage(d:Number,dd:Boolean){
 	
 		this.hpline.damage(d);
-		if(this.switcher.state!= 13 
-		&& this.switcher.state!= 14
-		/*&& this.switcher.state!= 15
-		&& this.switcher.state!= 16
-		&& this.switcher.state!= 17
-		&& this.switcher.state!= 18*/){
+		if(this.switcher.state!= 13 && this.switcher.state!= 14){
 			this.counter.delay = 0;
 		}
 		if(this.direct){
+			this.switcher.state = 1;
 			if(dd){
 				this.switcher.state = 15;
 			}else{
 				this.switcher.state = 17;
 			}
 		}else{
+			this.switcher.state = 2;
 			if(dd){
 				this.switcher.state = 16;
 			}else{
@@ -296,7 +293,6 @@
 	//Переопределение
 	public function onEnterFrameAction(){
 		super.onEnterFrameAction();
-		this.counter.iterateCounter();
 		this.keyReading();
 		this.checkForDeath();
 		this.auraContainer.handIteration();
@@ -319,7 +315,7 @@
 				var nYMin = temp1.yMin + this._height/2 - radius;
 				var temp2 = _global.abstractLaw[i].getBounds(_root);
 				if((nXMin >= temp2.xMin - nWidth)&&(nYMin >= temp2.yMin - nHeight)&&(nXMin <= temp2.xMax)&&(nYMin <= temp2.yMax)&&(this[i].life)){                                                                                              
-						_global.abstractLaw[i].hpline.damage(damage);
+						_global.abstractLaw[i].setDamage(damage,(_global.abstractLaw[i].direct!=direct));
 						if(direct){
 							_global.abstractLaw[i].xA = damage/2*k;
 						}else{

@@ -6,6 +6,7 @@
 	public var damage:Number = 50;
 	public var radius:Number = 20;
 	public var hpmax:Number = 160;
+	public var stunDelay:Number = 10;
 	
 	// Переопределение
 	public function getBrain():Intellect{

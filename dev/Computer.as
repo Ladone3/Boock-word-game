@@ -9,7 +9,8 @@
 	private var runPower:Number = 7;
 	public var damage:Number = 30;
 	public var radius:Number = 15;
-	public var hpmax:Number = 60;
+	public var hpmax:Number = 6000;
+	public var stunDelay:Number = 50;
 	
 	public function getBrain():Intellect{
 		return new Intellect(this);
@@ -123,7 +124,7 @@
 			var nYMin = temp1.yMin + this._height/2 - radius;
 			var temp2 = _global.player.getBounds(_root);
 			if((nXMin >= temp2.xMin - nWidth)&&(nYMin >= temp2.yMin - nHeight)&&(nXMin <= temp2.xMax)&&(nYMin <= temp2.yMax)&&(_global.player.life)){                                                                                              
-					_global.player.hpline.damage(damage);
+					_global.player.setDamage(damage,(_global.player.direct!=direct));
 					if(direct){
 						_global.player.xA = damage/2*k;
 					}else{
