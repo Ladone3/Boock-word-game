@@ -16,6 +16,11 @@ class GameObject extends MovieClip {
 		return 0;
 	}
 	
+	public function setScale(s:Number){
+		this._width*=s;
+		this._height*=s;
+	}
+	
 	// Жив ли объект?
 	//======================================================
 	private var lifeState:Boolean = true;

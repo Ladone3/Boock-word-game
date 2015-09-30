@@ -19,7 +19,7 @@
 	private var runPower:Number = 6;
 	public var damage:Number = 40;
 	public var radius:Number = 10;
-	public var hpmax:Number = 30000;
+	public var hpmax:Number = 300;
 	
 	// Переопределение	
 	public function getType():Number{
@@ -27,7 +27,7 @@
 	}
 			
 	public function Ladone3Tray(){
-		this.hpline = _root.attachMovie("LineOfHealth", "HPLineView", 4);
+		this.hpline = _root.attachMovie("LineOfHealth", "HPLineView", _root.getNextHighestDepth());
 		this.hpline._xScale =30;
 		this.hpline._yScale =30;
 		this.hpline.setHPLineView(hpmax);

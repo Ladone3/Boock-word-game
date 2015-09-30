@@ -21,26 +21,26 @@ private var tension1:Number;
 private var tension2:Number;
 private var healthMax:Number;
 private var health:Number;
-private var healthLine1:MovieClip;
-private var healthLine2:MovieClip;
+private var healthLine1:MovieClip = null;
+private var healthLine2:MovieClip = null;
 
 // =============================
-
+private var name1 = "health1";
+private var name2 = "health2";
 
 // (1) HPLineView
 // =============================
-public function	HPLineView(){
-	trace("HPCreated!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+public function	HPLineView(newName){
 }
 
 public function	setHPLineView(MaxHP:Number){
-		this.tension1 = this["health1"]._width;
+		this.tension1 = this[name2]._width;
 		this.tension2 = 0;
 		this.healthMax = MaxHP;
 		this.health = MaxHP;
 		
-		this.healthLine1 = this["health2"];
-		this.healthLine2 = this["health1"];
+		if(this.healthLine1==null)this.healthLine1 = this[name2];
+		if(this.healthLine2==null)this.healthLine2 = this[name1];
 		
 		if(this.healthLine1 != undefined){
 			this.healthLine1._width = 0;

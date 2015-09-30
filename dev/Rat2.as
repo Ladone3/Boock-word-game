@@ -5,7 +5,7 @@
 	private var runPower:Number = 10;
 	public var damage:Number = 50;
 	public var radius:Number = 20;
-	public var hpmax:Number = 160;
+	public var hpmax:Number = 360;
 	public var stunDelay:Number = 10;
 	
 	// Переопределение

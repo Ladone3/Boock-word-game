@@ -91,12 +91,11 @@
 		return this.mcs;
 	}
 	
-	private function configurateMC(a:MovieClip){
+	private function configurateMC(a:GameObject){
 		a._x=this._x + Math.round(Math.random()*100)-50;
 		a._y=this._y;
 		var k:Number=(Math.random()*0.4+0.2);
-		a._xscale*=k;
-		a._yscale*=k;
+		a.setScale(k);
 	}
 	
 	// Переопределение

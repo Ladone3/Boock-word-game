@@ -56,6 +56,7 @@
 	private function blows(){
 		if(!this.slave.kFight)this.clearButtons();
 		this.slave.kFight = true;
+		if(!this.timer.notOver)this.timer.delay = 60;
 	}
 	
 	private function revers(){
@@ -66,7 +67,7 @@
 			this.slave.kRight = true;
 		}
 	}
-	
+
 	public function freeMoves(dist:Number){
 		this.stateActivity = Math.round(Math.random()*4);
 		

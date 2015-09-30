@@ -9,16 +9,79 @@
 	private var runPower:Number = 7;
 	public var damage:Number = 30;
 	public var radius:Number = 15;
-	public var hpmax:Number = 6000;
-	public var stunDelay:Number = 50;
+	public var hpmax:Number = 160;
+	public var stunDelay:Number = 20;
+	public var defaultScale:Number = 1;
 	
 	public function getBrain():Intellect{
 		return new Intellect(this);
 	}
 	
+	public function setDamage(d:Number,dd:Boolean){
+		super.setDamage(d,dd);
+		stayOrNo = 0;
+	}
+	
+	// Переопределение	
+	private var stayOrNo:Number = 0;
+	public function blow(){
+		if(stayOrNo!=0){
+			fastBlow();
+		}else{
+			dblow();
+		}
+		stayOrNo++;
+		if(stayOrNo>3)stayOrNo=0;
+	}
+	
+	public function fastBlow(){
+		if(this.direct){
+				this.switcher.state = 11;
+				this.blowPermission(this.radius,this.damage,0.5);
+			}else{
+				this.switcher.state = 12;
+				this.blowPermission(this.radius,this.damage,0.5);
+			}
+			this.counter.delay=10;
+	}
+	
+	public function dblow(){
+		if(this.direct){
+			this.switcher.state = 19;
+		}else{
+			this.switcher.state = 20;
+		}
+		this.counter.delay=30;
+	}
+	
+	// Переопределение	
+	public function getSwitcher():Switcher{
+		return new Switcher(20,this,this.counter);
+	}
+	
+	// Переопределение	
+	public function setScale(s:Number){
+		super.setScale(s);
+		var scale = this.hpline._width/this._width;
+		this.hpline._height/=scale;
+		trace("hpmax: "+hpmax);
+		this.hpline.setHPLineView(hpmax*s);
+		this.hpline._width=this._width;
+	}
+	
 	public function Computer(){
-		this,brain=this.getBrain();
-		this.hpline.setHPLine(this.hpmax);
+		this.hpline = _root.attachMovie("LineComputerOfHealth", "HPLineComputerView", _root.getNextHighestDepth());
+		
+		if(this.getDepth()<=0){
+			var hpscale = this.hpline._width/this._width;
+			this.hpline._height/=hpscale;
+			this.hpline.setHPLineView(hpmax*(this._xscale/100));
+			this.hpline._width=this._width;
+		}
+		
+		this.hpline._alpha = 50;
+		
+		this.brain=this.getBrain();
 	}
 	
 	// Переопределение	
@@ -57,7 +120,8 @@
 					if(kRight && kLeft && (!kJump)){
 						setfreeState();
 					}
-					
+
+					stayOrNo = 0;
 				//============================================================
 				}else{
 				//============================================================
@@ -67,6 +131,8 @@
 
 					if(kFight){
 						this.blow();
+					}else{
+						stayOrNo = 0;
 					}
 					
 					if(kLeft 
@@ -93,7 +159,10 @@
 	//Переопределение
 	public function remove(){
 		if(_global.abstractLaw[this.ID]!=null && !this.counter.notOver()){
+			this.hpline.removeMovieClip();
+			this.hpline = null;
 			super.remove();
+			trace("this removed");
 		}
 	}
 		
@@ -101,6 +170,8 @@
 	public function onEnterFrameAction(){
 		super.onEnterFrameAction();		
 		this.brain.activitys();
+		this.hpline._x = this.getBounds(_root).xMax-this._width;
+		this.hpline._y = this.getBounds(_root).yMin-20;
 	}
 
 	// Переопределение

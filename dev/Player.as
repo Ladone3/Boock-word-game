@@ -171,7 +171,6 @@
 	}
 	
 	public function setDamage(d:Number,dd:Boolean){
-	
 		this.hpline.damage(d);
 		if(this.switcher.state!= 13 && this.switcher.state!= 14){
 			this.counter.delay = 0;
@@ -209,10 +208,14 @@
 		return newState;
 	}	
 	
+	public function getSwitcher():Switcher{
+		return new Switcher(26,this,this.counter);
+	}
+	
 	public function Player(){
 		this.auraContainer = new AuraContainer(this);
 		this.counter = new Counter();
-		this.switcher = new Switcher(26,this,this.counter);
+		this.switcher = getSwitcher();
 		this.mov = true;
 		this.inAero = true;
 		this.direct = true;

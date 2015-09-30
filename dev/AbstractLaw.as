@@ -70,6 +70,7 @@
 	public var borderX2:Number = widthWindow*(3/5);
 	public var borderY1:Number = heightWindow*(2/5);
 	public var borderY2:Number = heightWindow*(3/5);
+	
 	public function chaseCamera(){
 		if(_global.player._x < this.borderX1){
 			if(this.cameraBorder==0 || this.cameraBorder.xMax>_root._x){
@@ -117,22 +118,25 @@
 	
 	// Поиск игрока в радиусе (Пока одного)
 	//=============================================================================	
-	public function findObject(go:GameObject):Number{	
+	public function findObject(go:MovieClip):Number{	
 		if(_global.player){
 			/*
-			var obj1 = go.getBounds(_root);
-			var obj2 = _global.player.getBounds(_root);
+			var obj2 = go.getBounds(_root);
+			var obj1 = _global.player.getBounds(_root);
 			
 			var x1 = (obj1.xMin-obj1.xMax)/2;
 			var y1 = (obj1.yMin-obj1.yMax)/2;
 			var x2 = (obj2.xMin-obj2.xMax)/2;
 			var y2 = (obj2.yMin-obj2.yMax)/2;
 			*/
-			var x1 = go._x;
-			var y1 = go._y;
-			var x2 = _global.player._x;
-			var y2 = _global.player._y;
+			
+			var x1 = go._x+go._width/2;
+			var y1 = go._y+go._height/2;
+			var x2 = _global.player._x+_global.player._width/2;
+			var y2 = _global.player._y+_global.player._height/2;
+			
 			var dist = Math.pow(Math.pow(x1-x2,2)+Math.pow(y1-y2,2),0.5);
+			//trace("x1: "+x1+" y1: "+y1+" x2: "+x2+" y2: "+y2+" dist: "+dist);
 			if(x1>x2){
 				return -dist;
 			}else{
