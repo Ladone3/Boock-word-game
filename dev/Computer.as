@@ -64,14 +64,14 @@
 		super.setScale(s);
 		var scale = this.hpline._width/this._width;
 		this.hpline._height/=scale;
-		trace("hpmax: "+hpmax);
 		this.hpline.setHPLineView(hpmax*s);
 		this.hpline._width=this._width;
 	}
 	
 	public function Computer(){
+		trace("I am alive("+this._name+") and its my HPLINE:");
 		this.hpline = _root.attachMovie("LineComputerOfHealth", "HPLineComputerView", _root.getNextHighestDepth());
-		
+		//this.hpline = _root.attachMovie("LineComputerOfHealth", "HPLineComputerView", (this.getDepth()<0 ? -_root.getNextHighestDepth() : _root.getNextHighestDepth()));
 		if(this.getDepth()<=0){
 			var hpscale = this.hpline._width/this._width;
 			this.hpline._height/=hpscale;
@@ -91,7 +91,12 @@
 	
 	// Переопределение
 	public function deinit():Boolean{
-		return this.getDepth()>=0;
+		if(this.getDepth()<0){
+			this.hpline.removeMovieClip();
+			this.hpline = null;
+			return false;
+		}
+		return true;
 	}
 	
 	// Переопределение
@@ -158,11 +163,12 @@
 	
 	//Переопределение
 	public function remove(){
-		if(_global.abstractLaw[this.ID]!=null && !this.counter.notOver()){
+		trace("--does not removed yet");
+		if(!this.counter.notOver()){
+			trace("--this removed");
 			this.hpline.removeMovieClip();
 			this.hpline = null;
 			super.remove();
-			trace("this removed");
 		}
 	}
 		

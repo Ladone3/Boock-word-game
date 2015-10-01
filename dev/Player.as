@@ -55,7 +55,13 @@
 			this.remove();
 		}
 	}
+	
+	
 	//=====================================================
+	public function breakCounter(){
+		if(this.counter) this.counter.delay = 0;
+	}
+	
 	//=====================================================
 	//=====================================================
 	public function setfreeState(){
@@ -195,15 +201,21 @@
 	//=====================================================
 	//=====================================================
 	//=====================================================
-		
+	private var fallDamage = 15;
+	private var fallDamageCounter = 0;
 	private function aeroState(nameValue:String, lastState:Boolean, newState:Boolean, dop):Boolean{
+		if(this.yBoost>=_global.abstractLaw.MaxAttractiveSpeed)fallDamageCounter++;
 		var lastAeroState = this.inAero;
 		this.inAero = ((!newState)&&(!lastState));
 		if((lastAeroState) && (!this.inAero) && (this.yBoost>=_global.abstractLaw.MaxAttractiveSpeed)){
 			this.counter.delay=0;
+			var fdc = fallDamageCounter-jumpPower/4;
+			this.hpline.damage(fallDamage*((fdc)>0?fdc:0));
 			this.landing();
+			fallDamageCounter = 0;
 		}else if((lastAeroState) && (!this.inAero)){
 			this.counter.delay=0;
+			fallDamageCounter = 0;
 		}
 		return newState;
 	}	

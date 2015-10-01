@@ -31,7 +31,7 @@
 		}else{
 			if(_global.player._alpha<100){
 					_global.player._alpha+=10;
-					this._alpha-=10;
+					//this._alpha-=10;
 					this.complete=true;
 			}else{
 				this.remove();
@@ -49,7 +49,7 @@
 	}
 	
 	// Переопределение
-	private function configurateMC(a:MovieClip){
+	private function configurateMC(a:GameObject){
 		this.configurationPart(a);
 		if(_global.LOT){
 			this.configuratePlayer(Player(a),0.5);

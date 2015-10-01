@@ -4,16 +4,18 @@
 	public var FrictionForce:Number=1;
 	
 	public function forceIteration(){
-		for(var i=0; i<GameObject.count || i<this.length; i++){
+		for(var i=0; i<this.length; i++){
 			this.attractiveForce(i);
 			this.frictionForce(i);
 		}
 	}
 	
 	public function deinit(){
-		for(var i=0; i<GameObject.count || i<this.length; i++){
+		for(var i=0; i<this.length; i++){
 			if(this[i].deinit()){
-				this[i].removeMovieClip();
+				//this[i].removeMovieClip();
+				if(this[i] instanceof Player) this[i].breakCounter();
+				this[i].remove();
 			}
 		}
 	}
@@ -44,7 +46,7 @@
 	public function	AbstractLaw(){
 		this._name = "AbstractLaw";
 		//AsBroadcaster.initialize(this);
-		for(var i=0; i<GameObject.count || i<this.length; i++){	
+		for(var i=0; i<GameObject.count; i++){	
 			if(_root["gameobject"+i])this.addObject(_root["gameobject"+i]);
 		}
 		if(_root["FonImage"]){

@@ -30,7 +30,7 @@ private var name2 = "health2";
 
 // (1) HPLineView
 // =============================
-public function	HPLineView(newName){
+public function	HPLineView(){
 }
 
 public function	setHPLineView(MaxHP:Number){

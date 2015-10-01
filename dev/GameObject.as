@@ -116,32 +116,42 @@ class GameObject extends MovieClip {
 	// Удалить объект
 	//=========================================================
 	public function remove(){
-		//trace("GameObjectCount-1 = " + (GameObjectCount-1) + " ID = " + this.ID);
-		/*
-		if(this.ID!=(GameObjectCount-1)){
-			trace(this._name+" deleted");
-			var del = this;
-			var moved = _global.abstractLaw[GameObjectCount-1];
-			moved._name = del._name;
-			moved.ID = del.ID;
-			_global.abstractLaw[this.ID] = moved;
-			_global.abstractLaw[GameObjectCount-1] = null;
+		var removedNumber:Number=-1;
+		for(var i=0; i<_global.abstractLaw.length; i++){
+			if(this==_global.abstractLaw[i]) removedNumber = i; 
+		}
+		if(removedNumber!=-1){
+			if(removedNumber!=_global.abstractLaw.length-1){
+				trace(this._name+" deleted");
+				var del = this;
+				var moved = _global.abstractLaw[_global.abstractLaw.length-1];
+				_global.abstractLaw[removedNumber] = moved;
+				_global.abstractLaw[_global.abstractLaw.length-1] = null;
+				_global.abstractLaw.length--;
+				this.swapDepths(100000);
+				this.removeMovieClip();
+				delete(del);
+				//GameObjectCount--;
+			} else {
+				trace(this._name+" deleted");
+				_global.abstractLaw[removedNumber] = null;
+				_global.abstractLaw.length--;
+				this.swapDepths(100000);
+				this.removeMovieClip();
+				delete(del);
+				//GameObjectCount--;
+			}
+		}else{
+			this.swapDepths(100000);
 			this.removeMovieClip();
 			delete(del);
-			GameObjectCount--;
-		} else {
-			trace(this._name+" deleted");
-			this.removeMovieClip();
-			delete(this);
-			_global.abstractLaw[this.ID]=null;
-			GameObjectCount--;
+			//GameObjectCount--;
 		}
-		*/
-		trace(this._name+" deleted");
-		_global.abstractLaw[this.ID]=null;
-		this.swapDepths(100000);
-		this.removeMovieClip();
-		delete(this);	
+		//trace(this._name+" deleted");
+		//_global.abstractLaw[this.ID]=null;
+		//this.swapDepths(100000);
+		//this.removeMovieClip();
+		//delete(this);	
 	}
 	
 	// Можно ли перемещать игровой объект
