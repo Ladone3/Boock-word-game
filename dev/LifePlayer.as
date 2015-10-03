@@ -1,6 +1,11 @@
 ﻿class LifePlayer extends Player{
 	private var dontTuchMe:Counter;
 	private var defTime:Number = 100;
+	
+	public function youMayTuchMe(){
+		this.dontTuchMe.delay = 0;
+	}
+	
 	public function LifePlayer(){
 		this.dontTuchMe = new Counter();
 		_global.player = this;

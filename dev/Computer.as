@@ -69,7 +69,7 @@
 	}
 	
 	public function Computer(){
-		trace("I am alive("+this._name+") and its my HPLINE:");
+		//trace("I am alive("+this._name+") and its my HPLINE:");
 		this.hpline = _root.attachMovie("LineComputerOfHealth", "HPLineComputerView", _root.getNextHighestDepth());
 		//this.hpline = _root.attachMovie("LineComputerOfHealth", "HPLineComputerView", (this.getDepth()<0 ? -_root.getNextHighestDepth() : _root.getNextHighestDepth()));
 		if(this.getDepth()<=0){
@@ -163,9 +163,9 @@
 	
 	//Переопределение
 	public function remove(){
-		trace("--does not removed yet");
+		//trace("--does not removed yet");
 		if(!this.counter.notOver()){
-			trace("--this removed");
+			//trace("--this removed");
 			this.hpline.removeMovieClip();
 			this.hpline = null;
 			super.remove();

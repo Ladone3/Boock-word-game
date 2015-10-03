@@ -202,20 +202,18 @@
 	//=====================================================
 	//=====================================================
 	private var fallDamage = 15;
-	private var fallDamageCounter = 0;
+	public var fallDamageCounter = 0;
 	private function aeroState(nameValue:String, lastState:Boolean, newState:Boolean, dop):Boolean{
 		if(this.yBoost>=_global.abstractLaw.MaxAttractiveSpeed)fallDamageCounter++;
+		else fallDamageCounter=0;
 		var lastAeroState = this.inAero;
 		this.inAero = ((!newState)&&(!lastState));
-		if((lastAeroState) && (!this.inAero) && (this.yBoost>=_global.abstractLaw.MaxAttractiveSpeed)){
+		if((lastAeroState) && (!this.inAero)){
 			this.counter.delay=0;
 			var fdc = fallDamageCounter-jumpPower/4;
 			this.hpline.damage(fallDamage*((fdc)>0?fdc:0));
-			this.landing();
 			fallDamageCounter = 0;
-		}else if((lastAeroState) && (!this.inAero)){
-			this.counter.delay=0;
-			fallDamageCounter = 0;
+			if(this.yBoost>=(_global.abstractLaw.AttractiveForce*4))this.landing();
 		}
 		return newState;
 	}	

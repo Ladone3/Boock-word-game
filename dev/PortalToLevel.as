@@ -11,7 +11,7 @@
 	
 	// Переопределение
 	public function takeObject(object:GameObject):Boolean{
-		return true;
+		return false;
 	}
 	
 	// Переопределение
@@ -22,9 +22,6 @@
 	
 	//Переопределение
 	public function onEnterFrameCatchPlayer(){
-		var nWidth = this._width;
-		var nHeight = this._height;
-		var temp1 = this.getBounds(_root);
 		if(_global.player!=null){
 				if(this.hitTest(_global.player)&&(_root._alpha>=100)){
 					this.nocatch = false;

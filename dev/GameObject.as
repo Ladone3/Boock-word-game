@@ -122,7 +122,7 @@ class GameObject extends MovieClip {
 		}
 		if(removedNumber!=-1){
 			if(removedNumber!=_global.abstractLaw.length-1){
-				trace(this._name+" deleted");
+				//trace(this._name+" deleted");
 				var del = this;
 				var moved = _global.abstractLaw[_global.abstractLaw.length-1];
 				_global.abstractLaw[removedNumber] = moved;
@@ -133,7 +133,7 @@ class GameObject extends MovieClip {
 				delete(del);
 				//GameObjectCount--;
 			} else {
-				trace(this._name+" deleted");
+				//trace(this._name+" deleted");
 				_global.abstractLaw[removedNumber] = null;
 				_global.abstractLaw.length--;
 				this.swapDepths(100000);

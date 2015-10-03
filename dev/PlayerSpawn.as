@@ -31,7 +31,6 @@
 		}else{
 			if(_global.player._alpha<100){
 					_global.player._alpha+=10;
-					//this._alpha-=10;
 					this.complete=true;
 			}else{
 				this.remove();
@@ -43,9 +42,11 @@
 		a.setScale(k);
 	}
 	
-	private function configurationPart(a:MovieClip){
+	private function configurationPart(a:GameObject){
 		a._x=this._x;
 		a._y=this._y;
+		a.xA = 0;
+		a.yA = 0;
 	}
 	
 	// Переопределение

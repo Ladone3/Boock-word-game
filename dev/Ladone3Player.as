@@ -1,9 +1,11 @@
 ﻿class Ladone3Player extends LifePlayer{
-	//Рука LadoneHandL
+	//Руки
 	//===============================
 	private var ladoneHandL;
 	private var ladoneHandR;
 
+	public function getHandL(){ return this.ladoneHandL; }
+	public function getHandR(){ return this.ladoneHandR; }
 	// Коды клавиш
 	//===============================
 	private var kUp:Number    = 87;

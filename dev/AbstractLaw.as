@@ -11,12 +11,16 @@
 	}
 	
 	public function deinit(){
+		var tempArray = new Array();
 		for(var i=0; i<this.length; i++){
+			if(this[i] instanceof Player) this[i].breakCounter();
 			if(this[i].deinit()){
-				//this[i].removeMovieClip();
-				if(this[i] instanceof Player) this[i].breakCounter();
-				this[i].remove();
+				tempArray[tempArray.length]=this[i];
 			}
+		}
+		for(var i=0; i<tempArray.length; i++){
+			tempArray[i].remove();
+			tempArray[i] = null;
 		}
 	}
 	
@@ -40,6 +44,7 @@
 	}
 	
 	public function addObject(go:GameObject){
+		//trace("AL Add: "+go._name);
 		this[this.length]=go;
 	}
 	

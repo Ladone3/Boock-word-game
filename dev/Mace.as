@@ -222,8 +222,8 @@
 	}
 	
 	private function explosion(){
-		trace("this._x: "+this._x);
-		trace("this._y: "+this._y);
+		//trace("this._x: "+this._x);
+		//trace("this._y: "+this._y);
 		this.xSpeed = 0;
 		this.ySpeed = 0;
 		this.switcher.state = 2;

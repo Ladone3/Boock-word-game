@@ -132,7 +132,7 @@ public function treatment(x:Number){
 // (9) damage
 // =============================	
 public function damage(x:Number){
-		if((this.health-x) > 0){
+		if((this.health-x) >= 0){
 			this.health = this.health - x;
 		}else{
 			this.health = 0;

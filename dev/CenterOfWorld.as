@@ -41,6 +41,8 @@
 	
 	public function goToAndStopFrame(frame:Number){
 		_global.last_level = _root._currentframe;
+		_global.player.youMayTuchMe();
+		_global.player._alpha = 100;
 		this.startFrame = false;
 		this.frame=frame;
 	}
