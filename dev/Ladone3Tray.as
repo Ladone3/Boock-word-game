@@ -44,13 +44,16 @@
 	
 	public function planLeft(){
 		if(this.runState){
-			if((Math.abs(this.xBoost)<Math.abs(runPower))&&(this.xBoost>-runPower)){
-				this.xBoost = -runPower*3;
+			//trace("Plan (this.xBoost="+this.xBoost+"; runPower="+runPower*3+") <-");
+			if((Math.abs(this.xBoost)<Math.abs(runPower*3))&&(this.xBoost>-runPower)){
+				//trace("Plan <<<=");
+				//this.xBoost = -runPower*3;
 			}else if(this.xBoost>0){
+				//trace("Plan <<-");
 				this.xBoost -= runPower*3;
 			}
 		}else{
-			if((Math.abs(this.xBoost)<Math.abs(runPower))&&(this.xBoost>-runPower)){
+			if(this.xBoost>-runPower*3){
 				this.xBoost = -runPower;
 			}else if(this.xBoost>0){
 				this.xBoost -= runPower;
@@ -61,9 +64,12 @@
 	
 	public function planRight(){
 		if(this.runState){
-			if((Math.abs(this.xBoost)<Math.abs(runPower))&&(this.xBoost<runPower)){
+			//trace("Plan (this.xBoost="+this.xBoost+"; runPower="+runPower*3+") ->");
+			if(this.xBoost<runPower*3){
+				//trace("Plan =>>>");
 				this.xBoost = runPower*3;
 			}else if(this.xBoost<0){
+				//trace("Plan ->>");
 				this.xBoost += runPower*3;
 			}
 		}else{

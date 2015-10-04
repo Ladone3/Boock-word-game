@@ -104,7 +104,7 @@
 	}
 	
 	public function planLeft(){
-		if((Math.abs(this.xBoost)<Math.abs(runPower))&&(this.xBoost>-runPower*1.5)){
+		if(this.xBoost>-runPower*1.5){
 			this.xBoost = -runPower*1.5;
 		} else if(this.xBoost>0){
 			this.xBoost -= runPower;
@@ -113,7 +113,7 @@
 	}
 	
 	public function planRight(){
-		if((Math.abs(this.xBoost)<Math.abs(runPower))&&(this.xBoost<runPower*1.5)){
+		if(this.xBoost<runPower*1.5){
 			this.xBoost = runPower*1.5;
 		} else if(this.xBoost<0){
 			this.xBoost += runPower;

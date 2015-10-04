@@ -13,7 +13,7 @@
 	//Переопределение
 	public function onEnterFrame(){
 		super.onEnterFrame();
-		this.onEnterFrameCatchPlayer();
+		this.doSomething();
 	}
 	
 	// Переопределение
@@ -26,16 +26,21 @@
 		return true;
 	}
 	
-	//Переопределение
-	public function onEnterFrameCatchPlayer(){
-		if(_global.player!=null){
-				if(this.hitTest(_global.player)&&(_root._alpha>=100)){
-					this.doSomething();
-				}
-		}	
-	}
-
 	public function doSomething(){
+		for(var i=0; i<count || i<_global.abstractLaw.length; i++){
+			var curObject = _global.abstractLaw[i];
+			if(this.hitTest(curObject) && curObject.getDepth()>this.getDepth()){
+				if(curObject instanceof Ladone3Player){
+					this.swapDepths(curObject);
+					curObject.getHandL().swapDepths(depth2);
+					curObject.getHandR().swapDepths(depth1);
+					curObject.swapDepths(curObject.getHandL());
+				}else{
+					this.swapDepths(curObject);
+				}
+			}
+		}
+		/*
 		if(_global.player.getDepth()>this.getDepth()){
 			if(_global.player instanceof Ladone3Player){
 				this.swapDepths(_global.player);
@@ -46,6 +51,7 @@
 				this.swapDepths(_global.player);
 			}
 		}
+		*/
 	}
 	
 	// Переопределение
