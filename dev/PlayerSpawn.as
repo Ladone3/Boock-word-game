@@ -5,6 +5,8 @@
 		if(_global.LOT){
 			this.mMC="Ladone3Player";
 			this.mClass="Ladone3Player";
+			//this.mMC="RatMonstr3";
+			//this.mClass="Player";
 		}else{
 			this.mMC="Ladone3Tray";
 			this.mClass="Ladone3Tray";
