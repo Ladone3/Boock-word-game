@@ -84,10 +84,8 @@
 	public function runLeft(){
 		if(this.xBoost>-runPower && this.xBoost<=0){
 			this.xBoost = -runPower;
-			trace("1)"+this.xBoost);
 		} else if(this.xBoost>0){
 			this.xBoost -= runPower;
-			trace("2)"+this.xBoost);
 		}
 		this.switcher.state = 4;
 		this.direct = false;
@@ -97,10 +95,9 @@
 	public function runRight(){
 		if(this.xBoost<runPower && this.xBoost>=0){
 			this.xBoost = runPower;
-			trace("1)"+this.xBoost);
 		} else if(this.xBoost<0){
 			this.xBoost += runPower;
-			trace("2)"+this.xBoost);
+
 		}
 		this.switcher.state = 3;
 		this.direct = true;
@@ -113,7 +110,6 @@
 		} else if(this.xBoost>0){
 			this.xBoost -= runPower;
 		}
-		trace("3)"+this.xBoost);
 		this.direct = false;
 	}
 	
@@ -123,7 +119,6 @@
 		} else if(this.xBoost<0){
 			this.xBoost += runPower;
 		}
-		trace("3)"+this.xBoost);
 		this.direct = true;
 	}
 

@@ -34,10 +34,20 @@
 		//trace("2) Yahooo i'm in!");
 			if((this[i].mov) && (this[i].touchDown) && (this[i]!=null)){
 				if(this[i].xBoost!=0){
+					var k:Number = 1;
+					if(this[i].frictionModificator) k = this[i].frictionModificator;
 					if(this[i].xBoost>0){
-						this[i].xBoost-=FrictionForce; 
+						if(this[i].xBoost-FrictionForce*k>=0){
+							this[i].xBoost-=FrictionForce*k; 
+						}else{
+							this[i].xBoost = 0;
+						}
 					}else{
-						this[i].xBoost+=FrictionForce;
+						if(this[i].xBoost+FrictionForce*k<0){
+							this[i].xBoost+=FrictionForce*k; 
+						}else{
+							this[i].xBoost = 0;
+						}
 					}
 				}
 			}

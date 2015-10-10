@@ -85,6 +85,12 @@
 	// Переопределение
 	//==============================================	
 	public function runLeft(){
+		if(this.direct){
+			this.direct = false;
+			this.saveRun1 = 0;
+			this.saveRun2 = 0;
+			this.runState = false;
+		}
 		if(!this.runState){
 			if((!this.inAero)&&(Math.abs(this.xBoost)<Math.abs(runPower))&&(this.xBoost>-runPower)){
 				this.xBoost = -runPower;
@@ -100,18 +106,18 @@
 			}
 			this.switcher.state = 20;
 		}
-		if(this.direct){
-			this.direct = false;
-			this.saveRun1 = 0;
-			this.saveRun2 = 0;
-			this.runState = false;
-		}
 		this.readyToJump = true;
 	}
 	
 	// Переопределение
 	//==============================================
 	public function runRight(){
+		if(!this.direct){
+			this.direct = true;
+			this.saveRun1 = 0;
+			this.saveRun2 = 0;
+			this.runState = false;
+		}
 		if(!this.runState){
 			if((!this.inAero)&&(Math.abs(this.xBoost)<Math.abs(runPower))&&(this.xBoost<runPower)){
 				this.xBoost = runPower;
@@ -126,12 +132,6 @@
 				this.xBoost += runPower*2.5;
 			}
 			this.switcher.state = 19;
-		}
-		if(!this.direct){
-			this.direct = true;
-			this.saveRun1 = 0;
-			this.saveRun2 = 0;
-			this.runState = false;
 		}
 		this.readyToJump = true;
 	}
