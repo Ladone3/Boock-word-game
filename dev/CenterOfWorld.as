@@ -8,7 +8,6 @@
 		this._alpha=0;
 	} 
 			
-	private var frame:Number=0;
 	private var startFrame=true;
 	
 	public function onEnterFrame() {
@@ -32,7 +31,7 @@
 					_global.abstractLaw.deinit();
 					_global.abstractLaw = null;
 					_root.clear();
-					_root.gotoAndStop(frame);
+					_root.gotoAndStop(_global.clearFrame);
 				}
 			}
 		}
@@ -44,7 +43,7 @@
 		_global.player.youMayTuchMe();
 		_global.player._alpha = 100;
 		this.startFrame = false;
-		this.frame=frame;
+		_global.nextframe=frame;
 	}
 	public function goToAndStopToNextFrame(){
 		_global.player.hpline._alpha = 100;

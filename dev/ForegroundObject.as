@@ -3,6 +3,7 @@
 	private var depth2:Number;
 	
 	public function ForegroundObject(){
+		this.calculateObject = false;
 		this.depth1=_root.getNextHighestDepth();
 		this.swapDepths(depth1);
 		this.depth2=_root.getNextHighestDepth();
@@ -12,7 +13,7 @@
 	
 	//Переопределение
 	public function onEnterFrame(){
-		super.onEnterFrame();
+		//super.onEnterFrame();
 		this.doSomething();
 	}
 	
@@ -27,9 +28,9 @@
 	}
 	
 	public function doSomething(){
-		for(var i=0; i<count || i<_global.abstractLaw.length; i++){
+		for(var i=0; i<_global.abstractLaw.length; i++){
 			var curObject = _global.abstractLaw[i];
-			if(this.hitTest(curObject) && curObject.getDepth()>this.getDepth()){
+			if(curObject.mov && this.hitTest(curObject) && curObject.getDepth()>this.getDepth()){
 				if(curObject instanceof Ladone3Player){
 					this.swapDepths(curObject);
 					curObject.getHandL().swapDepths(depth2);
@@ -40,22 +41,5 @@
 				}
 			}
 		}
-		/*
-		if(_global.player.getDepth()>this.getDepth()){
-			if(_global.player instanceof Ladone3Player){
-				this.swapDepths(_global.player);
-				_global.player.getHandL().swapDepths(depth2);
-				_global.player.getHandR().swapDepths(depth1);
-				_global.player.swapDepths(_global.player.getHandL());
-			}else{
-				this.swapDepths(_global.player);
-			}
-		}
-		*/
-	}
-	
-	// Переопределение
-	public function getType():Number{
-		return 101;
 	}
 }

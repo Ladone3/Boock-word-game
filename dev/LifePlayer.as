@@ -14,7 +14,7 @@
 	//Переопределение
 	public function permissionToMov(np:Point):Point{
 		var nnp:Point = super.permissionToMov(np);
-		this.isCalc = true;
+		//this.isCalc = true;
 		return nnp;
 	}
 	

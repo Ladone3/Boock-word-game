@@ -1,5 +1,4 @@
-﻿//import flash.display.MovieClip;
-class GameObject extends MovieClip { 
+﻿class GameObject extends MovieClip { 
 	// Подсчет количества объектов класса 
 	//=======================================================
 	private static var GameObjectCount:Number=0;
@@ -39,16 +38,6 @@ class GameObject extends MovieClip {
 	}
 	public function get calcObj():Boolean{
 		return this.calculateObject;
-	}
-	
-	// Обрабатывался ли объект
-	//======================================================
-	private var isCalculated:Boolean = true;
-	public function set isCalc(b:Boolean){
-		this.isCalculated=b;
-	}
-	public function get isCalc():Boolean{
-		return this.isCalculated;
 	}
 	
 	private function lifeOrDie(){
@@ -128,7 +117,7 @@ class GameObject extends MovieClip {
 				_global.abstractLaw[removedNumber] = moved;
 				_global.abstractLaw[_global.abstractLaw.length-1] = null;
 				_global.abstractLaw.length--;
-				this.swapDepths(100000);
+				this.swapDepths(_root.getNextHighestDepth());
 				this.removeMovieClip();
 				delete(del);
 				//GameObjectCount--;
@@ -136,20 +125,20 @@ class GameObject extends MovieClip {
 				//trace(this._name+" deleted");
 				_global.abstractLaw[removedNumber] = null;
 				_global.abstractLaw.length--;
-				this.swapDepths(100000);
+				this.swapDepths(_root.getNextHighestDepth());
 				this.removeMovieClip();
 				delete(del);
 				//GameObjectCount--;
 			}
 		}else{
-			this.swapDepths(100000);
+			this.swapDepths(_root.getNextHighestDepth());
 			this.removeMovieClip();
 			delete(del);
 			//GameObjectCount--;
 		}
 		//trace(this._name+" deleted");
 		//_global.abstractLaw[this.ID]=null;
-		//this.swapDepths(100000);
+		//this.swapDepths(_root.getNextHighestDepth());
 		//this.removeMovieClip();
 		//delete(this);	
 	}
@@ -217,12 +206,9 @@ class GameObject extends MovieClip {
 	// Определяем обработчик onEnterFrame() 
 	public function onEnterFrame() {
 		if(!_global.doPause){
-			//trace("MovedObject try move: "+this._name + "("+moveble+","+life+")");
 			if(moveble && life){
-				//trace("MovedObject moved: "+this._name);
 				onEnterFrameAction();
 			}
-			//tracr("this.lifeOrDie()");
 			this.lifeOrDie();
 		}
 	}
@@ -230,36 +216,21 @@ class GameObject extends MovieClip {
 	public function takeObject(object:GameObject):Boolean{
 		return true;
 	}
-	
-	public function clearCalc(){
-		var i=0
-		do{
-			if(this==_global.abstractLaw[i]){
-				for(var j=0; j<count || j<_global.abstractLaw.length; j++){
-					if(_global.abstractLaw[j]!=null && _global.abstractLaw[j].calcObj){
-						_global.abstractLaw[j].isCalc = true;
-					}
-				}
-				break;
-			}
-			i++;
-		}while((i<count || i<_global.abstractLaw.length)&&(!_global.abstractLaw[i].life));
-	}
-	
+		
 	public function permissionToMov(np:Point):Point{
-		this.clearCalc();
-		this.isCalc = false;
 		var left:Boolean = false;
 		var right:Boolean = false;
 		var up:Boolean = false;
 		var down:Boolean = false;
+		
 		var rx = np.x;
 		var ry = np.y;
 		var nWidth = this._width;
 		var nHeight = this._height;
 		var temp1 = this.getBounds(_root);
-		for(var i=0; i<count || i<_global.abstractLaw.length; i++){
-			if(_global.abstractLaw[i].calcObj && _global.abstractLaw[i].isCalc && _global.abstractLaw[i]!=null  && takeObject(_global.abstractLaw[i])){
+		
+		for(var i=0; i<_global.abstractLaw.length; i++){
+			if(_global.abstractLaw[i]!=null && _global.abstractLaw[i].calcObj && _global.abstractLaw[i]!=this && (takeObject(_global.abstractLaw[i]))){
 				var nXMin = temp1.xMin + np.x;
 				var nYMin = temp1.yMin + np.y;
 				var temp2 = _global.abstractLaw[i].getBounds(_root);
@@ -268,17 +239,21 @@ class GameObject extends MovieClip {
 					var razn2 = nYMin - (temp2.yMin - nHeight);
 					var razn3 = temp2.xMax - nXMin;
 					var razn4 = temp2.yMax - nYMin;
+					
 					if((razn1 <= razn2)&&(razn1 <= razn3)&&(razn1 <= razn4)){
 						rx = rx - razn1;
 						right = true;
+						if(_global.abstractLaw[i].mov)_global.abstractLaw[i].xA += this.xA/2;
 					}else{
 						if((razn2 <= razn1)&&(razn2 <= razn3)&&(razn2 <= razn4)){
 							ry = ry - razn2;
 							down = true;
+							if(_global.abstractLaw[i].mov)_global.abstractLaw[i].xA += -this.xA/4;
 						}else{
 							if((razn3 <= razn1)&&(razn3 <= razn2)&&(razn3 <= razn4)){
 								rx = rx + razn3;
 								left = true; 
+								if(_global.abstractLaw[i].mov)_global.abstractLaw[i].xA += this.xA/2;
 							}else{
 								if((razn4 <= razn1)&&(razn4 <= razn2)&&(razn4 <= razn3)){
 									ry = ry + razn4;
@@ -287,6 +262,7 @@ class GameObject extends MovieClip {
 							}
 						}
 					}
+					
 				}else{
 				// Это как-то не очень работает!
 				//=============================================================================
