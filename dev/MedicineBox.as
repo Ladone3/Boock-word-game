@@ -1,4 +1,4 @@
-﻿class MedicineBox extends MovedObject{
+﻿class MedicineBox extends MovableObject{
 	private var used:Boolean;
 	private var counter:Counter;
 	

@@ -175,6 +175,7 @@ class GameObject extends MovieClip {
 		this.moveble = false;
 		this.ID = GameObjectCount++;
 		AllGameObjectCount++;
+		//trace("gameobject"+(ID)+" <== "+this._name);
 		this._name = "gameobject"+(ID);
 		if(_global.abstractLaw) _global.abstractLaw.addObject(this); 
 	}
@@ -216,7 +217,9 @@ class GameObject extends MovieClip {
 	// Определяем обработчик onEnterFrame() 
 	public function onEnterFrame() {
 		if(!_global.doPause){
+			//trace("MovedObject try move: "+this._name + "("+moveble+","+life+")");
 			if(moveble && life){
+				//trace("MovedObject moved: "+this._name);
 				onEnterFrameAction();
 			}
 			//tracr("this.lifeOrDie()");
