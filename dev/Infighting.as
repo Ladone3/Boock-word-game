@@ -22,11 +22,13 @@ class Infighting extends Bullet{
 	
 	//Переопределение
 	public function onEnterFrame(){
-		super.onEnterFrame();
-		if((!this.counter2.notOver) && this.started){
-			//this.explosion();
-			this.remove();
+		if(!_global.doPause){
+			super.onEnterFrame();
+			if((!this.counter2.notOver) && this.started){
+				//this.explosion();
+				this.remove();
+			}
+			this.counter2.iterateCounter();
 		}
-		this.counter2.iterateCounter();
 	}
 }

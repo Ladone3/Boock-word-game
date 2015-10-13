@@ -145,7 +145,8 @@
 		var temp1 = this.getBounds(_root);
 		for(var i=0; i<GameObject.count || i<_global.abstractLaw.length; i++){	
 			if(_global.abstractLaw[i]!= this.pmc && _global.abstractLaw[i]!= this.pmc.pmc 
-			&& _global.abstractLaw[i]!=null && ((takeWall)||((!takeWall) && _global.abstractLaw[i].getType()!=0))){
+			&& _global.abstractLaw[i]!=null && ((takeWall)||((!takeWall) && _global.abstractLaw[i].getType()!=0))
+			&& _global.abstractLaw[i].calcObj){
 				var nXMin = temp1.xMin;
 				var nYMin = temp1.yMin;
 				var temp2 = _global.abstractLaw[i].getBounds(_root);

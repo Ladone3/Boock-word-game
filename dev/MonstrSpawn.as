@@ -7,6 +7,14 @@
 	private var mcs:Array;
 	private var complete:Boolean=false;
 	
+	public function getMCS():Array{
+		return this.mcs;
+	}
+	
+	public function setMCS(newMCS:Array){
+		this.mcs = newMCS;
+	}
+	
 	public function set mMC(monstrMC:String){
 		this.monstrMC = monstrMC;
 	}
@@ -32,19 +40,22 @@
 	}
 	
 	public function init(){
-		this.mMC="RatMonstr";
 		this.mCount=2;
+		this.mMC="RatMonstr";
 		this.mClass="Computer";
 	}
 	
 	public function MonstrSpawn(){
+		this.calcObj = false;
 		this.init();
 	}
 	
 	//Переопределение
 	public function onEnterFrame(){
-		super.onEnterFrame();
-		this.onEnterFrameCatchPlayer();
+		if(!_global.doPause){
+			//super.onEnterFrame();
+			this.onEnterFrameCatchPlayer();
+		}
 	}
 	
 	// Переопределение
@@ -56,11 +67,10 @@
 	public function deinit(){
 		this._alpha=100;
 		this.once=true;
-		//for(var i=0; i<this.mCount; i++){
-		//	this.mcs[i].removeMovieClip();
-		//}
+		this.complete = false;
 		return false;
 	}
+	
 	
 	public function onEnterFrameCatchPlayer(){
 		if(this.once){
