@@ -18,6 +18,7 @@
 		this.setMCS(new Array());
 	}
 	
+	public var allSpawnersTrue:Boolean = true;
 	public function onEnterFrameCatchPlayer(){
 		if(this.notStateSpawn){
 			if(_global.player!=null && this.onRadius(_global.player, 400)){
@@ -25,20 +26,21 @@
 				this.notStateSpawn=false;
 			}	
 		}else{
+			if(this.mCount<=0 || (allSpawnersTrue && this.getMCS().length==this.mCount)){
+				complete = true;
+				trace("EndSpawn");				
+			}
 			if(this.getMCS().length<this.mCount && !this.counter.notOver){
 				this.addToSpawn();
 				this.counter.delay=this.period;
 			}
-			if(this.mCount<0 || ((this.getMCS()[this.getMCS().length]._alpha>=100 || !this.getMCS()[this.getMCS().length]) && this.getMCS().length==this.mCount)){
-				complete = true;
-				trace("EndSpawn");				
-			}else{
-				for(var i=0; i<this.mCount; i++){
-					if(this.getMCS()[i]._alpha<100){
-						this.getMCS()[i]._alpha+=10;
-					}
+			allSpawnersTrue = true;
+			for(var i=0; i<this.mCount; i++){
+				if(this.getMCS()[i] && this.getMCS()[i]._alpha<100){
+					this.getMCS()[i]._alpha+=10;
+					allSpawnersTrue = false;
 				}
-			} 
+			}
 		}
 	}
 	
@@ -65,7 +67,7 @@
 			}else{
 				this.getMCS()[i] = _root.attachMovie(this.mMC2, this.mClass2, _root.getNextHighestDepth());
 			}
-			this.configurateMC(this.mcs[i]);
-			this.mcs[i]._alpha=0;
+			this.configurateMC(this.getMCS()[i]);
+			this.getMCS()[i]._alpha=0;
 	}
 }
