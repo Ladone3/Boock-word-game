@@ -3,6 +3,8 @@
 	//=======================================================
 	private static var GameObjectCount:Number=0;
 	private static var AllGameObjectCount:Number=0;
+	public         var lastname:String;
+	
 	public static function get count():Number{
 		return GameObjectCount;
 	}
@@ -165,6 +167,7 @@
 		this.ID = GameObjectCount++;
 		AllGameObjectCount++;
 		//trace("gameobject"+(ID)+" <== "+this._name);
+		this.lastname = this._name;
 		this._name = "gameobject"+(ID);
 		if(_global.abstractLaw) _global.abstractLaw.addObject(this); 
 	}

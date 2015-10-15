@@ -5,7 +5,7 @@
 	
 	//Переопределение
 	public function onEnterFrame(){
-		super.onEnterFrame();
+		this.calcObj = false;
 		if(this.nocatch)this.onEnterFrameCatchPlayer();
 	}
 	
