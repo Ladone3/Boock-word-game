@@ -116,8 +116,7 @@
 		
 		if(!this.counter.notOver && parentMovieClip.life){
 			if((fight)&&(this.direction == direction)){
-				//parentMovieClip.hpline.damage(10);
-				//parentMovieClip.hpline.treatment(10);
+
 				if((!up) && (!down)){
 					this.blow(direction);
 				}
@@ -127,19 +126,20 @@
 				}
 						
 				if((up) && (!down) && (!left) && (!right)){
-					this.blowUp(direction);
+					//this.blowUp(direction);
+					this.blowUpAndForward(direction);
 				}
 				if((up) && (down)){
 					this.switcher.state = this.parentSwitcher.state;
 				}
 				if((!up) && (down) && (!right) && (!left)){
-					this.blowDown(direction);
+					//this.blowDown(direction);
+					this.blowDownAndForward(direction);
 				}
 				if((!up) && (down) && (right || left)){
 					this.blowDownAndForward(direction);
 				}
-				//if((fight) && (up) && (left || right) && (!down)){
-				//if(this.direction == direction)
+
 			} else {
 				if(this.parentSwitcher.state!=18 && this.parentSwitcher.state!=19){
 					this.switcher.state = this.parentSwitcher.state;

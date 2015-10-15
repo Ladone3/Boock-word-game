@@ -178,6 +178,7 @@
 	}
 	
 	public function setDamage(d:Number,dd:Boolean){
+		if(!this.hpline) initHPLine();
 		this.hpline.damage(d);
 		if(this.switcher.state!= 13 && this.switcher.state!= 14){
 			this.counter.delay = 0;
@@ -232,9 +233,13 @@
 		this.direct = true;
 		this.watch("touchDown", aeroState, 1);
 		this.switcher.state = 1;
+		initHPLine();
+	}	
+	
+	public function initHPLine(){
 		this.hpline = new HPLine();
 		this.hpline.setHPLine(hpmax);
-	}	
+	}
 	
 	public function setScale(k:Number){
 		this._xscale *= k;

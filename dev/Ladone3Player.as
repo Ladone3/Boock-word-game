@@ -56,6 +56,10 @@
 		this.ladoneHandR.create(this, this.switcher, !(this.direct), this.damage);
 		this.ladoneHandR.swapDepths(this.ladoneHandL);
 		this.ladoneHandR.swapDepths(this);
+	}
+	
+	//Переопределение
+	public function initHPLine(){
 		this.hpline = _root.attachMovie("LineOfHealth", "HPLineView", _root.getNextHighestDepth());
 		this.hpline._xScale =30;
 		this.hpline._yScale =30;

@@ -4,6 +4,7 @@
 	private var period = 350;
 	private var mMC2:String;
 	private var mClass2:String;
+	private var switcher:Switcher;
 	
 	public function init(){
 		this.mCount=6;
@@ -14,6 +15,8 @@
 	}
 	
 	public function TimedMultiSpawn(){
+		this.switcher = new Switcher(2,this, new Counter());
+		this.switcher.state = 1;
 		this.counter = new Counter();
 		this.setMCS(new Array());
 	}
@@ -28,6 +31,7 @@
 		}else{
 			if(this.mCount<=0 || (allSpawnersTrue && this.getMCS().length==this.mCount)){
 				complete = true;
+				this.switcher.state = 2;
 				trace("EndSpawn");				
 			}
 			if(this.getMCS().length<this.mCount && !this.counter.notOver){

@@ -69,19 +69,19 @@
 	}
 	
 	public function Computer(){
-		//trace("I am alive("+this._name+") and its my HPLINE:");
+		this.brain=this.getBrain();
+	}
+	
+	//Переопределение
+	public function initHPLine(){
 		this.hpline = _root.attachMovie("LineComputerOfHealth", "HPLineComputerView", _root.getNextHighestDepth());
-		//this.hpline = _root.attachMovie("LineComputerOfHealth", "HPLineComputerView", (this.getDepth()<0 ? -_root.getNextHighestDepth() : _root.getNextHighestDepth()));
 		if(this.getDepth()<=0){
 			var hpscale = this.hpline._width/this._width;
 			this.hpline._height/=hpscale;
 			this.hpline.setHPLineView(hpmax*(this._xscale/100));
 			this.hpline._width=this._width;
 		}
-		
 		this.hpline._alpha = 50;
-		
-		this.brain=this.getBrain();
 	}
 	
 	// Переопределение	

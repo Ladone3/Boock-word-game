@@ -3,10 +3,10 @@
 	public function init(){
 		this.mCount=1;
 		if(_global.LOT){
-			//this.mMC="Ladone3Player";
-			//this.mClass="Ladone3Player";
-			this.mMC="RatMonstr3";
-			this.mClass="Player";
+			this.mMC="Ladone3Player";
+			this.mClass="Ladone3Player";
+			//this.mMC="RatMonstr3";
+			//this.mClass="Player";
 			//this.mMC="Ladone3Tray2";
 			//this.mClass="Ladone3Tray";
 		}else{

@@ -27,6 +27,10 @@
 	}
 			
 	public function Ladone3Tray(){
+	}
+	
+	//Переопределение
+	public function initHPLine(){
 		this.hpline = _root.attachMovie("LineOfHealth", "HPLineView", _root.getNextHighestDepth());
 		this.hpline._xScale =30;
 		this.hpline._yScale =30;
