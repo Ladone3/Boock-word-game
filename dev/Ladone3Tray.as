@@ -12,6 +12,7 @@
 	private var kRight:Number = 68;
 	private var kFight:Number = 75;//32;//97;
 	private var kJump:Number = 76;//18;//98;
+	public var frictionModificator:Number = 2;
 
 	// Характеристики персонажа
 	//===============================
@@ -48,16 +49,13 @@
 	
 	public function planLeft(){
 		if(this.runState){
-			//trace("Plan (this.xBoost="+this.xBoost+"; runPower="+runPower*3+") <-");
-			if((Math.abs(this.xBoost)<Math.abs(runPower*3))&&(this.xBoost>-runPower)){
-				//trace("Plan <<<=");
-				//this.xBoost = -runPower*3;
+			if(this.xBoost>-runPower*2.5  && this.xBoost<=0){
+				this.xBoost = -runPower*2.5;
 			}else if(this.xBoost>0){
-				//trace("Plan <<-");
-				this.xBoost -= runPower*3;
+				this.xBoost -= runPower*2.5;
 			}
 		}else{
-			if(this.xBoost>-runPower*3){
+			if(this.xBoost>-runPower  && this.xBoost<=0){
 				this.xBoost = -runPower;
 			}else if(this.xBoost>0){
 				this.xBoost -= runPower;
@@ -68,16 +66,13 @@
 	
 	public function planRight(){
 		if(this.runState){
-			//trace("Plan (this.xBoost="+this.xBoost+"; runPower="+runPower*3+") ->");
-			if(this.xBoost<runPower*3){
-				//trace("Plan =>>>");
-				this.xBoost = runPower*3;
+			if(this.xBoost<runPower*2.5  && this.xBoost>=0){
+				this.xBoost = runPower*2.5;
 			}else if(this.xBoost<0){
-				//trace("Plan ->>");
-				this.xBoost += runPower*3;
+				this.xBoost += runPower*2.5;
 			}
 		}else{
-			if((Math.abs(this.xBoost)<Math.abs(runPower))&&(this.xBoost<runPower)){
+			if(this.xBoost<runPower && this.xBoost>=0){
 				this.xBoost = runPower;
 			}else if(this.xBoost<0){
 				this.xBoost += runPower;
@@ -91,24 +86,24 @@
 	public function runLeft(){
 		if(this.direct){
 			this.direct = false;
-			this.saveRun1 = 0;
-			this.saveRun2 = 0;
-			this.runState = false;
+			//this.saveRun1 = 0;
+			//this.saveRun2 = 0;
+			//this.runState = false;
 		}
-		if(!this.runState){
-			if((!this.inAero)&&(Math.abs(this.xBoost)<Math.abs(runPower))&&(this.xBoost>-runPower)){
-				this.xBoost = -runPower;
-			}else if(this.xBoost>0){
-				this.xBoost -= runPower;
-			}
-			this.switcher.state = 4;
-		}else{
-			if((!this.inAero)&&(Math.abs(this.xBoost)<runPower*2.5)&&(this.xBoost>-runPower*2.5)){
+		if(this.runState){
+			if(this.xBoost>-runPower*2.5  && this.xBoost<=0){
 				this.xBoost = -runPower*2.5;
 			}else if(this.xBoost>0){
 				this.xBoost -= runPower*2.5;
 			}
 			this.switcher.state = 20;
+		}else{
+			if(this.xBoost>-runPower  && this.xBoost<=0){
+				this.xBoost = -runPower;
+			}else if(this.xBoost>0){
+				this.xBoost -= runPower;
+			}
+			this.switcher.state = 4;
 		}
 		this.readyToJump = true;
 	}
@@ -118,24 +113,24 @@
 	public function runRight(){
 		if(!this.direct){
 			this.direct = true;
-			this.saveRun1 = 0;
-			this.saveRun2 = 0;
-			this.runState = false;
+			//this.saveRun1 = 0;
+			//this.saveRun2 = 0;
+			//this.runState = false;
 		}
-		if(!this.runState){
-			if((!this.inAero)&&(Math.abs(this.xBoost)<Math.abs(runPower))&&(this.xBoost<runPower)){
-				this.xBoost = runPower;
-			}else if(this.xBoost<0){
-				this.xBoost += runPower;
-			}
-			this.switcher.state = 3;
-		}else{
-			if((!this.inAero)&&(Math.abs(this.xBoost)<runPower*2.5)&&(this.xBoost<runPower*2.5)){
+		if(this.runState){
+			if(this.xBoost<runPower*2.5  && this.xBoost>=0){
 				this.xBoost = runPower*2.5;
 			}else if(this.xBoost<0){
 				this.xBoost += runPower*2.5;
 			}
 			this.switcher.state = 19;
+		}else{
+			if(this.xBoost<runPower && this.xBoost>=0){
+				this.xBoost = runPower;
+			}else if(this.xBoost<0){
+				this.xBoost += runPower;
+			}
+			this.switcher.state = 3;
 		}
 		this.readyToJump = true;
 	}
@@ -287,10 +282,12 @@
 	// Можно будет выделить в отдельный универсальный модуль - пока копипаст будет
 	//==========================================================================
 	private var runState:Boolean = false;
-	private var saveRun1:Number = 0;
-	private var saveRun2:Number = 0;
-	private var comboBlock:Boolean = false;
+	//private var saveRun1:Number = 0;
+	//private var saveRun2:Number = 0;
+	//private var comboBlock:Boolean = false;
+	/*
 	private function runRunCatching(left:Boolean, right:Boolean){
+		
 		if(left || right){
 			if(!comboBlock){
 				if(saveRun2==0){
@@ -324,6 +321,7 @@
 			}
 		}
 	}
+	*/
 	
 	// Переопределение
 	//==============================================
@@ -333,7 +331,9 @@
 		if(!this.counter.notOver && this.life){
 		
 			this.blowCatching(fight && !this.blowing);
-			this.runRunCatching(Key.isDown(kLeft),Key.isDown(kRight));
+			//this.runRunCatching(Key.isDown(kLeft),Key.isDown(kRight));
+			if(Key.isDown(kDown)) this.runState = false;
+			else this.runState = true;
 			
 			if((Key.isDown(kLeft)||Key.isDown(kRight)||Key.isDown(kJump))
 			||(fight && !this.blowing)){

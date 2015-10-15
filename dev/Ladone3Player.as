@@ -88,20 +88,20 @@
 			this.saveRun2 = 0;
 			this.runState = false;
 		}
-		if(!this.runState){
-			if((!this.inAero)&&(Math.abs(this.xBoost)<Math.abs(runPower))&&(this.xBoost>-runPower)){
-				this.xBoost = -runPower;
-			}else if(this.xBoost>0){
-				this.xBoost -= runPower;
-			}
-			this.switcher.state = 4;
-		}else{
-			if((!this.inAero)&&(Math.abs(this.xBoost)<runPower*2.5)&&(this.xBoost>-runPower*2.5)){
+		if(this.runState){
+			if(this.xBoost>-runPower*2.5  && this.xBoost<=0){
 				this.xBoost = -runPower*2.5;
 			}else if(this.xBoost>0){
 				this.xBoost -= runPower*2.5;
 			}
 			this.switcher.state = 18;
+		}else{
+			if(this.xBoost>-runPower  && this.xBoost<=0){
+				this.xBoost = -runPower;
+			}else if(this.xBoost>0){
+				this.xBoost -= runPower;
+			}
+			this.switcher.state = 4;
 		}
 		this.readyToJump = true;
 	}
@@ -115,20 +115,20 @@
 			this.saveRun2 = 0;
 			this.runState = false;
 		}
-		if(!this.runState){
-			if((!this.inAero)&&(Math.abs(this.xBoost)<Math.abs(runPower))&&(this.xBoost<runPower)){
-				this.xBoost = runPower;
-			}else if(this.xBoost<0){
-				this.xBoost += runPower;
-			}
-			this.switcher.state = 3;
-		}else{
-			if((!this.inAero)&&(Math.abs(this.xBoost)<runPower*2.5)&&(this.xBoost<runPower*2.5)){
+		if(this.runState){
+			if(this.xBoost<runPower*2.5  && this.xBoost>=0){
 				this.xBoost = runPower*2.5;
 			}else if(this.xBoost<0){
 				this.xBoost += runPower*2.5;
 			}
 			this.switcher.state = 19;
+		}else{
+			if(this.xBoost<runPower && this.xBoost>=0){
+				this.xBoost = runPower;
+			}else if(this.xBoost<0){
+				this.xBoost += runPower;
+			}
+			this.switcher.state = 3;
 		}
 		this.readyToJump = true;
 	}
