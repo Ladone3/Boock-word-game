@@ -12,7 +12,12 @@
 	
 	public function onKeyObject(){
 		trace("I go, how I can");
-		this.doTriger = true;
+		if(!this.doTriger){
+			this.doTriger = true;
+		}else{
+			this.doTriger = false;
+			this.doTriger2 = true;
+		}
 	}
 	
 	private var startX;
