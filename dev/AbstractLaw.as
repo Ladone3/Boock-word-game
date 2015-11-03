@@ -32,25 +32,25 @@
 	}
 	private function frictionForce(i:Number) {
 		//trace("2) Yahooo i'm in!");
-			if((this[i].mov) && (this[i].touchDown) && (this[i]!=null)){
-				if(this[i].xBoost!=0){
-					var k:Number = 1;
-					if(this[i].frictionModificator) k = this[i].frictionModificator;
-					if(this[i].xBoost>0){
-						if(this[i].xBoost-FrictionForce*k>=0){
-							this[i].xBoost-=FrictionForce*k; 
-						}else{
-							this[i].xBoost = 0;
-						}
+		if((this[i].mov) && (this[i].touchDown) && (this[i]!=null)){
+			if(this[i].xBoost!=0){
+				var k:Number = 1;
+				if(this[i].frictionModificator) k = this[i].frictionModificator;
+				if(this[i].xA>0){
+					if(this[i].xA-FrictionForce*k>=0){
+						this[i].xA-=FrictionForce*k; 
 					}else{
-						if(this[i].xBoost+FrictionForce*k<0){
-							this[i].xBoost+=FrictionForce*k; 
-						}else{
-							this[i].xBoost = 0;
-						}
+						this[i].xA = 0;
+					}
+				}else{
+					if(this[i].xA+FrictionForce*k<0){
+						this[i].xA+=FrictionForce*k; 
+					}else{
+						this[i].xA = 0;
 					}
 				}
 			}
+		}
 	}
 	
 	public function addObject(go:GameObject){

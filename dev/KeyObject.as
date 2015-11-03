@@ -15,7 +15,7 @@
 	}
 	
 	public function KeyObject(){
-		this.targetAdditionalName = this.lastname.substr(4,this._name.length);
+		this.targetAdditionalName = this.lastname.substr(4,this.lastname.length);
 		this.getTargetObject();
 	}
 

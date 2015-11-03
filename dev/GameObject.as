@@ -147,12 +147,12 @@
 	
 	// Можно ли перемещать игровой объект
 	//=======================================================
-	private var moveble:Boolean;
-	public function set mov(moveble:Boolean){
-		this.moveble = moveble;
+	private var movable:Boolean;
+	public function set mov(movable:Boolean){
+		this.movable = movable;
 	}
 	public function get mov():Boolean{
-		return this.moveble;
+		return this.movable;
 	}
 	public function goToAndStop(a:Number){
 		this._currentframe = a;
@@ -163,7 +163,7 @@
 		this.yBoost = 0;
 		this.xSpeed = 0;
 		this.ySpeed = 0;
-		this.moveble = false;
+		this.movable = false;
 		this.ID = GameObjectCount++;
 		AllGameObjectCount++;
 		//trace("gameobject"+(ID)+" <== "+this._name);
@@ -206,11 +206,17 @@
 			}
 	}
 	
+	public function onEnterFrameNoAction(){
+		// No action
+	}
+	
 	// Определяем обработчик onEnterFrame() 
 	public function onEnterFrame() {
 		if(!_global.doPause){
-			if(moveble && life){
+			if(movable && life){
 				onEnterFrameAction();
+			}else{
+				onEnterFrameNoAction();
 			}
 			this.lifeOrDie();
 		}
@@ -243,64 +249,29 @@
 					var razn3 = temp2.xMax - nXMin;
 					var razn4 = temp2.yMax - nYMin;
 					
+					
 					if((razn1 <= razn2)&&(razn1 <= razn3)&&(razn1 <= razn4)){
 						rx = rx - razn1;
 						right = true;
+						if(_global.abstractLaw[i].mov)_global.abstractLaw[i].xA += this.xA/2;	
+					}else if((razn2 <= razn1)&&(razn2 <= razn3)&&(razn2 <= razn4)){
+						ry = ry - razn2;
+						down = true;
+						if(_global.abstractLaw[i].mov)_global.abstractLaw[i].xA += -this.xA/4;
+					}else if((razn3 <= razn1)&&(razn3 <= razn2)&&(razn3 <= razn4)){
+						rx = rx + razn3;
+						left = true; 
 						if(_global.abstractLaw[i].mov)_global.abstractLaw[i].xA += this.xA/2;
-					}else{
-						if((razn2 <= razn1)&&(razn2 <= razn3)&&(razn2 <= razn4)){
-							ry = ry - razn2;
-							down = true;
-							if(_global.abstractLaw[i].mov)_global.abstractLaw[i].xA += -this.xA/4;
-						}else{
-							if((razn3 <= razn1)&&(razn3 <= razn2)&&(razn3 <= razn4)){
-								rx = rx + razn3;
-								left = true; 
-								if(_global.abstractLaw[i].mov)_global.abstractLaw[i].xA += this.xA/2;
-							}else{
-								if((razn4 <= razn1)&&(razn4 <= razn2)&&(razn4 <= razn3)){
-									ry = ry + razn4;
-									up = true;
-								}
-							}
-						}
+					}else if((razn4 <= razn1)&&(razn4 <= razn2)&&(razn4 <= razn3)){
+						ry = ry + razn4;
+						up = true;
+						if(_global.abstractLaw[i].mov)_global.abstractLaw[i].xA += this.xA;	
 					}
-					
-				}else{
-				// Это как-то не очень работает!
-				//=============================================================================
-				/*
-					trace("====0====");
-					if((temp1.yMin < temp2.yMax)&&(temp1.yMin > temp2.yMin - nHeight)){
-						if(temp1.xMin <= temp2.xMin - nWidth && nXMin >= temp2.xMax){ 
-							//nXMin = temp2.xMin - nWidth;
-							rx = temp2.xMin - nWidth - temp1.xMin;
-							trace("====1====");
-						}else{
-							if(temp1.xMin >= temp2.xMax && nXMin <= temp2.xMin - nWidth){ 
-								//nXMin = temp2.xMax;
-								rx = temp1.xMin - temp2.xMax;
-								trace("====2====");
-							}
-						}
+					if(down && _global.abstractLaw[i].xA!=0){
+						trace("====> this.xA="+this.xA + " _global.xA="+_global.abstractLaw[i].xA);
+						var addingForce = _global.abstractLaw[i].xA;
+						this.xA+=addingForce;//_global.abstractLaw.FrictionForce (_global.abstractLaw[i].frictionModificator ? _global.abstractLaw[i].frictionModificator : 1);
 					}
-					if((temp1.xMin < temp2.xMax)&&(temp1.xMin > temp2.xMin - nWidth)){
-						if(temp1.yMin <= temp2.yMin - nHeight && nYMin >= temp2.yMax){ 
-							//nYMin = temp2.yMin - nHeight;
-							ry = temp2.yMin - nHeight - temp1.yMin
-							temp1.yBoost=0;
-							trace("====3====");
-						}else{
-							if(temp1.yMin >= temp2.yMax && nYMin <= temp2.yMin - nHeight){ 
-								//nYMin = temp2.yMax;
-								ry = temp1.yMin - temp2.yMax;
-								temp1.yBoost=0;
-								trace("====4====");
-							}
-						}
-					}
-					*/
-				//=============================================================================
 				}
 			}	
 		}

@@ -6,7 +6,7 @@
 	public function TargetObject(){
 		this.startX = this._x;
 		this.startY = this._y;
-		this.additionalName = this.lastname.substr(4,this._name.length);
+		this.additionalName = this.lastname.substr(4,this.lastname.length);
 		trace("My additional name "+additionalName);
 	}
 	
@@ -20,26 +20,48 @@
 		}
 	}
 	
+	
 	private var startX;
 	private var startY;
-	public function onEnterFrame() {
-		super.onEnterFrame();
+	public function onEnterFrameNoAction() {
+		super.onEnterFrameNoAction();
+		
+		this.mov = true;
+		permissionToMov(new Point(this._x+this.xA, this._y+this.yA));
+		this.mov = false;
+		
 		if(this.doTriger){
 			if((startX-this._x>400) && (this._y-startY>400)){
 				this.doTriger = false;
 				this.doTriger2 = true;
+				this.xA=0;
+				this.yA=0;
 			}
-			if(startX-this._x<=400) this._x-=1;
-			if(this._y-startY<=400) this._y+=1;
+			if(startX-this._x<=400){
+				this._x-=1;
+				this.xA=-1;
+			}
+			if(this._y-startY<=400){
+				this._y+=1;
+				this.yA=1;
+			}
 			if((startX-this._x>400) && (this._y-startY>400)){
 				this.doTriger = false;
 			}
 		}
 		if(this.doTriger2){
-			if(startX-this._x>0) this._x+=1;
-			if(this._y-startY>0) this._y-=1;
+			if(startX-this._x>0){
+				this._x+=1;
+				this.xA=1;
+			}
+			if(this._y-startY>0){
+				this._y-=1;
+				this.yA=-1;
+			}
 			if((startX-this._x<=0) && (this._y-startY<=0)){
 				this.doTriger2 = false;
+				this.xA=0;
+				this.yA=0;
 			}
 		}
 	}
