@@ -33,20 +33,21 @@
 	private function frictionForce(i:Number) {
 		//trace("2) Yahooo i'm in!");
 		if((this[i].mov) && (this[i].touchDown) && (this[i]!=null)){
-			if(this[i].xBoost!=0){
+			var nullBoost:Number = (this[i].downObject ? this[i].downObject.xA : 0);
+			if(this[i].xBoost!=nullBoost){
 				var k:Number = 1;
 				if(this[i].frictionModificator) k = this[i].frictionModificator;
-				if(this[i].xA>0){
-					if(this[i].xA-FrictionForce*k>=0){
+				if(this[i].xA>nullBoost){
+					if(this[i].xA-FrictionForce*k>=nullBoost){
 						this[i].xA-=FrictionForce*k; 
 					}else{
-						this[i].xA = 0;
+						this[i].xA = nullBoost;
 					}
 				}else{
-					if(this[i].xA+FrictionForce*k<0){
+					if(this[i].xA+FrictionForce*k<nullBoost){
 						this[i].xA+=FrictionForce*k; 
 					}else{
-						this[i].xA = 0;
+						this[i].xA = nullBoost;
 					}
 				}
 			}

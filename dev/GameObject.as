@@ -1,4 +1,5 @@
 ﻿class GameObject extends MovieClip { 
+	public var downObject:GameObject = null;
 	// Подсчет количества объектов класса 
 	//=======================================================
 	private static var GameObjectCount:Number=0;
@@ -193,6 +194,7 @@
 			var wantY = this.ySpeed; 
 			if(_global.abstractLaw){
 				var p = this.permissionToMov(new Point(wantX, wantY));
+				this.downObject = p.object;
 				this._x = this._x + p.x;
 				this._y = this._y + p.y;
 				touchLeft = p.left;
@@ -237,6 +239,7 @@
 		var nWidth = this._width;
 		var nHeight = this._height;
 		var temp1 = this.getBounds(_root);
+		var downObject = null;
 		
 		for(var i=0; i<_global.abstractLaw.length; i++){
 			if(_global.abstractLaw[i]!=null && _global.abstractLaw[i].calcObj && _global.abstractLaw[i]!=this && (takeObject(_global.abstractLaw[i]))){
@@ -248,7 +251,7 @@
 					var razn2 = nYMin - (temp2.yMin - nHeight);
 					var razn3 = temp2.xMax - nXMin;
 					var razn4 = temp2.yMax - nYMin;
-					
+					var thisDown = false;
 					
 					if((razn1 <= razn2)&&(razn1 <= razn3)&&(razn1 <= razn4)){
 						rx = rx - razn1;
@@ -257,6 +260,7 @@
 					}else if((razn2 <= razn1)&&(razn2 <= razn3)&&(razn2 <= razn4)){
 						ry = ry - razn2;
 						down = true;
+						thisDown = true;
 						if(_global.abstractLaw[i].mov)_global.abstractLaw[i].xA += -this.xA/4;
 					}else if((razn3 <= razn1)&&(razn3 <= razn2)&&(razn3 <= razn4)){
 						rx = rx + razn3;
@@ -267,15 +271,13 @@
 						up = true;
 						if(_global.abstractLaw[i].mov)_global.abstractLaw[i].xA += this.xA;	
 					}
-					if(down && _global.abstractLaw[i].xA!=0){
-						trace("====> this.xA="+this.xA + " _global.xA="+_global.abstractLaw[i].xA);
-						var addingForce = _global.abstractLaw[i].xA;
-						this.xA+=addingForce;//_global.abstractLaw.FrictionForce (_global.abstractLaw[i].frictionModificator ? _global.abstractLaw[i].frictionModificator : 1);
+					if(thisDown && _global.abstractLaw[i].xA!=0){
+						downObject = _global.abstractLaw[i];
 					}
 				}
 			}	
 		}
-		return new Point(rx,ry,up,down,left,right);
+		return new Point(rx,ry,up,down,left,right,downObject);
 	}
 	
 	// Поиск игрока в радиусе (Пока одного)

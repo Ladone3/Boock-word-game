@@ -26,9 +26,9 @@
 	public function onEnterFrameNoAction() {
 		super.onEnterFrameNoAction();
 		
-		this.mov = true;
-		permissionToMov(new Point(this._x+this.xA, this._y+this.yA));
-		this.mov = false;
+		//this.mov = true;
+		//permissionToMov(new Point(this._x+this.xA, this._y+this.yA));
+		//this.mov = false;
 		
 		if(this.doTriger){
 			if((startX-this._x>400) && (this._y-startY>400)){
