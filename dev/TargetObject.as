@@ -7,11 +7,11 @@
 		this.startX = this._x;
 		this.startY = this._y;
 		this.additionalName = this.lastname.substr(4,this.lastname.length);
-		trace("My additional name "+additionalName);
+		//trace("My additional name "+additionalName);
 	}
 	
 	public function onKeyObject(){
-		trace("I go, how I can");
+		//trace("I go, how I can");
 		if(!this.doTriger){
 			this.doTriger = true;
 		}else{

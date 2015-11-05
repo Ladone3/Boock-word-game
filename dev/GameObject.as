@@ -191,10 +191,12 @@
 	public function onEnterFrameAction(){
 			calcSpeeds();
 			var wantX = this.xSpeed;
-			var wantY = this.ySpeed; 
+			var wantY = this.ySpeed;
+			this.downObject = null;			
 			if(_global.abstractLaw){
 				var p = this.permissionToMov(new Point(wantX, wantY));
 				this.downObject = p.object;
+				//trace("Global.length:"+_global.abstractLaw.length+this.downObject._name);
 				this._x = this._x + p.x;
 				this._y = this._y + p.y;
 				touchLeft = p.left;

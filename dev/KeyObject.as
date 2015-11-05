@@ -20,10 +20,10 @@
 	}
 
 	public function doTeleportation(){
-		trace("I start "+targetObject);
+		//trace("I start "+targetObject);
 		if(!this.targetObject)this.getTargetObject();
 		if(this.targetObject){
-			trace("GoGoGo "+targetObject);
+			//trace("GoGoGo "+targetObject);
 			this.targetObject.onKeyObject();
 		}
 	}
