@@ -161,8 +161,10 @@
 							_global.abstractLaw[i].setDamage(this.damage,false);
 						}
 					}
-					_global.abstractLaw[i].xA = (this.xS/10)*this.damage;
-					_global.abstractLaw[i].yA = (this.yS/10)*this.damage;
+					if(_global.abstractLaw[i].mov){
+						_global.abstractLaw[i].xA = (this.xS/10)*this.damage;
+						_global.abstractLaw[i].yA = (this.yS/10)*this.damage;
+					}
 					break;
 
 				}

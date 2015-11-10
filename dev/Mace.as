@@ -183,11 +183,11 @@
 			}
 		}else{
 			this.life = false;
-			this.HomewardBound();
+			this.homewardBound();
 		}
 	}
 	// Извинения за бредовую функцию, лень было её переписывать((
-	private function HomewardBound(){
+	private function homewardBound(){
 		var w:Number = Math.abs(this._x - this.parentMovieClip._x);
 		var h:Number = Math.abs(this._y - this.parentMovieClip._y);
 		var g:Number = Math.pow(Math.pow(w,2)+Math.pow(h,2),0.5);
@@ -268,8 +268,10 @@
 							_global.abstractLaw[i].setDamage(this.damage,false);
 						}
 					}
-					_global.abstractLaw[i].xA = this.xS/2;
-					_global.abstractLaw[i].yA = this.yS/2;
+					if(_global.abstractLaw[i].mov){
+						_global.abstractLaw[i].xA = this.xS/2;
+						_global.abstractLaw[i].yA = this.yS/2;
+					}
 					break;
 				}
 			}
