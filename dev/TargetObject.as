@@ -6,7 +6,7 @@
 	public function TargetObject(){
 		this.startX = this._x;
 		this.startY = this._y;
-		this.additionalName = this.lastname.substr(4,this.lastname.length);
+		if(this.lastname.length>=4)this.additionalName = this.lastname.substr(4,this.lastname.length);
 		//trace("My additional name "+additionalName);
 	}
 	
@@ -48,8 +48,7 @@
 			if((startX-this._x>400) && (this._y-startY>400)){
 				this.doTriger = false;
 			}
-		}
-		if(this.doTriger2){
+		}else if(this.doTriger2){
 			if(startX-this._x>0){
 				this._x+=1;
 				this.xA=1;
@@ -63,6 +62,9 @@
 				this.xA=0;
 				this.yA=0;
 			}
+		}else{
+			this.xA=0;
+			this.yA=0;
 		}
 	}
 }
