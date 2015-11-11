@@ -282,10 +282,10 @@
 	// Можно будет выделить в отдельный универсальный модуль - пока копипаст будет
 	//==========================================================================
 	private var runState:Boolean = false;
-	//private var saveRun1:Number = 0;
-	//private var saveRun2:Number = 0;
-	//private var comboBlock:Boolean = false;
-	/*
+	private var saveRun1:Number = 0;
+	private var saveRun2:Number = 0;
+	private var comboBlock:Boolean = false;
+	
 	private function runRunCatching(left:Boolean, right:Boolean){
 		
 		if(left || right){
@@ -321,7 +321,7 @@
 			}
 		}
 	}
-	*/
+	
 	
 	// Переопределение
 	//==============================================
@@ -331,9 +331,9 @@
 		if(!this.counter.notOver && this.life){
 		
 			this.blowCatching(fight && !this.blowing);
-			//this.runRunCatching(Key.isDown(kLeft),Key.isDown(kRight));
-			if(Key.isDown(kDown)) this.runState = false;
-			else this.runState = true;
+			this.runRunCatching(Key.isDown(kLeft),Key.isDown(kRight));
+			//if(Key.isDown(kDown)) this.runState = false;
+			//else this.runState = true;
 			
 			if((Key.isDown(kLeft)||Key.isDown(kRight)||Key.isDown(kJump))
 			||(fight && !this.blowing)){
