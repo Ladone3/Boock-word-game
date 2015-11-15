@@ -230,6 +230,7 @@
 		return true;
 	}
 		
+	private var bottomMargin:Number = 3;
 	public function permissionToMov(np:Point):Point{
 		var left:Boolean = false;
 		var right:Boolean = false;
@@ -246,7 +247,7 @@
 		for(var i=0; i<_global.abstractLaw.length; i++){
 			if(_global.abstractLaw[i]!=null && _global.abstractLaw[i].calcObj && _global.abstractLaw[i]!=this && (takeObject(_global.abstractLaw[i]))){
 				var nXMin = temp1.xMin + np.x;
-				var nYMin = temp1.yMin + np.y;
+				var nYMin = temp1.yMin + np.y-bottomMargin;
 				var temp2 = _global.abstractLaw[i].getBounds(_root);
 				if((nXMin >= temp2.xMin - nWidth)&&(nYMin >= temp2.yMin - nHeight)&&(nXMin <= temp2.xMax)&&(nYMin <= temp2.yMax)){
 					var razn1 = nXMin - (temp2.xMin - nWidth);
