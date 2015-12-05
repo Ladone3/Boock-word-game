@@ -78,7 +78,7 @@
 		this.velocity = velocity;
 		this.xSpeed = this.velocity*Math.cos((this.angle*Math.PI)/180);
 		this.ySpeed = -this.velocity*Math.sin((this.angle*Math.PI)/180);
-		this._alpha = 100;
+		this._visible = true;
 		this.switcher.state = 1;
 		this._rotation = -angle;
 		this.damage = d;
@@ -92,7 +92,7 @@
 		this.ID = MaceCount++;
 		this._name = "mace"+(ID);
 		MaceMass[ID] = this;
-		this._alpha = 0;
+		this._visible = false;
 		this.xSpeed = this.velocity*Math.cos((this.angle*Math.PI)/180);
 		this.ySpeed = -this.velocity*Math.sin((this.angle*Math.PI)/180);
 
@@ -233,7 +233,7 @@
 		blowEffect._rotation = this._rotation;
 		blowEffect._xscale = this._xscale/3;
 		blowEffect._yscale = this._yscale/3;
-		blowEffect._alpha = 50;
+		//blowEffect._alpha = 50;
 		this.counter.delay = 2;
 		this.life = false;
 	}

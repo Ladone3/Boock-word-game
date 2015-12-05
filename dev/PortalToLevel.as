@@ -23,7 +23,7 @@
 	//Переопределение
 	public function onEnterFrameCatchPlayer(){
 		if(_global.player!=null){
-				if(this.hitTest(_global.player)&&(_root._alpha>=100)){
+				if(this.hitTest(_global.player)&&(_root._color.brightness>=100)){
 					this.nocatch = false;
 					this.doTeleportation();
 				}else{

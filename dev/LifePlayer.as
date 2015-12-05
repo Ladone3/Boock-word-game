@@ -35,12 +35,12 @@
 	private function alphaChaose(){
 		if(this.dontTuchMe.notOver){
 			if(alphatrigger){
-				if((this._alpha-=10)<50)alphatrigger=false;
+				if((this._color.red-=10)<50)alphatrigger=false;
 			}else{
-				if((this._alpha+=10)>100)alphatrigger=true;
+				if((this._color.red+=10)>100)alphatrigger=true;
 			}
-		}else if(this._alpha!=100){
-			this._alpha = 100;
+		}else if(this._color.red!=100){
+			this._color.red = 100;
 		}
 	}
 	

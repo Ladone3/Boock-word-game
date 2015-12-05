@@ -1,5 +1,6 @@
 ﻿class HPLineComputerView extends HPLineView{
 	public function	HPLineComputerView(){
+		this._color = new ColorTransformer(this);
 		//trace("--HPComputer created!")
 	}
 

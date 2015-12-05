@@ -23,6 +23,7 @@ private var healthMax:Number;
 private var health:Number;
 private var healthLine1:MovieClip = null;
 private var healthLine2:MovieClip = null;
+public var _color:ColorTransformer; 
 
 // =============================
 private var name1 = "health1";
@@ -31,6 +32,7 @@ private var name2 = "health2";
 // (1) HPLineView
 // =============================
 public function	HPLineView(){
+	this._color = new ColorTransformer(this);
 }
 
 public function	setHPLineView(MaxHP:Number){

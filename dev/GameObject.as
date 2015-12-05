@@ -1,5 +1,8 @@
 ﻿class GameObject extends MovieClip { 
+	// Объект на котором лежит данный объект. Если mov = true;
 	public var downObject:GameObject = null;
+	// Объект трансформер цветов
+	public var _color:ColorTransformer; 
 	// Подсчет количества объектов класса 
 	//=======================================================
 	private static var GameObjectCount:Number=0;
@@ -160,6 +163,7 @@
 	}
 	
 	public function GameObject(){
+		this._color = new ColorTransformer(this);
 		this.xBoost = 0;
 		this.yBoost = 0;
 		this.xSpeed = 0;

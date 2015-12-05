@@ -27,7 +27,7 @@
 	private function attractiveForce(i:Number) {
 		//trace("1) Yahooo i'm in!");
 			if(this[i].mov && this[i]!=null){
-				if(this[i].yBoost<=this.MaxAttractiveSpeed)this[i].yBoost+=AttractiveForce;
+				if(this[i].yA<=this.MaxAttractiveSpeed)this[i].yA+=AttractiveForce;
 			}
 	}
 	private function frictionForce(i:Number) {

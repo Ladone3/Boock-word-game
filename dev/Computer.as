@@ -81,7 +81,8 @@
 			this.hpline.setHPLineView(hpmax*(this._xscale/100));
 			this.hpline._width=this._width;
 		}
-		this.hpline._alpha = 50;
+		//this.hpline._color.brightness = 50;
+		//this.hpline._alpha = 50;
 	}
 	
 	// Переопределение	

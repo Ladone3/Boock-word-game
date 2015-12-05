@@ -81,7 +81,7 @@
 		this.velocity = velocity;
 		this.xSpeed = this.velocity*Math.cos((this.angle*Math.PI)/180);
 		this.ySpeed = -this.velocity*Math.sin((this.angle*Math.PI)/180);
-		this._alpha = 100;
+		this._visible = true;
 		this.switcher.state = 1;
 		this._rotation = -angle;
 		this.damage = d;
@@ -94,7 +94,7 @@
 		this.ID = BulletCount++;
 		this._name = "bullet"+(ID);
 		BulletMass[ID] = this;
-		this._alpha = 0;
+		this._visible = false;
 		this.xSpeed = this.velocity*Math.cos((this.angle*Math.PI)/180);
 		this.ySpeed = -this.velocity*Math.sin((this.angle*Math.PI)/180);
 

@@ -15,7 +15,7 @@
 	}
 	
 	public function KeyObject(){
-		this._alpha = 0;
+		this._visible = false;
 		if(this.lastname.length>=4)this.targetAdditionalName = this.lastname.substr(4,this.lastname.length);
 		this.getTargetObject();
 	}
