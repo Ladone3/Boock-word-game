@@ -181,10 +181,6 @@
 		return false;
 	}
 	
-	public function onEventActivity(minX:Number, minY:Number, maxX:Number, maxY:Number){
-		trace(" minX=" + minX + " minY=" + minY + " maxX=" + maxX + " maxY=" + maxY);
-	}
-
 	// Рассчет текущей скорости
 	//=======================================================
 	private function calcSpeeds(){
