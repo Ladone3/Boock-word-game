@@ -35,7 +35,7 @@
 		if((this[i].mov) && (this[i].touchDown) && (this[i])){
 			var nullBoost = 0;
 			if(this[i].downObject && this[i].downObject.xA) nullBoost = this[i].downObject.xA;
-			if(this[i].xBoost!=nullBoost){
+			if(this[i].xA!=nullBoost){
 				var k:Number = 1;
 				if(this[i].frictionModificator) k = this[i].frictionModificator;
 				if(this[i].xA>nullBoost){
@@ -139,6 +139,16 @@
 	//=============================================================================	
 	public function findObject(go:MovieClip):Number{	
 		if(_global.player){
+			var x1 = go._x+go._width/2;
+			var x2 = _global.player._x+_global.player._width/2;
+			return (x2 - x1);
+		}else{
+			return Number.POSITIVE_INFINITY;
+		}
+	}
+	
+	public function getOffsets(go:MovieClip):Object{	
+		if(_global.player){
 			/*
 			var obj2 = go.getBounds(_root);
 			var obj1 = _global.player.getBounds(_root);
@@ -147,20 +157,15 @@
 			var y1 = (obj1.yMin-obj1.yMax)/2;
 			var x2 = (obj2.xMin-obj2.xMax)/2;
 			var y2 = (obj2.yMin-obj2.yMax)/2;
-			*/
 			
+			return {xo: (x2-x1), yo: (y1-y2) };
+			*/
 			var x1 = go._x+go._width/2;
 			var y1 = go._y+go._height/2;
 			var x2 = _global.player._x+_global.player._width/2;
 			var y2 = _global.player._y+_global.player._height/2;
 			
-			var dist = Math.pow(Math.pow(x1-x2,2)+Math.pow(y1-y2,2),0.5);
-			//trace("x1: "+x1+" y1: "+y1+" x2: "+x2+" y2: "+y2+" dist: "+dist);
-			if(x1>x2){
-				return -dist;
-			}else{
-				return dist;
-			}
+			return {xo: (x2-x1), yo: (y2-y1) };
 		}else{
 			return Number.POSITIVE_INFINITY;
 		}
