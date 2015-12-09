@@ -16,23 +16,35 @@
 	//Переопределение
 	public function onEnterFrameAction(){
 		super.onEnterFrameAction();
-		this.hpline.treatment(0.3);
+		this.hpline.treatment(0.4);
 	}
 	
 	public function createBullet(){
-		this.chieldBullet = _root.attachMovie("Bullet", "bullet"+(Bullet.count), _root.getNextHighestDepth());
-		this.chieldBullet.StartMace((Math.atan(brain.distanceX/brain.distanceY)*180/Math.PI), 50, this._x(this.direct?+50:-50), this._y,this.damage,this.distance, this);
+		var chieldBullet = _root.attachMovie("Bullet", "bullet"+(Bullet.count), _root.getNextHighestDepth());
+		var angl = (Math.atan2(
+				(brain.getDistance().xo),
+				(brain.getDistance().yo)
+			)*180/Math.PI-90);
+		//trace("xd: "+brain.getDistance().xo+"\nyd: "+brain.getDistance().yo+"\nangl: "+angl);
+		chieldBullet.StartBullet(
+			angl,
+			25, 
+			this._x, 
+			this._y,
+			this.damage,
+			this,
+			true);
 	}
 	
 	//Переопределение
 	public function fastBlow(){
 		if(this.direct){
-			if(brain.distanceX<=0){
+			if(brain.getDistance().xo>=0){
 				this.switcher.state = 11;
 				this.createBullet();
 			}
 		}else{
-			if(brain.distanceX>=0){
+			if(brain.getDistance().xo<=0){
 				this.switcher.state = 12;
 				this.createBullet();
 			}
@@ -62,19 +74,19 @@
 	
 	//Переопределение
 	public function landing(){
-		if(this.yBoost<runPower*1.5){
-			this.yBoost = runPower*1.5;
+		if(this.yBoost<runPower){
+			this.yBoost = jumpPower;
 		} else if(this.yBoost<0){
-			this.yBoost += runPower;
+			this.yBoost += runPower/1.5;
 		}
 	}
 	
 	//Переопределение
 	public function jump(){
-		if(this.yBoost>-runPower*1.5){
-			this.yBoost = -runPower*1.5;
+		if(this.yBoost>-runPower){
+			this.yBoost = -runPower;
 		} else if(this.yBoost>0){
-			this.yBoost -= runPower;
+			this.yBoost -= runPower/1.5;
 		}
 	}
 	

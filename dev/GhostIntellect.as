@@ -1,7 +1,5 @@
 ﻿class GhostIntellect extends Intellect {
 	public var DO_DOWN:Number = 5;
-	public var distanceX:Number = 0;
-	public var distanceY:Number = 0;
 	
 	public function GhostIntellect(slave:Computer){
 		super(slave);
@@ -10,11 +8,29 @@
 	
 	// Переопределение	
 	public function moves(){
+		var opp = Math.round(Math.random()*100);
 		var dist:Object = _global.abstractLaw.getOffsets(this.getSlave());
-		this.fightMoves(dist.xo, dist.yo);
-		this.distanceX = dist.xo;
-		this.distanceY = dist.yo;
+		this.distance = dist;
+		if(opp<50){
+			this.fightMoves(dist.xo, dist.yo);
+		}else{
+			this.freeMoves(dist.xo);
+		}
 	}
+	
+	public function freeMoves(dist:Number){
+		this.stateActivity = Math.round(Math.random()*6);
+		
+		if(this.stateActivity!=DO_BLOW){
+			this.stateActivity = Math.round(Math.random()*6);
+		}
+		/*
+		if(this.stateActivity!=DO_BLOW){
+			this.stateActivity = Math.round(Math.random()*6);
+		}
+		*/
+	}
+	
 	// Переопределение	
 	public function fightMoves(xo:Number,yo:Number){
 		if((xo<0 && slave.direct)||(xo>0 && !slave.direct)){
@@ -32,8 +48,10 @@
 			}
 		}
 	}
+	
 	// Переопределение	
 	public function doAnAct(){
+		//this.stateActivity =999;
 		switch (this.stateActivity) {
 				case (DO_STAY): 
 					this.clearButtons();

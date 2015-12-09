@@ -296,8 +296,15 @@
 		}
 	}
 	
+	//private var traceClip;
 	// Переопределение
 	public function onEnterFrame() {
+		/*if(!traceClip){
+			traceClip = _root.attachMovie("Target", "TraceBullet", _root.getNextHighestDepth());
+		}else{
+			traceClip._x = this._x;
+			traceClip._y = this._y;
+		}*/
 		this.counter.iterateCounter();
 		super.onEnterFrame();
 	}

@@ -7,8 +7,10 @@
 	public var damage:Number = 0;
 	public var distance:Number = 0;
 	private var switcher:Switcher;
+	
 	private static var MaceCount:Number = 0;
 	private static var AllMaceCount:Number = 0;
+	
 	public static var MaceMass:Array = new Array();
 	
 	public static function get count():Number{

@@ -2,6 +2,11 @@
 	private var slave:Computer;
 	private var timer:Counter;
 	
+	private var distance = null;
+	public function getDistance(){
+		return this.distance;
+	}
+	
 	public function getSlave(){
 		return this.slave;
 	}
@@ -94,6 +99,7 @@
 	public function moves(){
 		var opp = Math.round(Math.random()*100);
 		var dist:Number = _global.abstractLaw.findObject(slave);
+		this.distance = dist;
 		if(Math.abs(dist)<1000 && opp<75){
 			this.fightMoves(dist);
 		}else{

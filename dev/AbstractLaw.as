@@ -139,8 +139,8 @@
 	//=============================================================================	
 	public function findObject(go:MovieClip):Number{	
 		if(_global.player){
-			var x1 = go._x+go._width/2;
-			var x2 = _global.player._x+_global.player._width/2;
+			var x1 = go._x;
+			var x2 = _global.player._x;
 			return (x2 - x1);
 		}else{
 			return Number.POSITIVE_INFINITY;
@@ -160,10 +160,10 @@
 			
 			return {xo: (x2-x1), yo: (y1-y2) };
 			*/
-			var x1 = go._x+go._width/2;
-			var y1 = go._y+go._height/2;
-			var x2 = _global.player._x+_global.player._width/2;
-			var y2 = _global.player._y+_global.player._height/2;
+			var x1 = go._x;
+			var y1 = go._y;
+			var x2 = _global.player._x;
+			var y2 = _global.player._y;
 			
 			return {xo: (x2-x1), yo: (y2-y1) };
 		}else{

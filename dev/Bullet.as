@@ -154,17 +154,17 @@
 				if(this.hitTest(_global.abstractLaw[i])
 				&&(_global.abstractLaw[i].life)){
 					temp = true;
-					if(_global.abstractLaw[i].getType()==2){
+					if(_global.abstractLaw[i] instanceof Player){
 						if(temp2.xMin<=nXMin){
 							_global.abstractLaw[i].setDamage(this.damage,true);
 						}else{
 							_global.abstractLaw[i].setDamage(this.damage,false);
 						}
 					}
-					if(_global.abstractLaw[i].mov){
+					/*if(_global.abstractLaw[i].mov){
 						_global.abstractLaw[i].xA = (this.xS/10)*this.damage;
 						_global.abstractLaw[i].yA = (this.yS/10)*this.damage;
-					}
+					}*/
 					break;
 
 				}

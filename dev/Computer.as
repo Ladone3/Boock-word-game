@@ -13,6 +13,7 @@
 	public var stunDelay:Number = 20;
 	public var defaultScale:Number = 1;
 	
+	// must be private
 	public function getBrain():Intellect{
 		return new Intellect(this);
 	}
