@@ -36,13 +36,13 @@
 	
 	public function fastBlow(){
 		if(this.direct){
-				this.switcher.state = 11;
-				this.blowPermission(this.radius,this.damage,0.5);
-			}else{
-				this.switcher.state = 12;
-				this.blowPermission(this.radius,this.damage,0.5);
-			}
-			this.counter.delay=10;
+			this.switcher.state = 11;
+			this.blowPermission(this.radius,this.damage,0.5);
+		}else{
+			this.switcher.state = 12;
+			this.blowPermission(this.radius,this.damage,0.5);
+		}
+		this.counter.delay=10;
 	}
 	
 	public function dblow(){

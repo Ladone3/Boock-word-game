@@ -1,5 +1,8 @@
 ﻿class GhostIntellect extends Intellect {
 	public var DO_DOWN:Number = 5;
+	public var distanceX:Number = 0;
+	public var distanceY:Number = 0;
+	
 	public function GhostIntellect(slave:Computer){
 		super(slave);
 	}
@@ -9,6 +12,8 @@
 	public function moves(){
 		var dist:Object = _global.abstractLaw.getOffsets(this.getSlave());
 		this.fightMoves(dist.xo, dist.yo);
+		this.distanceX = dist.xo;
+		this.distanceY = dist.yo;
 	}
 	// Переопределение	
 	public function fightMoves(xo:Number,yo:Number){

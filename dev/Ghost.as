@@ -19,6 +19,26 @@
 		this.hpline.treatment(0.3);
 	}
 	
+	public function createBullet(){
+		this.chieldBullet = _root.attachMovie("Bullet", "bullet"+(Bullet.count), _root.getNextHighestDepth());
+		this.chieldBullet.StartMace((Math.atan(brain.distanceX/brain.distanceY)*180/Math.PI), 50, this._x(this.direct?+50:-50), this._y,this.damage,this.distance, this);
+	}
+	
+	//Переопределение
+	public function fastBlow(){
+		if(this.direct){
+			if(brain.distanceX<=0){
+				this.switcher.state = 11;
+				this.createBullet();
+			}
+		}else{
+			if(brain.distanceX>=0){
+				this.switcher.state = 12;
+				this.createBullet();
+			}
+		}
+		this.counter.delay=10;
+	}
 	
 	//Переопределение
 	private function aeroState(nameValue:String, lastState:Boolean, newState:Boolean, dop):Boolean{

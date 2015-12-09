@@ -31,16 +31,31 @@
 		}
 	}
 	
+	// In the last i have not color transform and use _alpha, becouse it's named alphaChaose and alphatrigger.
 	private var alphatrigger = true;
 	private function alphaChaose(){
 		if(this.dontTuchMe.notOver){
 			if(alphatrigger){
-				if((this._color.red-=10)<50)alphatrigger=false;
+				if(this._color.red<50){
+					alphatrigger=false;
+				}else{
+					this._color.red-=10;
+					this._color.green+=10;
+					this._color.blue+=10;
+				}
 			}else{
-				if((this._color.red+=10)>100)alphatrigger=true;
+				if(this._color.red>100){
+					alphatrigger=true;
+				}else{
+					this._color.red+=10;
+					this._color.green-=10;
+					this._color.blue-=10;
+				}
 			}
 		}else if(this._color.red!=100){
 			this._color.red = 100;
+			this._color.green = 100;
+			this._color.blue = 100;
 		}
 	}
 	
