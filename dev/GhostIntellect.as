@@ -8,27 +8,9 @@
 	
 	// Переопределение	
 	public function moves(){
-		var opp = Math.round(Math.random()*100);
 		var dist:Object = _global.abstractLaw.getOffsets(this.getSlave());
 		this.distance = dist;
-		if(opp<50){
-			this.fightMoves(dist.xo, dist.yo);
-		}else{
-			this.freeMoves(dist.xo);
-		}
-	}
-	
-	public function freeMoves(dist:Number){
-		this.stateActivity = Math.round(Math.random()*6);
-		
-		if(this.stateActivity!=DO_BLOW){
-			this.stateActivity = Math.round(Math.random()*6);
-		}
-		/*
-		if(this.stateActivity!=DO_BLOW){
-			this.stateActivity = Math.round(Math.random()*6);
-		}
-		*/
+		this.fightMoves(dist.xo, dist.yo);
 	}
 	
 	// Переопределение	

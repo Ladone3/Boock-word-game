@@ -21,9 +21,14 @@
 	
 	public function createBullet(){
 		var chieldBullet = _root.attachMovie("Bullet", "bullet"+(Bullet.count), _root.getNextHighestDepth());
-		var angl = (Math.atan2(
+		var d = _global.abstractLaw.getOffsets(this);
+		/*var angl = (Math.atan2(
 				(brain.getDistance().xo),
 				(brain.getDistance().yo)
+			)*180/Math.PI-90);*/
+		var angl = (Math.atan2(
+				(d.xo),
+				(d.yo)
 			)*180/Math.PI-90);
 		//trace("xd: "+brain.getDistance().xo+"\nyd: "+brain.getDistance().yo+"\nangl: "+angl);
 		chieldBullet.StartBullet(
@@ -35,6 +40,17 @@
 			this,
 			true);
 	}
+	
+	//Переопределение
+	/*public function blow(){
+		if(stayOrNo!=0){
+			fastBlow();
+		}else{
+			dblow();
+		}
+		stayOrNo++;
+		if(stayOrNo>3)stayOrNo=0;
+	}*/
 	
 	//Переопределение
 	public function fastBlow(){
