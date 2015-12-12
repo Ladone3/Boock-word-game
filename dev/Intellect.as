@@ -44,8 +44,8 @@
 		this.slave.kJump = false;
 	}
 	
-	private function run(){
-		if(!(this.slave.kLeft||this.slave.kRight))this.clearButtons();
+	private function run(dontclear){
+		if(!dontclear)if(!(this.slave.kLeft||this.slave.kRight))this.clearButtons();
 		if(this.slave.direct){
 			this.slave.kRight = true;
 		}else{
@@ -53,19 +53,19 @@
 		}
 	}
 	
-	private function jumps(){
-		if(!this.slave.kJump)this.clearButtons();
+	private function jumps(dontclear){
+		if(!dontclear)if(!this.slave.kJump)this.clearButtons();
 		this.slave.kJump = true;
 	}
 	
-	private function blows(){
-		if(!this.slave.kFight)this.clearButtons();
+	private function blows(dontclear){
+		if(!dontclear)if(!this.slave.kFight)this.clearButtons();
 		this.slave.kFight = true;
 		if(!this.timer.notOver)this.timer.delay = 60;
 	}
 	
-	private function revers(){
-		this.clearButtons();
+	private function revers(dontclear){
+		if(!dontclear)this.clearButtons();
 		if(this.slave.direct){
 			this.slave.kLeft = true;
 		}else{
