@@ -1,11 +1,11 @@
 ﻿class LifePlayer extends Player{
 	private var dontTuchMe:Counter;
 	private var defTime:Number = 100;
-	
+
 	public function youMayTuchMe(){
 		this.dontTuchMe.delay = 0;
 	}
-	
+
 	public function LifePlayer(){
 		this.dontTuchMe = new Counter();
 		_global.player = this;
@@ -17,12 +17,12 @@
 		//this.isCalc = true;
 		return nnp;
 	}
-	
+
 	// Переопределение
 	public function takeObject(object:GameObject):Boolean{
 		return (object.getType()==0);
 	}
-	
+
 	// Переопределение
 	public function setDamage(d:Number,dd:Boolean){
 		if(!this.dontTuchMe.notOver){
@@ -30,8 +30,11 @@
 			this.dontTuchMe.delay = defTime;
 		}
 	}
-	
+
 	// In the last i have not color transform and use _alpha, becouse it's named alphaChaose and alphatrigger.
+	public function stopTrigger(){
+		this.alphatrigger = true;
+	}
 	private var alphatrigger = true;
 	private function alphaChaose(){
 		if(this.dontTuchMe.notOver){
@@ -58,14 +61,14 @@
 			this._color.blue = 100;
 		}
 	}
-	
+
 	//Переопределение
 	public function onEnterFrameAction(){
 		super.onEnterFrameAction();
 		this.dontTuchMe.iterateCounter();
 		alphaChaose();
 	}
-	
+
 	//Переопределение
 	private function lifeOrDie(){
 		if((!life)&&(!this.counter.notOver)){
@@ -74,7 +77,7 @@
 			}
 		}
 	}
-	
+
 	//Переопределение
 	public function setDie(){
 		this.counter.delay = 0;

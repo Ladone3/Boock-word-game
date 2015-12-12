@@ -5,8 +5,8 @@
 	public var STEP:Number = 1;
 	public var ANGLE_STEP:Number = 0.01;
 	public var MIN_X_DISTANCE = 0;
-	public var MAX_X_DISTANCE = 500;
-	public var MIN_Y_DISTANCE = -500;
+	public var MAX_X_DISTANCE = 600;
+	public var MIN_Y_DISTANCE = -600;
 	public var MAX_Y_DISTANCE = 0;
 
 	public function GhostIntellect(slave:Computer){
@@ -42,43 +42,57 @@
 		}
 	}
 
-	private var traceClip;
+	//private var traceClip;
 	public function getNeededDistance(){
-		//iterateNeededDistance();
+		this.iterateNeededDistance();
 		this.angleITerator+=ANGLE_STEP;
 		var result = {
 			dx:Math.sin(this.angleITerator)*this.currentNeededXDistance,
 			dy:-Math.abs(Math.cos(this.angleITerator))*this.currentNeededYDistance
 		};
+		/*
 		if(!traceClip){
 			traceClip = _root.attachMovie("Target", "TraceTarget", _root.getNextHighestDepth());
 		}else{
 			traceClip._x = _global.player._x - result.dx;
 			traceClip._y = _global.player._y - result.dy;
 		}
+		*/
 		return result;
 	}
 
 	// Переопределение
-	public var DIST_ERROR = 0;
+	public var DIST_ERROR = 400;
+	public var DIST_SUPER_ERROR = 100;
+	private var flagError = false;
+	public function getError(){
+		if(flagError){
+			return this.DIST_ERROR;
+		}else{
+			return this.DIST_SUPER_ERROR;
+		}
+	}
+
 	public function anyMoves(xo:Number,yo:Number){
 		var nd = getNeededDistance();
 		var err_x = Math.abs(nd.dx-xo);
 		var err_y = Math.abs(nd.dy-yo);
-		if(err_x<=DIST_ERROR && err_y<=DIST_ERROR){
+		if(err_x<=this.getError() && err_y<=this.getError()){
+			this.flagError = true;
 			if((xo<0 && slave.direct)||(xo>0 && !slave.direct)){
 				this.stateActivity = DO_REDIRECT;
 			}else{
 				this.fightMoves(xo,yo);
 			}
 		}else{
+			this.flagError = false;
 			//trace("err_x: "+err_x+" err_y: "+err_y+" slave.direct:"+slave.direct);
 			var up_flag:Boolean = false;
 			var down_flag:Boolean = false;
 			var run_flag:Boolean = false;
 			var nothing_flag:Boolean = false;
 
-			if(err_x>DIST_ERROR){
+			if(err_x>this.getError()){
 				if((nd.dx>xo && slave.direct)||(nd.dx<xo && !slave.direct)){
 					nothing_flag=true;
 				}else{
@@ -86,7 +100,7 @@
 				}
 			}
 
-			if(err_y>DIST_ERROR){
+			if(err_y>this.getError()){
 				if(nd.dy<yo){
 					down_flag = true;
 				}else if(nd.dy>yo){
@@ -100,28 +114,28 @@
 				if(run_flag){
 					if(down_flag){
 						this.stateActivity = DO_RUN_DOWN;
-						trace("DO_RUN_DOWN!!");
+						//trace("DO_RUN_DOWN!!");
 					}else if(up_flag){
 						this.stateActivity = DO_RUN_JUMP;
-						trace("DO_RUN_JUMP!!");
+						//trace("DO_RUN_JUMP!!");
 					}else{
 						this.stateActivity = DO_RUN;
-						trace("DO_RUN!!");
+						//trace("DO_RUN!!");
 					}
 				}else{
 					if(up_flag){
 						this.stateActivity = DO_JUMP;
-						trace("DO_JUMP!!");
+						//trace("DO_JUMP!!");
 					}else if(down_flag){
 						this.stateActivity = DO_DOWN;
-						trace("DO_DOWN!!");
+						//trace("DO_DOWN!!");
 					}
 				}
 			}
 		}
 	}
 	public function fightMoves(xo:Number,yo:Number){
-		//this.stateActivity = DO_BLOW;
+		this.stateActivity = DO_BLOW;
 	}
 
 	// Переопределение
@@ -162,7 +176,7 @@
 		if(!(this.slave.kDown))this.clearButtons();
 		this.slave.kDown = true;
 	}
-	
+
 	private function landingsRun(){
 		if(!(this.slave.kDown && (this.slave.kLeft || this.slave.kRight)))this.clearButtons();
 		this.slave.kDown = true;
@@ -172,7 +186,7 @@
 			this.slave.kLeft = true;
 		}
 	}
-	
+
 	private function jumpsRun(){
 		if(!(this.slave.kJump && (this.slave.kLeft || this.slave.kRight)))this.clearButtons();
 		this.slave.kJump = true;
