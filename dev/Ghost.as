@@ -16,7 +16,21 @@
 	//Переопределение
 	public function onEnterFrameAction(){
 		super.onEnterFrameAction();
-		this.hpline.treatment(0.4);
+		this.hpline.treatment(0.2);
+		if(this.xA!=0){
+			if(this.xA>0){
+				this.xA--;
+			}else{
+				this.xA++;
+			}
+		}
+		if(this.yA!=0){
+			if(this.yA>0){
+				this.yA--;
+			}else{
+				this.yA++;
+			}
+		}
 	}
 
 	public function createBullet(){
@@ -33,7 +47,7 @@
 		//trace("xd: "+brain.getDistance().xo+"\nyd: "+brain.getDistance().yo+"\nangl: "+angl);
 		chieldBullet.StartBullet(
 			angl,
-			25,
+			15,
 			this._x,
 			this._y,
 			this.damage,

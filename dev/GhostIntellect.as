@@ -8,6 +8,8 @@
 	public var MAX_X_DISTANCE = 600;
 	public var MIN_Y_DISTANCE = -600;
 	public var MAX_Y_DISTANCE = 0;
+	public var DIST_ERROR = 600;
+	public var DIST_SUPER_ERROR = 400;
 
 	public function GhostIntellect(slave:Computer){
 		super(slave);
@@ -62,8 +64,6 @@
 	}
 
 	// Переопределение
-	public var DIST_ERROR = 400;
-	public var DIST_SUPER_ERROR = 100;
 	private var flagError = false;
 	public function getError(){
 		if(flagError){
