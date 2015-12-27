@@ -18,7 +18,7 @@
 	// Характеристики персонажа
 	//===============================
 	private var jumpPower:Number = 30;
-	private var runPower:Number = 12;
+	private var runPower:Number = 10;
 	public var radius:Number = 25;
 	public var damage:Number = 20;
 	public var hpmax:Number = 200;
