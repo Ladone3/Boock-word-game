@@ -71,6 +71,7 @@
 		}
 		if(_root["CameraBorder"]){
 			this.cameraBorder = _root["CameraBorder"].getBounds(_root);
+			
 		}
 		if(_root["EscMenu"]){
 			this.MenuPlace = _root["EscMenu"];
@@ -81,57 +82,84 @@
 	// Работа камеры
 	//=============================================================================
 	public var fonImage:MovieClip=null;
+	public var xfonOffsetDelay = 0.8;
+	public var yfonOffsetDelay = 0.5;
 	public var MenuPlace:MovieClip=null;
 	public var cameraBorder:Object=0;
-	public var widthWindow:Number = 1024;
-	public var heightWindow:Number = 768;
-	public var borderX1:Number = widthWindow*(2/5);
-	public var borderX2:Number = widthWindow*(3/5);
-	public var borderY1:Number = heightWindow*(2/5);
-	public var borderY2:Number = heightWindow*(3/5);
-	
+	public var borderXMin:Number = Stage.width*(2/5);
+	public var borderXMax:Number = Stage.width*(3/5);
+	public var borderYMin:Number = Stage.height*(2/5);
+	public var borderYMax:Number = Stage.height*(3/5);
+	public var stageBounds = { xMax: (Stage.width), xMin: (0), yMax: (Stage.height), yMin: (0)};
+	//public var traceClip1; public var traceClip2;
 	public function chaseCamera(){
-		if(_global.player._x < this.borderX1){
-			if(this.cameraBorder==0 || this.cameraBorder.xMax>_root._x){
-				_root._x+= this.borderX1 - _global.player._x;
-				_global.player.hpline._x -= this.borderX1 - _global.player._x;
-				this.MenuPlace._x -= this.borderX1 - _global.player._x;;
-				this.fonImage._x -= (this.borderX1 - _global.player._x)*0.8;
-				this.borderX1 = _global.player._x;
-				this.borderX2 = _global.player._x+widthWindow*(1/5);
+		this.stageBounds = { xMax: (Stage.width-_root._x), xMin: (-_root._x), yMax: (Stage.height-_root._y), yMin: (-_root._y)};
+		/*		
+		if(!traceClip1){
+			traceClip1 = _root.attachMovie("Target", "TraceTarget1", _root.getNextHighestDepth());
+		}else{
+			traceClip1._x = this.stageBounds.xMin+200;
+			traceClip1._y = this.stageBounds.yMin+200;
+		}
+		if(!traceClip2){
+			traceClip2 = _root.attachMovie("Target", "TraceTarget2", _root.getNextHighestDepth());
+		}else{
+			traceClip2._x = this.stageBounds.xMax-200;
+			traceClip2._y = this.stageBounds.yMax-200;
+		}
+		*/
+		if(_global.player._x < this.borderXMin){
+			trace("stageBounds.xMin = "+stageBounds.xMin + " this.cameraBorder.xMin = "+this.cameraBorder.xMin);
+			if(this.cameraBorder==0 || this.cameraBorder.xMin < stageBounds.xMin){
+				var xoffset = (this.borderXMin - _global.player._x);
+				_root._x+=xoffset;
+				
+				_global.player.hpline._x -= xoffset;
+				this.MenuPlace._x -= xoffset;
+				this.fonImage._x -= (xoffset)*xfonOffsetDelay;
+				this.borderXMin -= xoffset;
+				this.borderXMax -= xoffset;
 			}
 		}
-		if(_global.player._x > this.borderX2){
-			if(this.cameraBorder==0 || this.cameraBorder.xMin<_root._x){
-				_root._x -= _global.player._x - this.borderX2;
-				_global.player.hpline._x += _global.player._x - this.borderX2;
-				this.MenuPlace._x += _global.player._x - this.borderX2;
-				this.fonImage._x += (_global.player._x - this.borderX2)*0.8;
-				this.borderX2 = _global.player._x;
-				this.borderX1 = _global.player._x-widthWindow*(1/5);
+		if(_global.player._x > this.borderXMax){
+			trace("stageBounds.xMax = "+stageBounds.xMax + " this.cameraBorder.xMax = "+this.cameraBorder.xMax);
+			if(this.cameraBorder==0 || this.cameraBorder.xMax > stageBounds.xMax){
+				var xoffset = (_global.player._x - this.borderXMax);
+				_root._x-=xoffset;
+				
+				_global.player.hpline._x += xoffset;
+				
+				this.MenuPlace._x += xoffset;
+				this.fonImage._x += (xoffset)*xfonOffsetDelay;
+				this.borderXMin += xoffset;
+				this.borderXMax += xoffset;
+			}
+		}
+		if(_global.player._y < this.borderYMin){
+			if(this.cameraBorder==0 || this.cameraBorder.yMin < stageBounds.yMin){
+				var yoffset = (this.borderYMin-_global.player._y);
+				_root._y+= yoffset;
+			
+				_global.player.hpline._y -= yoffset;
+				this.MenuPlace._y -= yoffset;
+				this.fonImage._y -= (yoffset)*yfonOffsetDelay;
+				this.borderYMin -= yoffset;
+				this.borderYMax -= yoffset;
+			}
+		}
+		if(_global.player._y > this.borderYMax){
+			if(this.cameraBorder==0 || this.cameraBorder.yMax > stageBounds.yMax){
+				var yoffset = (_global.player._y-this.borderYMax);
+				_root._y-= yoffset;
+			
+				_global.player.hpline._y += yoffset;
+				this.MenuPlace._y += yoffset;
+				this.fonImage._y += (yoffset)*yfonOffsetDelay;
+				this.borderYMin += yoffset;
+				this.borderYMax += yoffset;
 			}
 		}
 		
-		if(_global.player._y < this.borderY1){
-			if(this.cameraBorder==0 || this.cameraBorder.yMin<-_root._y){
-				_root._y+=this.borderY1-_global.player._y;
-				_global.player.hpline._y -= this.borderY1-_global.player._y;
-				this.MenuPlace._y -= this.borderY1-_global.player._y;
-				this.fonImage._y -= (this.borderY1-_global.player._y)*0.5;
-				this.borderY1 = _global.player._y;
-				this.borderY2 = _global.player._y+heightWindow*(1/5);
-			}
-		}
-		if(_global.player._y > this.borderY2){
-			if(this.cameraBorder==0 || this.cameraBorder.yMax>-_root._y){
-				_root._y-=_global.player._y-this.borderY2;
-				_global.player.hpline._y += _global.player._y-this.borderY2;
-				this.MenuPlace._y += _global.player._y-this.borderY2;
-				this.fonImage._y += (_global.player._y-this.borderY2)*0.5;
-				this.borderY2 = _global.player._y;
-				this.borderY1 = _global.player._y-heightWindow*(1/5);
-			}
-		}
 	}
 	
 	
