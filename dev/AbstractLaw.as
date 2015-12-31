@@ -141,6 +141,9 @@
 		if(_global.player){
 			var x1 = go._x;
 			var x2 = _global.player._x;
+			var y1 = go._y;
+			var y2 = _global.player._y;
+			if(Math.abs(y1-y2)>go._height) return Number.POSITIVE_INFINITY;
 			return (x2 - x1);
 		}else{
 			return Number.POSITIVE_INFINITY;

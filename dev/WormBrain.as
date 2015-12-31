@@ -5,7 +5,8 @@
 	
 	// Переопределение
 	public function moves(){
-		this.fightMoves(_global.abstractLaw.findObject(slave));
+		super.moves();
+		//this.fightMoves(_global.abstractLaw.findObject(slave));
 		if(this.sa==2) this.sa = 3;
 		//if(this.sa==3) this.sa = 1;
 	}

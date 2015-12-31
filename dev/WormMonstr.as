@@ -17,11 +17,6 @@
 		super();
 	}
 	
-	// Переопределение	
-	public function getType():Number{
-		return 2;
-	}
-	
 	public function onEnterFrameAction(){
 		super.onEnterFrameAction();
 	}
