@@ -29,6 +29,11 @@
 	// Жив ли объект?
 	//======================================================
 	private var lifeState:Boolean = true;
+	public function getLifeState(){
+		trace("Get life: "+this.lifeState);
+		return this.lifeState;
+	}
+	
 	public function set life(b:Boolean){
 		this.lifeState=b;
 	}
@@ -169,6 +174,7 @@
 		this.xSpeed = 0;
 		this.ySpeed = 0;
 		this.movable = false;
+		this.lifeState = true;
 		this.ID = GameObjectCount++;
 		AllGameObjectCount++;
 		//trace("gameobject"+(ID)+" <== "+this._name);

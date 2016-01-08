@@ -310,7 +310,7 @@
 	}
 	
 	private function checkForDeath(){
-		if(this.hpline.HP!=undefined && this.hpline.HP<=0 && this.life){
+		if(this.hpline && this.hpline.HP!=undefined && this.hpline.HP<=0 && this.life){
 			this.life = false;
 			this.setDie();
 		}

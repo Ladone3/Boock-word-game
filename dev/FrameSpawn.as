@@ -12,7 +12,6 @@
 	public function FrameSpawn(){
 	}
 	
-	var frameStoped
 	public function onEnterFrameCatchPlayer(){
 		if(this.notStateSpawn){
 			if(_global.player!=null && this.hitTest(_global.player)){
@@ -23,7 +22,7 @@
 			if(this.mCount<=0 || (allSpawnersTrue && this.getMCS().length==this.mCount)){
 				complete = true;
 				this.switcher.state = 2;
-				trace("EndSpawn");				
+				trace("EndSpawn");		
 				_global.abstractLaw.stopFrame = false;
 			}
 			if(this.getMCS().length<this.mCount && !this.counter.notOver){
@@ -31,10 +30,13 @@
 				this.counter.delay=this.period;
 			}
 			allSpawnersTrue = true;
-			for(var i=0; i<this.mCount; i++){
-				if(this.getMCS()[i] && this.getMCS()[i]._alpha<100){
-					this.getMCS()[i]._alpha+=10;
-					allSpawnersTrue = false;
+			for(var i=0; i<this.mCount; i++){	
+				if(this.getMCS()[i] && this.getMCS()[i].hpline && this.getMCS()[i].hpline.HP>0){
+					trace("NotEnd");	
+					this.allSpawnersTrue = false;
+					if(this.getMCS()[i]._alpha<100){
+						this.getMCS()[i]._alpha+=10;
+					}
 				}
 			}
 		}

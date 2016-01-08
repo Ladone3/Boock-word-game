@@ -41,7 +41,7 @@
 			}
 			allSpawnersTrue = true;
 			for(var i=0; i<this.mCount; i++){
-				if(this.getMCS()[i] && this.getMCS()[i]._alpha<100){
+				if(this.getMCS()[i] && this.getMCS()[i].hpline && this.getMCS()[i].hpline.HP>0 && this.getMCS()[i]._alpha<100){
 					this.getMCS()[i]._alpha+=10;
 					allSpawnersTrue = false;
 				}
@@ -67,12 +67,14 @@
 	public function addToSpawn(){
 			var rand = Math.round(Math.random()*100);
 			var i = this.getMCS().length;
+			var newMonstr;
 			if(rand<90){
-				this.getMCS()[i] = _root.attachMovie(this.mMC, this.mClass, _root.getNextHighestDepth());
+				newMonstr = _root.attachMovie(this.mMC, this.mClass, _root.getNextHighestDepth());
 			}else{
-				this.getMCS()[i] = _root.attachMovie(this.mMC2, this.mClass2, _root.getNextHighestDepth());
+				newMonstr = _root.attachMovie(this.mMC2, this.mClass2, _root.getNextHighestDepth());
 			}
-			this.configurateMC(this.getMCS()[i]);
+			this.getMCS().push(_global.abstractLaw.getGameObject(newMonstr._name));
+			this.configurateMC(newMonstr);
 			this.getMCS()[i]._alpha=0;
 	}
 }
