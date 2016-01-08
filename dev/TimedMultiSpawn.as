@@ -2,6 +2,7 @@
 	private var counter:Counter;
 	private var notStateSpawn:Boolean = true;
 	private var period = 350;
+	private var spawnDistCatch = 400;
 	private var mMC2:String;
 	private var mClass2:String;
 	private var switcher:Switcher;
@@ -24,7 +25,7 @@
 	public var allSpawnersTrue:Boolean = true;
 	public function onEnterFrameCatchPlayer(){
 		if(this.notStateSpawn){
-			if(_global.player!=null && this.onRadius(_global.player, 400)){
+			if(_global.player!=null && this.onRadius(_global.player, this.spawnDistCatch)){
 				//this.spawn();
 				this.notStateSpawn=false;
 			}	
