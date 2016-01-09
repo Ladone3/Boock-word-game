@@ -59,6 +59,15 @@
 		this[this.length]=go;
 	}
 	
+	public function movePlayerToLastPlace(){
+		trace(_global.player.prevDownObject);
+		var b = _global.player.prevDownObject.getBounds(_root);
+		_global.player.xA = 0;
+		_global.player.yA = 0;
+		_global.player._x = b.xMin + _global.player.prevDownObject._width/2;
+		_global.player._y = b.yMin - _global.player._height;
+	}
+	
 	public function getGameObject(id:String){
 		for(var i=0; i<this.length; i++){
 			if(this[i]._name===id){

@@ -1,6 +1,7 @@
 ﻿class GameObject extends MovieClip { 
 	// Объект на котором лежит данный объект. Если mov = true;
 	public var downObject:GameObject = null;
+	public var prevDownObject:GameObject = null;
 	// Объект трансформер цветов
 	public var _color:ColorTransformer; 
 	// Подсчет количества объектов класса 
@@ -198,9 +199,13 @@
 			calcSpeeds();
 			var wantX = this.xSpeed;
 			var wantY = this.ySpeed;
+			//trace("this.downObject: "+this.downObject);
+			//trace("this.prevDownObject: "+this.prevDownObject);
+			if(this.downObject)this.prevDownObject = this.downObject;
 			this.downObject = null;			
 			if(_global.abstractLaw){
 				var p = this.permissionToMov(new Point(wantX, wantY));
+				trace(p.object);
 				this.downObject = p.object;
 				//trace("Global.length:"+_global.abstractLaw.length+this.downObject._name);
 				this._x = this._x + p.x;
@@ -280,7 +285,7 @@
 						up = true;
 						if(_global.abstractLaw[i].mov)_global.abstractLaw[i].xA += this.xA;	
 					}
-					if(thisDown && _global.abstractLaw[i].xA!=0){
+					if(thisDown){
 						downObject = _global.abstractLaw[i];
 					}
 				}

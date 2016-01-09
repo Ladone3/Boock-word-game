@@ -1,26 +1,26 @@
-ο»Ώclass DethLine extends GameObject{
+class DethLine extends GameObject{
 	private var nocatch:Boolean = true;
 	public function DethLine(){
 	}
 
-	//ΠΠµΡ€ΠµΠΎΠΏΡ€ΠµΠ΄ΠµΠ»ΠµΠ½ΠΈΠµ
+	//Οεπεξοπεδελενθε
 	public function onEnterFrame(){
 		super.onEnterFrame();
 		if(this.nocatch)this.onEnterFrameCatchPlayer();
 	}
 
-	// ΠΠµΡ€ΠµΠΎΠΏΡ€ΠµΠ΄ΠµΠ»ΠµΠ½ΠΈΠµ
+	// Οεπεξοπεδελενθε
 	public function takeObject(object:GameObject):Boolean{
 		return true;
 	}
 
-	// ΠΠµΡ€ΠµΠΎΠΏΡ€ΠµΠ΄ΠµΠ»ΠµΠ½ΠΈΠµ
+	// Οεπεξοπεδελενθε
 	public function deinit(){
 		this.nocatch = true;
 		return false;
 	}
 
-	//ΠΠµΡ€ΠµΠΎΠΏΡ€ΠµΠ΄ΠµΠ»ΠµΠ½ΠΈΠµ
+	//Οεπεξοπεδελενθε
 	public function onEnterFrameCatchPlayer(){
 		var nWidth = this._width;
 		var nHeight = this._height;
@@ -36,7 +36,7 @@
 		}
 	}
 
-	// ΠΠµΡ€ΠµΠΎΠΏΡ€ΠµΠ΄ΠµΠ»ΠµΠ½ΠΈΠµ
+	// Οεπεξοπεδελενθε
 	public function getType():Number{
 		return 101;
 	}

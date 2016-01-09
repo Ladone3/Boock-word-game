@@ -35,6 +35,7 @@
 	public function stopTrigger(){
 		this.alphatrigger = true;
 	}
+	
 	private var alphatrigger = true;
 	private function alphaChaose(){
 		if(this.dontTuchMe.notOver){
@@ -71,10 +72,8 @@
 
 	//Переопределение
 	private function lifeOrDie(){
-		if((!life)&&(!this.counter.notOver)){
-			if(!this.counter.notOver){
-				_root["CenterOfWorld"].goToLimbo();
-			}
+		if(!life){
+			_root["CenterOfWorld"].goToLimbo();
 		}
 	}
 
