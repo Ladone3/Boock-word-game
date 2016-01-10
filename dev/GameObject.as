@@ -181,7 +181,9 @@
 		//trace("gameobject"+(ID)+" <== "+this._name);
 		this.lastname = this._name;
 		this._name = "gameobject"+(ID);
-		if(_global.abstractLaw) _global.abstractLaw.addObject(this); 
+		if(_global.abstractLaw){
+			_global.abstractLaw.addObject(this);
+		}
 	}
 	
 	public function deinit():Boolean{
@@ -205,7 +207,6 @@
 			this.downObject = null;			
 			if(_global.abstractLaw){
 				var p = this.permissionToMov(new Point(wantX, wantY));
-				trace(p.object);
 				this.downObject = p.object;
 				//trace("Global.length:"+_global.abstractLaw.length+this.downObject._name);
 				this._x = this._x + p.x;

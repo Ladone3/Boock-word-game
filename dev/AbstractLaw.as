@@ -2,6 +2,7 @@
 	public var MaxAttractiveSpeed:Number=55;
 	public var AttractiveForce:Number=4;
 	public var FrictionForce:Number=1;
+	public var creatures:Array;
 	
 	public function forceIteration(){
 		for(var i=0; i<this.length; i++){
@@ -59,6 +60,10 @@
 		this[this.length]=go;
 	}
 	
+	public function addCreatures(p:Player){
+		this.creatures[this.creatures.length]=p;
+	}
+	
 	public function movePlayerToLastPlace(){
 		trace(_global.player.prevDownObject);
 		var b = _global.player.prevDownObject.getBounds(_root);
@@ -80,9 +85,14 @@
 	
 	public function	AbstractLaw(){
 		this._name = "AbstractLaw";
+		this.creatures = new Array();
 		//AsBroadcaster.initialize(this);
 		for(var i=0; i<GameObject.count; i++){	
-			if(_root["gameobject"+i])this.addObject(_root["gameobject"+i]);
+			var object = _root["gameobject"+i];
+			if(object){
+				this.addObject(object);
+				if(object instanceof Player)this.addCreatures(object);
+			}
 		}
 		if(_root["FonImage"]){
 			this.fonImage = _root["FonImage"];
@@ -130,6 +140,11 @@
 		*/
 		if(stopFrame){
 			var pbounds = _global.player.getBounds(_root);
+			/*
+			for(var i=0; i<this.length; i++){
+
+			}
+			*/
 			if(pbounds.xMin<stageBounds.xMin){
 				_global.player._x += stageBounds.xMin - pbounds.xMin;
 			}

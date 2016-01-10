@@ -233,7 +233,10 @@
 		this.direct = true;
 		this.watch("touchDown", aeroState, 1);
 		this.switcher.state = 1;
-		initHPLine();
+		this.initHPLine();
+		if(_global.abstractLaw){
+			_global.addCreatures(this);
+		}
 	}	
 	
 	public function initHPLine(){
