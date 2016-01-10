@@ -140,11 +140,6 @@
 		*/
 		if(stopFrame){
 			var pbounds = _global.player.getBounds(_root);
-			/*
-			for(var i=0; i<this.length; i++){
-
-			}
-			*/
 			if(pbounds.xMin<stageBounds.xMin){
 				_global.player._x += stageBounds.xMin - pbounds.xMin;
 			}

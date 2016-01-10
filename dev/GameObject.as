@@ -10,6 +10,8 @@
 	private static var AllGameObjectCount:Number=0;
 	public         var lastname:String;
 	
+	public var myPrivateObjList = null;
+	
 	public static function get count():Number{
 		return GameObjectCount;
 	}
@@ -256,11 +258,13 @@
 		var temp1 = this.getBounds(_root);
 		var downObject = null;
 		
-		for(var i=0; i<_global.abstractLaw.length; i++){
-			if(_global.abstractLaw[i]!=null && _global.abstractLaw[i].calcObj && _global.abstractLaw[i]!=this && (takeObject(_global.abstractLaw[i]))){
+		var objList = (this.myPrivateObjList ? this.myPrivateObjList : _global.abstractLaw);
+		
+		for(var i=0; i<objList.length; i++){
+			if(objList[i]!=null && objList[i].calcObj && objList[i]!=this && (takeObject(objList[i]))){
 				var nXMin = temp1.xMin + np.x;
 				var nYMin = temp1.yMin + np.y-bottomMargin;
-				var temp2 = _global.abstractLaw[i].getBounds(_root);
+				var temp2 = objList[i].getBounds(_root);
 				if((nXMin >= temp2.xMin - nWidth)&&(nYMin >= temp2.yMin - nHeight)&&(nXMin <= temp2.xMax)&&(nYMin <= temp2.yMax)){
 					var razn1 = nXMin - (temp2.xMin - nWidth);
 					var razn2 = nYMin - (temp2.yMin - nHeight);
@@ -271,23 +275,23 @@
 					if((razn1 <= razn2)&&(razn1 <= razn3)&&(razn1 <= razn4)){
 						rx = rx - razn1;
 						right = true;
-						if(_global.abstractLaw[i].mov)_global.abstractLaw[i].xA += this.xA/2;	
+						if(objList[i].mov)objList[i].xA += this.xA/2;	
 					}else if((razn2 <= razn1)&&(razn2 <= razn3)&&(razn2 <= razn4)){
 						ry = ry - razn2;
 						down = true;
 						thisDown = true;
-						if(_global.abstractLaw[i].mov)_global.abstractLaw[i].xA += -this.xA/4;
+						if(objList[i].mov)objList[i].xA += -this.xA/4;
 					}else if((razn3 <= razn1)&&(razn3 <= razn2)&&(razn3 <= razn4)){
 						rx = rx + razn3;
 						left = true; 
-						if(_global.abstractLaw[i].mov)_global.abstractLaw[i].xA += this.xA/2;
+						if(objList[i].mov)objList[i].xA += this.xA/2;
 					}else if((razn4 <= razn1)&&(razn4 <= razn2)&&(razn4 <= razn3)){
 						ry = ry + razn4;
 						up = true;
-						if(_global.abstractLaw[i].mov)_global.abstractLaw[i].xA += this.xA;	
+						if(objList[i].mov)objList[i].xA += this.xA;	
 					}
 					if(thisDown){
-						downObject = _global.abstractLaw[i];
+						downObject = objList[i];
 					}
 				}
 			}	
