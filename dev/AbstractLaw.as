@@ -76,7 +76,7 @@
 	public function getGameObject(id:String){
 		for(var i=0; i<this.length; i++){
 			if(this[i]._name===id){
-				trace("id: "+id+" this[i]:"+this[i]+" this[i].life:"+this[i].life);
+				//trace("id: "+id+" this[i]:"+this[i]+" this[i].life:"+this[i].life);
 				return this[i];
 			}
 		}

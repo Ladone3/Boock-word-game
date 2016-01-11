@@ -6,6 +6,13 @@
 	private var scale:Number=1;
 	private var mcs:Array;
 	private var complete:Boolean=false;
+	private var minX:Number = -100;
+	private var maxX:Number = 100;
+	private var minY:Number = -5;
+	private var maxY:Number = 5;
+	private var additionalName:String = "";
+	private var areaXName:String = "";
+	private var objectListForBounds:Array = null;
 	
 	public function getMCS():Array{
 		return this.mcs;
@@ -44,16 +51,42 @@
 		this.mMC="RatMonstr";
 		this.mClass="Computer";
 	}
+		
+	public function compileBounds(areaObject:AreaObject){
+		if(areaObject){
+			var bounds = this.areaObject.getBounds(_root);
+			this.minX = bounds.xMin;
+			this.minY = bounds.yMin;
+			this.maxX = bounds.xMax;
+			this.maxY = bounds.yMax;
+			this.objectListForBounds = new Array();
+			/*
+			for(var i=0; i<_global.abstractLaw.length; i++){
+				var obj = _global.abstractLaw[i].getBounds(_root);
+				if(obj.xMin<this._x+Stage.width)
+			}
+			*/
+		}else{
+			var maxXOffset = Stage.width*0.7; // (5/5 + 2/5)/2
+			var maxYOffset = Stage.height*0.7;
+			this.minX = this._x-maxXOffset;
+			this.minY = this._y-maxYOffset;
+			this.maxX = this._x+maxXOffset;
+			this.maxY = this._y+maxYOffset;
+		}
+	}
 	
 	public function MonstrSpawn(){
+		if(this.lastname.length>=4)this.additionalName = this.lastname.substr(0,4);
+		if(this.lastname.length>=8)this.areaXName = this.lastname.substr(4,8);
+		this.compileBounds(_root[this.areaXName]);
 		this.calcObj = false;
 		this.init();
 	}
 	
 	//Переопределение
 	public function onEnterFrame(){
-		if(!_global.doPause){
-			//super.onEnterFrame();
+		if(!_global.doPause){			
 			this.onEnterFrameCatchPlayer();
 		}
 	}
@@ -97,6 +130,7 @@
 			this.mcs[i]=_root.attachMovie(this.mMC, this.mClass, _root.getNextHighestDepth());
 			this.configurateMC(this.mcs[i]);
 			this.mcs[i]._alpha=0;
+			this.mcs[i].myPrivateObjList = (this.objectListForBounds ? this.objectListForBounds : _global.abstractLaw);
 		}
 		return this.mcs;
 	}

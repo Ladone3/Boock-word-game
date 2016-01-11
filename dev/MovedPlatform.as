@@ -9,25 +9,17 @@
 	private var startY;
 	private var speedX:Number = 3;
 	private var speedY:Number = 3;
-	private var areaObject:MovieClip;
 	private var additionalName:String = "";
 	private var areaXName:String = "";
 	
-	public function getAreaObjectX():MovieClip{
-		if(!this.areaObject && _root[this.areaXName]){
-			this.areaObject =_root[this.areaXName];
+	public function compileBounds(areaObject:AreaObject){
+		if(areaObject){
 			var bounds = this.areaObject.getBounds(_root);
 			this.minX = bounds.xMin;
 			this.minY = bounds.yMin;
 			this.maxX = bounds.xMax;
 			this.maxY = bounds.yMax;
-		}else if(this.areaObject){
-			var bounds = this.areaObject.getBounds(_root);
-			//trace("x:"+this._x + " y:" + this._y);
-			//trace("x1:"+bounds.xMin + " y1:" + bounds.yMin);
-			//trace("x2:"+bounds.xMax + " y2:" + bounds.yMax);
 		}
-		return this.areaObject;
 	}
 	
 	public function MovedPlatform(){
@@ -41,13 +33,13 @@
 
 		if(this.lastname.length>=4)this.additionalName = this.lastname.substr(0,4);
 		if(this.lastname.length>=8)this.areaXName = this.lastname.substr(4,8);
-		this.getAreaObjectX();
+		this.compileBounds(_root[this.areaXName]);
 		//trace(this.additionalName + "|" + this.areaXName+"|"+ this.lastname);
 	}
 	
 	public function onEnterFrameNoAction() {
 		super.onEnterFrameNoAction();
-		this.getAreaObjectX();
+		//this.compileBounds();
 		var myBounds = this.getBounds(_root);
 		
 		var myMinX = myBounds.xMin;
