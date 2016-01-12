@@ -124,9 +124,16 @@
 	
 	public function spawn(){
 		this.mcs = new Array(this.mCount);
+		var created:Number = 0;
 		for(var i=0; i<this.mCount; i++){
-			this.mcs[i]=_root.attachMovie(this.mMC, this.mClass, _root.getNextHighestDepth());
-			this.configurateMC(this.mcs[i]);
+			if(_global.abstractLaw.canICreateOneMoreCreatures()){
+				this.mcs[i]=_root.attachMovie(this.mMC, this.mClass, _root.getNextHighestDepth());
+				this.configurateMC(this.mcs[i]);
+				created++;
+			}
+		}
+		if(created==0){
+			deinit();
 		}
 		return this.mcs;
 	}

@@ -36,6 +36,7 @@
 	private var auraContainer:AuraContainer;
 	//===============================
 	private var direction:Boolean;
+	public var active:Boolean = true;
 	public function set direct(b:Boolean){
 		if(!this.counter.notOver){ 
 			this.direction = b;
@@ -235,7 +236,7 @@
 		this.switcher.state = 1;
 		this.initHPLine();
 		if(_global.abstractLaw){
-			_global.addCreatures(this);
+			_global.abstractLaw.addCreatures(this);
 		}
 	}	
 	
@@ -322,9 +323,18 @@
 	//Переопределение
 	public function onEnterFrameAction(){
 		super.onEnterFrameAction();
-		this.keyReading();
-		this.checkForDeath();
-		this.auraContainer.handIteration();
+		if(_global.player==this 
+		|| (Math.abs(_global.player._x-this._x)<Stage.width
+			&& Math.abs(_global.player._y-this._y)<Stage.height
+			)){
+			this.active = true;
+			this.keyReading();
+			this.checkForDeath();
+			this.auraContainer.handIteration();
+		}else{
+			this.active = false;
+			//trace("I am far from you!!")
+		}
 	}
 	
 	//=============================================================================	

@@ -2,7 +2,22 @@
 	public var MaxAttractiveSpeed:Number=55;
 	public var AttractiveForce:Number=4;
 	public var FrictionForce:Number=1;
+	public var MAX_ACTIVE_CREATURES_IN_LEVEL = 4;
 	public var creatures:Array;
+	// getActiveCreaturesLength() MAX_ACTIVE_CREATURES_IN_LEVEL
+	public function canICreateOneMoreCreatures():Boolean{
+		return this.getActiveCreaturesLength()<=MAX_ACTIVE_CREATURES_IN_LEVEL;
+	}
+	
+	public function getActiveCreaturesLength():Number{
+		if(!this.creatures) return 0;
+		var result:Number = 0;
+		for(var i=0; i<this.creatures.length; i++){
+			if(this.creatures[i].active) result++;
+		}
+		//trace("active creatures = "+result+"; length = "+this.creatures.length)
+		return result;
+	}
 	
 	public function forceIteration(){
 		for(var i=0; i<this.length; i++){
@@ -27,9 +42,9 @@
 	
 	private function attractiveForce(i:Number) {
 		//trace("1) Yahooo i'm in!");
-			if(this[i].mov && this[i]!=null){
-				if(this[i].yA<=this.MaxAttractiveSpeed)this[i].yA+=AttractiveForce;
-			}
+		if(this[i].mov && this[i]!=null){
+			if(this[i].yA<=this.MaxAttractiveSpeed)this[i].yA+=AttractiveForce;
+		}
 	}
 	private function frictionForce(i:Number) {
 		//trace("2) Yahooo i'm in!");

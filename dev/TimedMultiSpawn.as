@@ -65,16 +65,18 @@
 	}
 	
 	public function addToSpawn(){
-			var rand = Math.round(Math.random()*100);
-			var i = this.getMCS().length;
-			var newMonstr;
-			if(rand<90){
-				newMonstr = _root.attachMovie(this.mMC, this.mClass, _root.getNextHighestDepth());
-			}else{
-				newMonstr = _root.attachMovie(this.mMC2, this.mClass2, _root.getNextHighestDepth());
+			if(_global.abstractLaw.canICreateOneMoreCreatures()){
+				var rand = Math.round(Math.random()*100);
+				var i = this.getMCS().length;
+				var newMonstr;
+				if(rand<90){
+					newMonstr = _root.attachMovie(this.mMC, this.mClass, _root.getNextHighestDepth());
+				}else{
+					newMonstr = _root.attachMovie(this.mMC2, this.mClass2, _root.getNextHighestDepth());
+				}
+				this.getMCS().push(_global.abstractLaw.getGameObject(newMonstr._name));
+				this.configurateMC(newMonstr);
+				this.getMCS()[i]._alpha=0;
 			}
-			this.getMCS().push(_global.abstractLaw.getGameObject(newMonstr._name));
-			this.configurateMC(newMonstr);
-			this.getMCS()[i]._alpha=0;
 	}
 }
