@@ -11,6 +11,7 @@
 	public         var lastname:String;
 	
 	public var myPrivateObjList = null;
+	public var stopBounds = null;
 	
 	public static function get count():Number{
 		return GameObjectCount;
@@ -245,6 +246,7 @@
 	}
 		
 	private var bottomMargin:Number = 3;
+	// I dont know what i am doing hear! I am crazy! It can be optimized!
 	public function permissionToMov(np:Point):Point{
 		var left:Boolean = false;
 		var right:Boolean = false;
@@ -255,21 +257,20 @@
 		var ry = np.y;
 		var nWidth = this._width;
 		var nHeight = this._height;
-		var temp1 = this.getBounds(_root);
+		var myBounds = this.getBounds(_root);
 		var downObject = null;
-		
+		var nXMin = myBounds.xMin + np.x;
+		var nYMin = myBounds.yMin + np.y-bottomMargin;
 		var objList = (this.myPrivateObjList ? this.myPrivateObjList : _global.abstractLaw);
 		
 		for(var i=0; i<objList.length; i++){
-			if(objList[i]!=null && objList[i].calcObj && objList[i]!=this && (takeObject(objList[i]))){
-				var nXMin = temp1.xMin + np.x;
-				var nYMin = temp1.yMin + np.y-bottomMargin;
-				var temp2 = objList[i].getBounds(_root);
-				if((nXMin >= temp2.xMin - nWidth)&&(nYMin >= temp2.yMin - nHeight)&&(nXMin <= temp2.xMax)&&(nYMin <= temp2.yMax)){
-					var razn1 = nXMin - (temp2.xMin - nWidth);
-					var razn2 = nYMin - (temp2.yMin - nHeight);
-					var razn3 = temp2.xMax - nXMin;
-					var razn4 = temp2.yMax - nYMin;
+			if(objList[i]!=null && objList[i].calcObj && objList[i]!=this && (takeObject(objList[i]))){		
+				var objBounds = objList[i].getBounds(_root);
+				if((nXMin >= objBounds.xMin - nWidth)&&(nYMin >= objBounds.yMin - nHeight)&&(nXMin <= objBounds.xMax)&&(nYMin <= objBounds.yMax)){
+					var razn1 = nXMin - (objBounds.xMin - nWidth);
+					var razn2 = nYMin - (objBounds.yMin - nHeight);
+					var razn3 = objBounds.xMax - nXMin;
+					var razn4 = objBounds.yMax - nYMin;
 					var thisDown = false;
 					
 					if((razn1 <= razn2)&&(razn1 <= razn3)&&(razn1 <= razn4)){
@@ -295,6 +296,10 @@
 					}
 				}
 			}	
+		}
+		if(this.stopBounds){
+			if(myBounds.xMin+rx<this.stopBounds.minX)rx = this.stopBounds.minX - myBounds.xMin;
+			if(myBounds.xMax+rx>this.stopBounds.maxX)rx = this.stopBounds.maxX - myBounds.xMax;
 		}
 		return new Point(rx,ry,up,down,left,right,downObject);
 	}

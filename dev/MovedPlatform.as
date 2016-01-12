@@ -14,7 +14,7 @@
 	
 	public function compileBounds(areaObject:AreaObject){
 		if(areaObject){
-			var bounds = this.areaObject.getBounds(_root);
+			var bounds = areaObject.getBounds(_root);
 			this.minX = bounds.xMin;
 			this.minY = bounds.yMin;
 			this.maxX = bounds.xMax;
@@ -30,7 +30,7 @@
 		this.triggerY = (Math.round(Math.random()*10)>5);
 		//this.speedX = 1+Math.round(Math.random()*9);
 		//this.speedY = 1+Math.round(Math.random()*4);
-
+		
 		if(this.lastname.length>=4)this.additionalName = this.lastname.substr(0,4);
 		if(this.lastname.length>=8)this.areaXName = this.lastname.substr(4,8);
 		this.compileBounds(_root[this.areaXName]);

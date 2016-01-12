@@ -6,8 +6,8 @@
 			var object = _root["gameobject"+i];
 			if(object){
 				if(object.areaXName 
-				&& object.areaXName==this._name 
-				/*&& _global.abstractLaw[i].compileBounds*/) object.compileBounds(this);
+				&& object.areaXName==this._name
+				) object.compileBounds(this);
 			}
 		}
 	}

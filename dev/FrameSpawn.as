@@ -49,6 +49,16 @@
 	}
 	
 	private function configurateMC(a){
+		super.configurateMC(a);
+		if(!this.stopBounds){
+			this.stopBounds = { 
+				minX: this._x-Stage.width/2,
+				minY: this._y-Stage.height/2,
+				maxX: this._x+Stage.width/2,
+				maxY: this._x+Stage.height/2
+			};
+			a.stopBounds = this.stopBounds;
+		}
 		var rand = Math.round(Math.random()*2);
 		if(rand==2){
 			a._x = _global.abstractLaw.stageBounds.xMax;
@@ -61,8 +71,5 @@
 			a.xA = -50;
 			a.yA = -50;
 		}
-		a._y=this._y;
-		var k:Number=(Math.random()*0.4+0.2);
-		a.setScale(k);
 	}
 }
