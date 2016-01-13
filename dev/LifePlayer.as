@@ -40,20 +40,20 @@
 	private function alphaChaose(){
 		if(this.dontTuchMe.notOver){
 			if(alphatrigger){
-				if(this._color.red<50){
+				if(this._color.red>150){
 					alphatrigger=false;
-				}else{
-					this._color.red-=10;
-					this._color.green+=10;
-					this._color.blue+=10;
-				}
-			}else{
-				if(this._color.red>100){
-					alphatrigger=true;
 				}else{
 					this._color.red+=10;
 					this._color.green-=10;
 					this._color.blue-=10;
+				}
+			}else{
+				if(this._color.red<100){
+					alphatrigger=true;
+				}else{
+					this._color.red-=10;
+					this._color.green+=10;
+					this._color.blue+=10;
 				}
 			}
 		}else if(this._color.red!=100){

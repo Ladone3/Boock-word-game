@@ -276,20 +276,20 @@
 					if((razn1 <= razn2)&&(razn1 <= razn3)&&(razn1 <= razn4)){
 						rx = rx - razn1;
 						right = true;
-						if(objList[i].mov)objList[i].xA += this.xA/2;	
+						if(objList[i].mov && !(objList[i] instanceof Player))objList[i].xA += this.xA/2;	
 					}else if((razn2 <= razn1)&&(razn2 <= razn3)&&(razn2 <= razn4)){
 						ry = ry - razn2;
 						down = true;
 						thisDown = true;
-						if(objList[i].mov)objList[i].xA += -this.xA/4;
+						if(objList[i].mov && !(objList[i] instanceof Player))objList[i].xA += -this.xA/4;
 					}else if((razn3 <= razn1)&&(razn3 <= razn2)&&(razn3 <= razn4)){
 						rx = rx + razn3;
 						left = true; 
-						if(objList[i].mov)objList[i].xA += this.xA/2;
+						if(objList[i].mov && !(objList[i] instanceof Player))objList[i].xA += this.xA/2;
 					}else if((razn4 <= razn1)&&(razn4 <= razn2)&&(razn4 <= razn3)){
 						ry = ry + razn4;
 						up = true;
-						if(objList[i].mov)objList[i].xA += this.xA;	
+						if(objList[i].mov && !(objList[i] instanceof Player))objList[i].xA += this.xA;	
 					}
 					if(thisDown){
 						downObject = objList[i];

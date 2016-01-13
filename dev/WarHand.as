@@ -6,6 +6,9 @@
 	public var damage:Number;
 	public var distance:Number = 6;	
 	private var chieldBullet:MovieClip;
+	// Объект трансформер цветов
+	public var _color:ColorTransformer;
+	
 	public function get cmc():MovieClip{
 		return this.chieldBullet;
 	}
@@ -25,6 +28,7 @@
 
 	public function WarHand(){
 		this.counter = new Counter();
+		this._color = new ColorTransformer(this);
 	}
 	
 	public function create(parentMovieClip:MovieClip, parentSwitcher:Switcher, direction:Boolean, d:Number){

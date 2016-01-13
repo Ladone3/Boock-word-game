@@ -8,6 +8,7 @@
 	private var kFight:Number = 32;
 	private var kJump:Number  = 38;
 	
+	
 	//private var kUp:Number    = 87;
 	//private var kDown:Number  = 83;
 	//private var kLeft:Number  = 65;
@@ -35,6 +36,9 @@
 	private var indic:MovieClip;
 	private var auraContainer:AuraContainer;
 	//===============================
+	private var ACTIVE_K_X_DIST = 1;
+	private var ACTIVE_K_Y_DIST = 1;
+	
 	private var direction:Boolean;
 	public var active:Boolean = true;
 	public function set direct(b:Boolean){
@@ -324,8 +328,8 @@
 	public function onEnterFrameAction(){
 		super.onEnterFrameAction();
 		if(_global.player==this 
-		|| (Math.abs(_global.player._x-this._x)<Stage.width
-			&& Math.abs(_global.player._y-this._y)<Stage.height
+		|| (Math.abs(_global.player._x-this._x)<Stage.width*ACTIVE_K_X_DIST
+			&& Math.abs(_global.player._y-this._y)<Stage.height*ACTIVE_K_Y_DIST
 			)){
 			this.active = true;
 			this.keyReading();

@@ -59,6 +59,58 @@
 	}
 	
 	//Переопределение
+	private function alphaChaose(){
+		if(this.dontTuchMe.notOver){
+			if(alphatrigger){
+				if(this._color.red>150){
+					alphatrigger=false;
+				}else{
+					this._color.red+=10;
+					this._color.green-=10;
+					this._color.blue-=10;
+					
+					this.ladoneHandL._color.red+=10;
+					this.ladoneHandL._color.green-=10;
+					this.ladoneHandL._color.blue-=10;
+					
+					this.ladoneHandR._color.red+=10;
+					this.ladoneHandR._color.green-=10;
+					this.ladoneHandR._color.blue-=10;
+					
+				}
+			}else{
+				if(this._color.red<100){
+					alphatrigger=true;
+				}else{
+					this._color.red-=10;
+					this._color.green+=10;
+					this._color.blue+=10;
+					
+					this.ladoneHandL._color.red-=10;
+					this.ladoneHandL._color.green+=10;
+					this.ladoneHandL._color.blue+=10;
+					
+					this.ladoneHandR._color.red-=10;
+					this.ladoneHandR._color.green+=10;
+					this.ladoneHandR._color.blue+=10;
+				}
+			}
+		}else if(this._color.red!=100){
+			this._color.red = 100;
+			this._color.green = 100;
+			this._color.blue = 100;
+			
+			this.ladoneHandL._color.red = 100;
+			this.ladoneHandL._color.green = 100;
+			this.ladoneHandL._color.blue = 100;
+			
+			this.ladoneHandR._color.red = 100;
+			this.ladoneHandR._color.green = 100;
+			this.ladoneHandR._color.blue = 100;
+		}
+	}
+	
+	//Переопределение
 	public function initHPLine(){
 		this.hpline = _root.attachMovie("LineOfHealth", "HPLineView", _root.getNextHighestDepth());
 		this.hpline._xScale =30;

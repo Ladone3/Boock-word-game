@@ -7,7 +7,9 @@
 	public var radius:Number = 20;
 	public var hpmax:Number = 360;
 	public var stunDelay:Number = 10;
-
+	private var ACTIVE_K_X_DIST = 3;
+	private var ACTIVE_K_Y_DIST = 3;
+	
 	// Переопределение
 	public function getBrain():Intellect{
 		return new GhostIntellect(this);
