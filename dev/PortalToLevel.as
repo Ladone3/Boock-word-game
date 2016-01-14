@@ -1,11 +1,11 @@
 ﻿class PortalToLevel extends GameObject{
 	private var nocatch:Boolean = true;
 	public function PortalToLevel(){
+		this.calcObj = false;
 	}
 	
 	//Переопределение
 	public function onEnterFrame(){
-		this.calcObj = false;
 		if(this.nocatch)this.onEnterFrameCatchPlayer();
 	}
 	

@@ -19,7 +19,7 @@
 		var nHeight = this._height;
 		var temp1 = this.getBounds(_root);
 		if(_global.player!=null){
-				if(this.hitTest(_global.player)&&(_root._color.brightness>=100)){
+				if(this.hitTest(_global.player)){
 					_global.player.youMayTuchMe();
 					_global.player.setDamage(_global.player.hpline.HPM/4);
 					if(_global.player.hpline.HP>0)_global.abstractLaw.movePlayerToLastPlace();
