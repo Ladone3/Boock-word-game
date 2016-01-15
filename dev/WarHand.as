@@ -50,10 +50,10 @@
 		if(this.direction == direction){
 			if(this.direction){
 				this.switcher.state = 11;
-				this.chieldBullet.StartMace(0, 50, this._x+50, this._y,this.damage,this.distance, this);
+				this.chieldBullet.StartMace(0, 50, this._x+20, this._y,this.damage,this.distance, this);
 			}else{
 				this.switcher.state = 12;
-				this.chieldBullet.StartMace(180, 50, this._x-50, this._y,this.damage,this.distance,this);
+				this.chieldBullet.StartMace(180, 50, this._x-20, this._y,this.damage,this.distance,this);
 			}
 		}
 		this.counter.delay = 10;
@@ -92,10 +92,10 @@
 		if(this.direction == direction){
 			if(this.direction){
 				this.switcher.state = 21;
-				this.chieldBullet.StartMace(315, 50, this._x+100, this._y+100,this.damage,this.distance,this);
+				this.chieldBullet.StartMace(315, 50, this._x+20, this._y+20,this.damage,this.distance,this);
 			}else{
 				this.switcher.state = 22;
-				this.chieldBullet.StartMace(225, 50, this._x-100, this._y+100,this.damage,this.distance,this);
+				this.chieldBullet.StartMace(225, 50, this._x-20, this._y+20,this.damage,this.distance,this);
 			}
 		}
 		this.counter.delay = 10;
@@ -106,10 +106,10 @@
 		if(this.direction == direction){
 			if(this.direction){
 				this.switcher.state = 15;
-				this.chieldBullet.StartMace(45, 50, this._x+100, this._y-100,this.damage,this.distance,this);
+				this.chieldBullet.StartMace(45, 50, this._x+20, this._y-20,this.damage,this.distance,this);
 			}else{
 				this.switcher.state = 16;
-				this.chieldBullet.StartMace(135, 50, this._x-100, this._y-100,this.damage,this.distance,this);
+				this.chieldBullet.StartMace(135, 50, this._x-20, this._y-20,this.damage,this.distance,this);
 			}
 		}
 		this.counter.delay = 10;
