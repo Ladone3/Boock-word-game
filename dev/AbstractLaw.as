@@ -135,25 +135,54 @@
 	public var borderYMax:Number = Stage.height*(3/5);
 	public var stageBounds = { xMax: (Stage.width), xMin: (0), yMax: (Stage.height), yMin: (0)};
 	public var stopFrame:Boolean = false;
+	public var cameraSpid:Number = 20;
+	public var cameraThreshold = 40;
+	public var idealCameraXY = null; // { ix: 0; iy: 0};
+	
+	public function noNoYouEvenSoMayMoved(offset){
+		var xoffset = 0;
+		var yoffset = 0;
+		if(idealCameraXY){
+			var cx = this.stageBounds.xMin + Stage.width/2;
+			var cy = this.stageBounds.yMin + Stage.height/2;
+			if(cx<idealCameraXY.ix && offset.x>0){
+				if(cx+offset.x<idealCameraXY.ix){
+					xoffset = offset.x;
+				}else{
+					xoffset = idealCameraXY.ix-cx;
+				}
+			}
+		    if(cx>idealCameraXY.ix && offset.x<0){
+				if(cx+offset.x>idealCameraXY.ix){
+					xoffset = offset.x;
+				}else{
+					xoffset = idealCameraXY.ix-cx;
+				}
+			}
+			if(cy<idealCameraXY.iy && offset.y>0){
+				if(cy+offset.y<idealCameraXY.iy){
+					yoffset = offset.y;
+				}else{
+					yoffset = idealCameraXY.iy-cy;
+				}
+			}
+		    if(cy>idealCameraXY.iy && offset.y<0){
+				if(cy+offset.y>idealCameraXY.iy){
+					yoffset = offset.y;
+				}else{
+					yoffset = idealCameraXY.iy-cy;
+				}
+			}
+		}
+		return { x: xoffset, y: yoffset };
+	}
 	
 	//public var traceClip1; public var traceClip2;
 	public function chaseCamera(){
 		this.stageBounds = { xMax: (Stage.width-_root._x), xMin: (-_root._x), yMax: (Stage.height-_root._y), yMin: (-_root._y)};
-		/*		
-		if(!traceClip1){
-			traceClip1 = _root.attachMovie("Target", "TraceTarget1", _root.getNextHighestDepth());
-		}else{
-			traceClip1._x = this.stageBounds.xMin+200;
-			traceClip1._y = this.stageBounds.yMin+200;
-		}
-		if(!traceClip2){
-			traceClip2 = _root.attachMovie("Target", "TraceTarget2", _root.getNextHighestDepth());
-		}else{
-			traceClip2._x = this.stageBounds.xMax-200;
-			traceClip2._y = this.stageBounds.yMax-200;
-		}
-		*/
-		if(stopFrame){
+		var offset = this.getCameraOffset(this.stageBounds);
+		if(stopFrame) offset = this.noNoYouEvenSoMayMoved(offset);
+		if(stopFrame && (offset.x==0)){
 			var pbounds = _global.player.getBounds(_root);
 			if(pbounds.xMin<stageBounds.xMin){
 				_global.player._x += stageBounds.xMin - pbounds.xMin;
@@ -170,60 +199,58 @@
 			}
 			*/
 		}else{
-			if(_global.player._x < this.borderXMin){
-				//trace("stageBounds.xMin = "+stageBounds.xMin + " this.cameraBorder.xMin = "+this.cameraBorder.xMin);
-				if(this.cameraBorder==0 || this.cameraBorder.xMin < stageBounds.xMin){
-					var xoffset = (this.borderXMin - _global.player._x);
-					_root._x+=xoffset;
-					
-					_global.player.hpline._x -= xoffset;
-					this.MenuPlace._x -= xoffset;
-					this.fonImage._x -= (xoffset)*xfonOffsetDelay;
-					this.borderXMin -= xoffset;
-					this.borderXMax -= xoffset;
-				}
+			if(offset.x!=0){
+				_root._x+=offset.x;
+				_global.player.hpline._x -= offset.x;
+				this.MenuPlace._x -= offset.x;
+				this.fonImage._x -= (offset.x)*xfonOffsetDelay;
+				this.borderXMin -= offset.x;
+				this.borderXMax -= offset.x;
 			}
-			if(_global.player._x > this.borderXMax){
-				//trace("stageBounds.xMax = "+stageBounds.xMax + " this.cameraBorder.xMax = "+this.cameraBorder.xMax);
-				if(this.cameraBorder==0 || this.cameraBorder.xMax > stageBounds.xMax){
-					var xoffset = (_global.player._x - this.borderXMax);
-					_root._x-=xoffset;
-					
-					_global.player.hpline._x += xoffset;
-					
-					this.MenuPlace._x += xoffset;
-					this.fonImage._x += (xoffset)*xfonOffsetDelay;
-					this.borderXMin += xoffset;
-					this.borderXMax += xoffset;
-				}
-			}
-			if(_global.player._y < this.borderYMin){
-				if(this.cameraBorder==0 || this.cameraBorder.yMin < stageBounds.yMin){
-					var yoffset = (this.borderYMin-_global.player._y);
-					_root._y+= yoffset;
-				
-					_global.player.hpline._y -= yoffset;
-					this.MenuPlace._y -= yoffset;
-					this.fonImage._y -= (yoffset)*yfonOffsetDelay;
-					this.borderYMin -= yoffset;
-					this.borderYMax -= yoffset;
-				}
-			}
-			if(_global.player._y > this.borderYMax){
-				if(this.cameraBorder==0 || this.cameraBorder.yMax > stageBounds.yMax){
-					var yoffset = (_global.player._y-this.borderYMax);
-					_root._y-= yoffset;
-				
-					_global.player.hpline._y += yoffset;
-					this.MenuPlace._y += yoffset;
-					this.fonImage._y += (yoffset)*yfonOffsetDelay;
-					this.borderYMin += yoffset;
-					this.borderYMax += yoffset;
-				}
+			if(offset.y!=0){
+				_root._y+= offset.y;
+				_global.player.hpline._y -= offset.y;
+				this.MenuPlace._y -= offset.y;
+				this.fonImage._y -= (offset.y)*yfonOffsetDelay;
+				this.borderYMin -= offset.y;
+				this.borderYMax -= offset.y;
 			}
 		}
 	}
 	
+	public function getCameraOffset(stageBounds){
+		var xoffset = 0;
+		var yoffset = 0;
+		
+		if(_global.player._x < this.borderXMin){
+			//trace("stageBounds.xMin = "+stageBounds.xMin + " this.cameraBorder.xMin = "+this.cameraBorder.xMin);
+			if(this.cameraBorder==0 || this.cameraBorder.xMin < stageBounds.xMin){
+				xoffset = (this.borderXMin - _global.player._x);
+				if(cameraThreshold<=xoffset) xoffset = cameraSpid;
+			}
+		}
+		if(_global.player._x > this.borderXMax){
+			//trace("stageBounds.xMax = "+stageBounds.xMax + " this.cameraBorder.xMax = "+this.cameraBorder.xMax);
+			if(this.cameraBorder==0 || this.cameraBorder.xMax > stageBounds.xMax){
+				xoffset = -(_global.player._x - this.borderXMax);
+				if(cameraThreshold<=-xoffset) xoffset = -cameraSpid;
+			}
+		}
+		if(_global.player._y < this.borderYMin){
+			if(this.cameraBorder==0 || this.cameraBorder.yMin < stageBounds.yMin){
+				yoffset = (this.borderYMin-_global.player._y);
+				if(cameraThreshold<=yoffset) yoffset = cameraSpid;
+			}
+		}
+		if(_global.player._y > this.borderYMax){
+			if(this.cameraBorder==0 || this.cameraBorder.yMax > stageBounds.yMax){
+				yoffset = -(_global.player._y-this.borderYMax);
+				if(cameraThreshold<=-yoffset) yoffset = -cameraSpid;
+			}
+		}
+		//trace("offset_x: "+xoffset+" offset_y: "+yoffset);
+		return { x: xoffset, y: yoffset };
+	}
 	
 	// Поиск игрока в радиусе (Пока одного)
 	//=============================================================================	

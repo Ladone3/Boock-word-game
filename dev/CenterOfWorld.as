@@ -37,7 +37,6 @@
 		}
 	}
 	
-	
 	public function goToAndStopFrame(frame:Number){
 		_global.last_level = _root._currentframe;
 		_global.player.youMayTuchMe();
