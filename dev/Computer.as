@@ -56,7 +56,7 @@
 	}
 	
 	// Переопределение	
-	public function getSwitcher():Switcher{
+	public function createSwitcher():Switcher{
 		return new Switcher(20,this,this.counter);
 	}
 	

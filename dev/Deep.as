@@ -22,7 +22,7 @@
 				if(this.hitTest(_global.player)){
 					_global.player.youMayTuchMe();
 					_global.player.setDamage(_global.player.hpline.HPM/4);
-					if(_global.player.hpline.HP>0)_global.abstractLaw.movePlayerToLastPlace();
+					_global.abstractLaw.movePlayerToLastPlace();
 				}
 		}
 	}

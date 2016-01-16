@@ -46,6 +46,7 @@
 			this.direction = b;
 		}
 	}
+	
 	public function get direct():Boolean{
 		return this.direction;
 	}
@@ -226,13 +227,17 @@
 	}	
 	
 	public function getSwitcher():Switcher{
+		return this.switcher;
+	}
+	
+	public function createSwitcher():Switcher{
 		return new Switcher(26,this,this.counter);
 	}
 	
 	public function Player(){
 		this.auraContainer = new AuraContainer(this);
 		this.counter = new Counter();
-		this.switcher = getSwitcher();
+		this.switcher = createSwitcher();
 		this.mov = true;
 		this.inAero = true;
 		this.direct = true;

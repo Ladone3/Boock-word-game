@@ -72,19 +72,21 @@
 
 	//Переопределение
 	private function lifeOrDie(){
-		if(!life){
+		if((!life) && (!_global.LOT)){
 			_root["CenterOfWorld"].goToLimbo();
 		}
 	}
-
+	
+	private var onceChange:Boolean = true;
 	//Переопределение
-	public function setDie(){
-		this.counter.delay = 0;
-		if(this.direct){
-			this.switcher.state = 13;
-		}else{
-			this.switcher.state = 14;
+	private function checkForDeath(){
+		if(this.hpline && this.hpline.HP!=undefined && this.hpline.HP<=0 && this.life && this.onceChange){
+			this.onceChange = false;
+			var powerdown = _root.attachMovie("PowerDown", "PowerDown", _root.getNextHighestDepth());
+			trace("create changer");
+			powerdown.visible = false;
+			powerdown._x = this._x;
+			powerdown._y = this._y;
 		}
-		this.counter.delay = 100;
 	}
 }

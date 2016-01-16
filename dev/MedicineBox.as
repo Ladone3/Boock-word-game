@@ -9,7 +9,7 @@
 	public function MedicineBox(){
 		this.mov = true;
 		this.used = false;
-		this.pow = 100;
+		this.pow = 200;
 		this.counter = new Counter();
 	}
 	

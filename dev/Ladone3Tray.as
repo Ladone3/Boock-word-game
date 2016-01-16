@@ -18,9 +18,9 @@
 	//===============================
 	private var jumpPower:Number = 30;
 	private var runPower:Number = 6;
-	public var damage:Number = 40;
+	public var damage:Number = 30;
 	public var radius:Number = 10;
-	public var hpmax:Number = 300;
+	public var hpmax:Number = 150;
 	
 	// Переопределение	
 	public function getType():Number{
