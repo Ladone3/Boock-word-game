@@ -4,7 +4,7 @@
 	private var jumpPower:Number = 35;
 	private var runPower:Number = 10;
 	public var damage:Number = 50;
-	public var radius:Number = 20;
+	public var radius:Number = 15;
 	public var hpmax:Number = 360;
 	public var stunDelay:Number = 10;
 	private var ACTIVE_K_X_DIST = 3;
@@ -37,6 +37,8 @@
 
 	public function createBullet(){
 		var chieldBullet = _root.attachMovie("GhostBullet", "ghostbullet"+(Bullet.count), _root.getNextHighestDepth());
+		chieldBullet._xscale = this._xscale;
+		chieldBullet._yscale = this._yscale;
 		var d = _global.abstractLaw.getOffsets(this);
 		/*var angl = (Math.atan2(
 				(brain.getDistance().xo),
@@ -58,7 +60,7 @@
 	}
 
 	//Переопределение
-	/*public function blow(){
+	public function blow(){
 		if(stayOrNo!=0){
 			fastBlow();
 		}else{
@@ -66,7 +68,7 @@
 		}
 		stayOrNo++;
 		if(stayOrNo>3)stayOrNo=0;
-	}*/
+	}
 
 	//Переопределение
 	public function fastBlow(){
@@ -157,7 +159,42 @@
 			}else{
 				setfreeState();
 			}
+			if(this.frameOutDamage>5000){
+				this.teleport();
+			}else{
+				this.frameOutDamage++;
+			}
 		}
+	}
+	
+	private frameoutTeleport:Number = 0;
+	private frameoutDamageTeleport:Number = 0;
+	public function setDamage(d:Number,dd:Boolean){
+		super.setDamage(d,dd);
+		if(this.frameOutDamage>4){
+			this.teleport();
+		}else{
+			this.frameOutDamage++;
+		}
+	}
+	
+	public function teleport(){
+		var animation1 = _root.attachMovie("AnyAnimation", "SimpleAnimation", _root.getNextHighestDepth());
+		animation1._xscale = this._xscale;
+		animation1._yscale = this._yscale;
+		animation1._x = this._x;
+		animation1._y = this._y;
+		
+		this.frameOutDamage=0;
+		var coord = this.brain.getNeededDistance();
+		this._x = coord.dx;
+		this._y = coord.dy;
+		
+		var animation2 = _root.attachMovie("AnyAnimation", "SimpleAnimation", _root.getNextHighestDepth());
+		animation2._xscale = this._xscale;
+		animation2._yscale = this._yscale;
+		animation2._x = this._x;
+		animation2._y = this._y;
 	}
 
 }

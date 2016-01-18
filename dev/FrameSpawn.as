@@ -33,7 +33,7 @@
 			}
 			allSpawnersTrue = true;
 			for(var i=0; i<this.mCount; i++){	
-				if(this.getMCS()[i] && this.getMCS()[i].hpline && this.getMCS()[i].hpline.HP>0){
+				if(this.getMCS()[i] && this.getMCS()[i].hpline && this.getMCS()[i].hpline.HP>0 && this.getMCS()[i].active){
 					this.allSpawnersTrue = false;
 					if(this.getMCS()[i]._alpha<100){
 						this.getMCS()[i]._alpha+=10;
