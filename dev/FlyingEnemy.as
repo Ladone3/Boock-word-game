@@ -1,26 +1,6 @@
 ﻿class FlyingEnemy extends Computer{
 
 	//Переопределение
-	public function onEnterFrameAction(){
-		super.onEnterFrameAction();
-		this.hpline.treatment(0.2);
-		if(this.xA!=0){
-			if(this.xA>0){
-				this.xA--;
-			}else{
-				this.xA++;
-			}
-		}
-		if(this.yA!=0){
-			if(this.yA>0){
-				this.yA--;
-			}else{
-				this.yA++;
-			}
-		}
-	}
-
-	//Переопределение
 	private function aeroState(nameValue:String, lastState:Boolean, newState:Boolean, dop):Boolean{
 		this.inAero = false;
 		return this.inAero;

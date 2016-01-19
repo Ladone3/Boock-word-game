@@ -9,16 +9,40 @@
 	public var stunDelay:Number = 10;
 	private var ACTIVE_K_X_DIST = 3;
 	private var ACTIVE_K_Y_DIST = 3;
+	private	var ghostIntellect:GhostIntellect = null;
+	
+	//Переопределение
+	public function onEnterFrameAction(){
+		super.onEnterFrameAction();
+		this.hpline.treatment(0.2);
+		if(this.xA!=0){
+			if(this.xA>0){
+				this.xA--;
+			}else{
+				this.xA++;
+			}
+		}
+		if(this.yA!=0){
+			if(this.yA>0){
+				this.yA--;
+			}else{
+				this.yA++;
+			}
+		}
+	}
 	
 	// Переопределение
+	
 	public function getBrain():Intellect{
-		return new GhostIntellect(this);
+		this.ghostIntellect = new GhostIntellect(this);
+		return this.ghostIntellect;
 	}
+	
 
 	public function createBullet(){
 		var chieldBullet = _root.attachMovie("GhostBullet", "ghostbullet"+(Bullet.count), _root.getNextHighestDepth());
 		chieldBullet._xscale = this._xscale;
-		chieldBullet._yscale = this._yscale;
+		chieldBullet._yscale = this._xscale;
 		var d = _global.abstractLaw.getOffsets(this);
 		/*var angl = (Math.atan2(
 				(brain.getDistance().xo),
@@ -65,44 +89,4 @@
 		}
 		this.counter.delay=10;
 	}
-
-	public function keyReading(){
-		super.keyReading();
-		if(this.frameoutTeleport>5000 && !this.counter.notOver){
-			this.teleport();
-		}else{
-			this.frameoutTeleport++;
-		}
-	}
-	
-	private frameoutTeleport:Number = 0;
-	private frameoutDamageTeleport:Number = 0;
-	public function setDamage(d:Number,dd:Boolean){
-		super.setDamage(d,dd);
-		if(this.frameOutDamage>4){
-			this.teleport();
-		}else{
-			this.frameOutDamage++;
-		}
-	}
-	
-	public function teleport(){
-		var animation1 = _root.attachMovie("AnyAnimation", "SimpleAnimation", _root.getNextHighestDepth());
-		animation1._xscale = this._xscale;
-		animation1._yscale = this._yscale;
-		animation1._x = this._x;
-		animation1._y = this._y;
-		
-		this.frameOutDamage=0;
-		var coord = this.brain.getNeededDistance();
-		this._x = coord.dx;
-		this._y = coord.dy;
-		
-		var animation2 = _root.attachMovie("AnyAnimation", "SimpleAnimation", _root.getNextHighestDepth());
-		animation2._xscale = this._xscale;
-		animation2._yscale = this._yscale;
-		animation2._x = this._x;
-		animation2._y = this._y;
-	}
-
 }

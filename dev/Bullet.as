@@ -81,12 +81,12 @@
 		this.velocity = velocity;
 		this.xSpeed = this.velocity*Math.cos((this.angle*Math.PI)/180);
 		this.ySpeed = -this.velocity*Math.sin((this.angle*Math.PI)/180);
-		if(angle>90 || angle<-90){
-			this._yscale = -100;
-		}
 		this._visible = true;
 		this.switcher.state = 1;
 		this._rotation = -angle;
+		if(angle>90 || angle<-90){
+			this._yscale = -this._yscale;
+		}
 		this.damage = d;
 	}
 

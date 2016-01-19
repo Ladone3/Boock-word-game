@@ -20,7 +20,7 @@
 	private var runPower:Number = 6;
 	public var damage:Number = 30;
 	public var radius:Number = 10;
-	public var hpmax:Number = 150;
+	public var hpmax:Number = 150000;
 	
 	// Переопределение	
 	public function getType():Number{
