@@ -166,5 +166,10 @@
 		this.counter.iterateCounter();
 		this._x = this.parentMovieClip._x;
 		this._y = this.parentMovieClip._y;
-	}		
+	}
+
+	public function removeMovieClip(){
+		this.cmc.remove();
+		super.removeMovieClip();
+	}
 }
