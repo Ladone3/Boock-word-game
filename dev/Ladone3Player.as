@@ -146,7 +146,7 @@
 			}else if(this.xBoost>0){
 				this.xBoost -= runPower*2.5;
 			}
-			this.switcher.state = 18;
+			this.switcher.state = 19;
 		}else{
 			if(this.xBoost>-runPower  && this.xBoost<=0){
 				this.xBoost = -runPower;
@@ -173,7 +173,7 @@
 			}else if(this.xBoost<0){
 				this.xBoost += runPower*2.5;
 			}
-			this.switcher.state = 19;
+			this.switcher.state = 20;
 		}else{
 			if(this.xBoost<runPower && this.xBoost>=0){
 				this.xBoost = runPower;

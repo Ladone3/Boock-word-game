@@ -5,11 +5,11 @@
 	public var STEP:Number = 1;
 	public var ANGLE_STEP:Number = 0.01;
 	public var MIN_X_DISTANCE = 0;
-	public var MAX_X_DISTANCE = 600;
-	public var MIN_Y_DISTANCE = -600;
+	public var MAX_X_DISTANCE = 500;
+	public var MIN_Y_DISTANCE = -500;
 	public var MAX_Y_DISTANCE = 0;
-	public var DIST_ERROR = 600;
-	public var DIST_SUPER_ERROR = 400;
+	public var DIST_ERROR = 400;
+	public var DIST_SUPER_ERROR = 200;
 
 	public function GhostIntellect(slave:Computer){
 		super(slave);
@@ -45,6 +45,26 @@
 	}
 
 	//private var traceClip;
+	public function getNeededXY(){
+		this.iterateNeededDistance();
+		this.angleITerator+=ANGLE_STEP;
+		var dx = Math.sin(this.angleITerator)*this.currentNeededXDistance;
+		var dy = -Math.abs(Math.cos(this.angleITerator))*this.currentNeededYDistance;
+		var result = {
+			x:_global.player._x - dx,
+			y:_global.player._y - dy
+		};
+		/*
+		if(!traceClip){
+			traceClip = _root.attachMovie("Target", "TraceTarget", _root.getNextHighestDepth());
+		}else{
+			traceClip._x = result.dx;
+			traceClip._y = result.dy;
+		}
+		*/
+		return result;
+	}
+	
 	public function getNeededDistance(){
 		this.iterateNeededDistance();
 		this.angleITerator+=ANGLE_STEP;

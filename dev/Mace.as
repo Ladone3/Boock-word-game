@@ -72,6 +72,10 @@
 	
 	public function StartMace(angle:Number, velocity:Number, x:Number, y:Number, d:Number, dd:Number, parentMovieClip:MovieClip){
 		this.parentMovieClip = parentMovieClip;
+		if(!this.parentMovieClip){
+			this.remove();
+			return;
+		}
 		//this._xscale = this.parentMovieClip._xscale;
 		//this._yscale = this.parentMovieClip._yscale;
 		this._x = x;
@@ -165,8 +169,8 @@
 	}
 	
 	public function remove(){
-		if((Math.abs(this._x-this.parentMovieClip._x)<100) && (Math.abs(this._y-this.parentMovieClip._y)<200)){
-			this.parentMovieClip.cmc = null;
+		if((!this.parentMovieClip)||((Math.abs(this._x-this.parentMovieClip._x)<100) && (Math.abs(this._y-this.parentMovieClip._y)<200))){
+			if(this.parentMovieClip)this.parentMovieClip.cmc = null;
 			this.drawRope(false);
 			if(this.ID!=(MaceCount-1)){
 				var del = this;
@@ -241,6 +245,10 @@
 	}
 	
 	public function onIterate():Boolean{
+		if(!this.parentMovieClip){
+			this.remove();
+			return;
+		}
 		var temp:Boolean = false;
 		if((this._x < (_global.abstractLaw.borderX1-_global.abstractLaw.widthWindow*(3/5)))
 		|| (this._x > _global.abstractLaw.borderX2+_global.abstractLaw.widthWindow*(3/5))

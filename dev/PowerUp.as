@@ -6,11 +6,7 @@
 	
 	// Переопределение
 	public function doTeleportation(){
-		if(!_global.LOT){
-			this.stateNumber++;
-		}else{
-			this.nocatch = true;
-		}
+		this.stateNumber++;
 	}
 	
 	//Переопределение
