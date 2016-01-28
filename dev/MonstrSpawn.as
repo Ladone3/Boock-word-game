@@ -75,8 +75,8 @@
 	}
 	
 	public function MonstrSpawn(){
-		if(this.lastname.length>=4)this.additionalName = this.lastname.substr(0,4);
-		if(this.lastname.length>=8)this.areaXName = this.lastname.substr(4,8);	
+		if(this._name.length>=4)this.additionalName = this._name.substr(0,4);
+		if(this._name.length>=8)this.areaXName = this._name.substr(4,8);	
 		this.calcObj = false;
 		compileBounds(_root[areaXName]);
 		this.init();

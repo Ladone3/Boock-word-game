@@ -31,10 +31,10 @@
 		//this.speedX = 1+Math.round(Math.random()*9);
 		//this.speedY = 1+Math.round(Math.random()*4);
 		
-		if(this.lastname.length>=4)this.additionalName = this.lastname.substr(0,4);
-		if(this.lastname.length>=8)this.areaXName = this.lastname.substr(4,8);
+		if(this._name.length>=4)this.additionalName = this._name.substr(0,4);
+		if(this._name.length>=8)this.areaXName = this._name.substr(4,8);
 		this.compileBounds(_root[this.areaXName]);
-		//trace(this.additionalName + "|" + this.areaXName+"|"+ this.lastname);
+		//trace(this.additionalName + "|" + this.areaXName+"|"+ this._name);
 	}
 	
 	public function onEnterFrameNoAction() {

@@ -351,7 +351,7 @@
 	public function blowPermission(radius:Number, damage:Number,k:Number):Boolean{
 		var nWidth = this.radius*2; //this._x+100,this._y,50,this.damage
 		var nHeight = nWidth;
-		for(var i=0; i < GameObject.count || i<_global.abstractLaw.length; i++){			
+		for(var i=0; i<_global.abstractLaw.length; i++){			
 			if(_global.abstractLaw[i]!=this && _global.abstractLaw[i]!=null){
 				var offset:Number = 0;
 				if(direct){

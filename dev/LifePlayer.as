@@ -7,15 +7,9 @@
 	}
 
 	public function LifePlayer(){
+		trace("Player name:"+this._name);
 		this.dontTuchMe = new Counter();
 		_global.player = this;
-	}
-
-	//Переопределение
-	public function permissionToMov(np:Point):Point{
-		var nnp:Point = super.permissionToMov(np);
-		//this.isCalc = true;
-		return nnp;
 	}
 
 	// Переопределение

@@ -6,7 +6,7 @@
 	public function TargetObject(){
 		this.startX = this._x;
 		this.startY = this._y;
-		if(this.lastname.length>=4)this.additionalName = this.lastname.substr(4,this.lastname.length);
+		if(this._name.length>=4)this.additionalName = this._name.substr(4,this._name.length);
 		//trace("My additional name "+additionalName);
 	}
 	

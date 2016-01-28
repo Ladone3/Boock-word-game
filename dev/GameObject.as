@@ -1,25 +1,16 @@
 ﻿class GameObject extends MovieClip { 
+	// Подсчет количества объектов класса 
+	//=======================================================
+	private static var gameObjectCount:Number=0;
+
 	// Объект на котором лежит данный объект. Если mov = true;
 	public var downObject:GameObject = null;
 	public var prevDownObject:GameObject = null;
 	// Объект трансформер цветов
 	public var _color:ColorTransformer; 
-	// Подсчет количества объектов класса 
-	//=======================================================
-	private static var GameObjectCount:Number=0;
-	private static var AllGameObjectCount:Number=0;
-	public         var lastname:String;
 	
 	public var myPrivateObjList = null;
 	public var stopBounds = null;
-	
-	public static function get count():Number{
-		return GameObjectCount;
-	}
-	public static function get AllCount():Number{
-		return AllGameObjectCount;
-	}
-	public var ID:Number;
 	
 	public function getType():Number{
 		return 0;
@@ -120,42 +111,10 @@
 	// Удалить объект
 	//=========================================================
 	public function remove(){
-		var removedNumber:Number=-1;
-		for(var i=0; i<_global.abstractLaw.length; i++){
-			if(this==_global.abstractLaw[i]) removedNumber = i; 
-		}
-		if(removedNumber!=-1){
-			if(removedNumber!=_global.abstractLaw.length-1){
-				//trace(this._name+" deleted");
-				var del = this;
-				var moved = _global.abstractLaw[_global.abstractLaw.length-1];
-				_global.abstractLaw[removedNumber] = moved;
-				_global.abstractLaw[_global.abstractLaw.length-1] = null;
-				_global.abstractLaw.length--;
-				this.swapDepths(_root.getNextHighestDepth());
-				this.removeMovieClip();
-				delete(del);
-				//GameObjectCount--;
-			} else {
-				//trace(this._name+" deleted");
-				_global.abstractLaw[removedNumber] = null;
-				_global.abstractLaw.length--;
-				this.swapDepths(_root.getNextHighestDepth());
-				this.removeMovieClip();
-				delete(del);
-				//GameObjectCount--;
-			}
-		}else{
-			this.swapDepths(_root.getNextHighestDepth());
-			this.removeMovieClip();
-			delete(del);
-			//GameObjectCount--;
-		}
-		//trace(this._name+" deleted");
-		//_global.abstractLaw[this.ID]=null;
-		//this.swapDepths(_root.getNextHighestDepth());
-		//this.removeMovieClip();
-		//delete(this);	
+		_global.abstractLaw.popMe(this);
+		this.swapDepths(_root.getNextHighestDepth());
+		this.removeMovieClip();
+		//delete(del);		
 	}
 	
 	// Можно ли перемещать игровой объект
@@ -179,13 +138,10 @@
 		this.ySpeed = 0;
 		this.movable = false;
 		this.lifeState = true;
-		this.ID = GameObjectCount++;
-		AllGameObjectCount++;
-		//trace("gameobject"+(ID)+" <== "+this._name);
-		this.lastname = this._name;
-		this._name = "gameobject"+(ID);
+		this._name = "gameObject_"+(gameObjectCount++);
 		if(_global.abstractLaw){
-			_global.abstractLaw.addObject(this);
+			//trace(_global.abstractLaw.length);
+			_global.abstractLaw.pushMe(this);
 		}
 	}
 	
@@ -209,7 +165,7 @@
 			if(this.downObject)this.prevDownObject = this.downObject;
 			this.downObject = null;			
 			if(_global.abstractLaw){
-				var p = this.permissionToMov(new Point(wantX, wantY));
+				var p = this.permissionToMov({x:wantX, y:wantY});
 				this.downObject = p.object;
 				//trace("Global.length:"+_global.abstractLaw.length+this.downObject._name);
 				this._x = this._x + p.x;
@@ -246,8 +202,8 @@
 	}
 		
 	private var bottomMargin:Number = 3;
-	// I dont know what i am doing hear! I am crazy! It can be optimized!
-	public function permissionToMov(np:Point):Point{
+	// I don't know what me doing hear! I am crazy! It can be optimized!
+	public function permissionToMov(np):Object{
 		var left:Boolean = false;
 		var right:Boolean = false;
 		var up:Boolean = false;
@@ -262,11 +218,14 @@
 		var nXMin = myBounds.xMin + np.x;
 		var nYMin = myBounds.yMin + np.y-bottomMargin;
 		var objList = (this.myPrivateObjList ? this.myPrivateObjList : _global.abstractLaw);
-		
+		//trace("ObjListLength: "+objList.length+" LawListLength: "+_global.abstractLaw.length);
 		for(var i=0; i<objList.length; i++){
+			//if(this==_global.player)trace(objList[i]._name+":1");
 			if(objList[i]!=null && objList[i].calcObj && objList[i]!=this && (takeObject(objList[i]))){		
+				//if(this==_global.player)trace(objList[i]._name+":2");
 				var objBounds = objList[i].getBounds(_root);
 				if((nXMin >= objBounds.xMin - nWidth)&&(nYMin >= objBounds.yMin - nHeight)&&(nXMin <= objBounds.xMax)&&(nYMin <= objBounds.yMax)){
+					//if(this==_global.player)trace(objList[i]._name+":3");
 					var razn1 = nXMin - (objBounds.xMin - nWidth);
 					var razn2 = nYMin - (objBounds.yMin - nHeight);
 					var razn3 = objBounds.xMax - nXMin;
@@ -301,7 +260,7 @@
 			if(myBounds.xMin+rx<this.stopBounds.minX)rx = this.stopBounds.minX - myBounds.xMin;
 			if(myBounds.xMax+rx>this.stopBounds.maxX)rx = this.stopBounds.maxX - myBounds.xMax;
 		}
-		return new Point(rx,ry,up,down,left,right,downObject);
+		return {x:rx,y:ry,up:up,down:down,left:left,right:right,object:downObject};
 	}
 	
 	// Поиск игрока в радиусе (Пока одного)

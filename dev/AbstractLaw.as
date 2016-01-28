@@ -9,6 +9,29 @@
 		return this.getActiveCreaturesLength()<=MAX_ACTIVE_CREATURES_IN_LEVEL;
 	}
 	
+	public function pushMe(me){
+		var bool:Boolean = true;
+		for(var obj in this){
+			if(obj===me._name) bool = false;
+		}
+		if(bool){
+			this.push(me);
+			trace("Pushed "+me._name+"("+this.length+")");
+		}else{
+			trace("Not pushed "+me._name);
+		}
+	}
+	
+	public function popMe(me){
+		for(var i=0; i<this.length; i++){
+			if(me==this[i]){
+				//this.splice(i);
+				return;
+			}
+		}
+		//trace("active creatures = "+result+"; length = "+this.creatures.length)
+	}
+	
 	public function getActiveCreaturesLength():Number{
 		if(!this.creatures) return 0;
 		var result:Number = 0;
@@ -21,8 +44,9 @@
 	
 	public function forceIteration(){
 		for(var i=0; i<this.length; i++){
-			this.attractiveForce(i);
-			this.frictionForce(i);
+			//trace("_global.player: "+_global.player._name+" Name("+i+"):" + this[i]._name);
+			this.attractiveForce(this[i]);
+			this.frictionForce(this[i]);
 		}
 	}
 	
@@ -40,52 +64,61 @@
 		}
 	}
 	
-	private function attractiveForce(i:Number) {
+	private function attractiveForce(obj:GameObject) {
 		//trace("1) Yahooo i'm in!");
-		if(this[i].mov && this[i]!=null){
-			if(this[i].yA<=this.MaxAttractiveSpeed)this[i].yA+=AttractiveForce;
+		if(obj && obj.mov){
+			if(obj.yA<=this.MaxAttractiveSpeed)obj.yA+=AttractiveForce;
 		}
 	}
-	private function frictionForce(i:Number) {
+	private function frictionForce(obj) {
 		//trace("2) Yahooo i'm in!");
-		if((this[i].mov) && (this[i].touchDown) && (this[i])){
+		if((obj)&&(obj.mov) && (obj.touchDown)){
 			var nullBoost = 0;
-			if(this[i].downObject && this[i].downObject.xA) nullBoost = this[i].downObject.xA;
-			if(this[i].xA!=nullBoost){
+			if(obj.downObject && obj.downObject.xA) nullBoost = obj.downObject.xA;
+			if(obj.xA!=nullBoost){
 				var k:Number = 1;
-				if(this[i].frictionModificator) k = this[i].frictionModificator;
-				if(this[i].xA>nullBoost){
-					if(this[i].xA-FrictionForce*k>=nullBoost){
-						this[i].xA-=FrictionForce*k; 
+				if(obj.frictionModificator) k = obj.frictionModificator;
+				if(obj.xA>nullBoost){
+					if(obj.xA-FrictionForce*k>=nullBoost){
+						obj.xA-=FrictionForce*k; 
 					}else{
-						this[i].xA = nullBoost;
+						obj.xA = nullBoost;
 					}
 				}else{
-					if(this[i].xA+FrictionForce*k<nullBoost){
-						this[i].xA+=FrictionForce*k; 
+					if(obj.xA+FrictionForce*k<nullBoost){
+						obj.xA+=FrictionForce*k; 
 					}else{
-						this[i].xA = nullBoost;
+						obj.xA = nullBoost;
 					}
 				}
 			}
 		}
 	}
 	
-	public function addObject(go:GameObject){
-		this[this.length]=go;
-	}
-	
 	public function addCreatures(p:Player){
-		this.creatures[this.creatures.length]=p;
+		var bool:Boolean = true;
+		for(var obj in this.creatures){
+			if(obj===p._name) bool = false;
+		}
+		if(bool){
+			this.creatures.push(p);
+			trace("Pushed_c "+p._name);
+		}else{
+			trace("Not pushed_c "+p._name);
+		}
 	}
 	
 	public function movePlayerToLastPlace(){
-		trace(_global.player.prevDownObject);
-		var b = _global.player.prevDownObject.getBounds(_root);
-		_global.player.xA = 0;
-		_global.player.yA = 0;
-		_global.player._x = b.xMin + _global.player.prevDownObject._width/2;
-		_global.player._y = b.yMin - _global.player._height;
+		//trace(_global.player.prevDownObject);
+		if(!_global.player.prevDownObject){
+			_root["CenterOfWorld"].goToLimbo();
+		}else{
+			var b = _global.player.prevDownObject.getBounds(_root);
+			_global.player.xA = 0;
+			_global.player.yA = 0;
+			_global.player._x = b.xMin + _global.player.prevDownObject._width/2;
+			_global.player._y = b.yMin - _global.player._height;
+		}
 	}
 	
 	public function getGameObject(id:String){
@@ -101,10 +134,14 @@
 		this._name = "AbstractLaw";
 		this.creatures = new Array();
 		//AsBroadcaster.initialize(this);
-		for(var i=0; i<GameObject.count; i++){	
-			var object = _root["gameobject"+i];
-			if(object){
-				this.addObject(object);
+		//trace("AbstractLaw created("+typeof(this)+":"+(this instanceof AbstractLaw)+")");
+		for(var i in _root){	
+			var object = _root[i];
+			//trace("Name:"+i+" class: "+typeof(object)+" io GameObject "+(object instanceof GameObject));
+			//trace("_name: "+i+"  indexOf: "+i.indexOf("gameObject"));
+			if(object && i.indexOf("gameObject")!=-1){//&& object instanceof GameObject){
+				trace("From abstractLaw ");
+				this.pushMe(object);
 				if(object instanceof Player)this.addCreatures(object);
 			}
 		}

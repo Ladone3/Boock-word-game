@@ -198,7 +198,7 @@
 	// Переопределение
 	//==============================================
 	public function blow(){
-		var b = _root.attachMovie("TrayBlow1Bullet", "b", (Bullet.AllCount+GameObject.AllCount+2));
+		var b = _root.attachMovie("TrayBlow1Bullet", "b", _root.getNextHighestDepth());
 		b._yscale=this._yscale;
 		if(this.direct){
 			b._xscale=this._xscale;
@@ -212,7 +212,7 @@
 		this.counter.delay=20;
 	}
 	public function blow1(){
-		var b = _root.attachMovie("TrayBlow2Bullet", "b", (Bullet.AllCount+GameObject.AllCount+2));
+		var b = _root.attachMovie("TrayBlow2Bullet", "b", _root.getNextHighestDepth());
 		b._yscale=this._yscale;
 		if(this.direct){
 			b._xscale=this._xscale;
@@ -226,7 +226,7 @@
 		this.counter.delay=20;
 	}
 	public function blow2(){
-		var b = _root.attachMovie("TrayBlow3Bullet", "b", (Bullet.AllCount+GameObject.AllCount+2));
+		var b = _root.attachMovie("TrayBlow3Bullet", "b", _root.getNextHighestDepth());
 		b._yscale=this._yscale;
 		if(this.direct){
 			b._xscale=this._xscale;
@@ -242,7 +242,7 @@
 	
 	/* // не забудь об этой фишке
 	public function blow3(){
-		var b = _root.attachMovie("TrayBlow4Bullet", "b", (Bullet.AllCount+GameObject.AllCount+2));
+		var b = _root.attachMovie("TrayBlow4Bullet", "b", _root.getNextHighestDepth());
 		b._yscale=this._yscale;
 		if(this.direct){
 			b._xscale=this._xscale;
@@ -265,7 +265,7 @@
 		this.counter.delay = 15;
 	}
 	public function aeroBlow(){
-		var b = _root.attachMovie("TrayBlow1Bullet", "b", (Bullet.AllCount+GameObject.AllCount+2));
+		var b = _root.attachMovie("TrayBlow1Bullet", "b", _root.getNextHighestDepth());
 		b._yscale=this._yscale;
 		if(this.direct){
 			b._xscale=this._xscale;

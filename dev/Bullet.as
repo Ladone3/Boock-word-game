@@ -146,7 +146,7 @@
 		var nWidth = this._width;
 		var nHeight = this._height;
 		var temp1 = this.getBounds(_root);
-		for(var i=0; i<GameObject.count || i<_global.abstractLaw.length; i++){
+		for(var i=0; i<_global.abstractLaw.length; i++){
 			if(_global.abstractLaw[i]!= this.pmc && _global.abstractLaw[i]!= this.pmc.pmc
 			&& _global.abstractLaw[i]!=null && ((takeWall)||((!takeWall) && _global.abstractLaw[i].getType()!=0))
 			&& _global.abstractLaw[i].calcObj){
