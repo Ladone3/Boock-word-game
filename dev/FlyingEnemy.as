@@ -16,7 +16,7 @@
 	//Переопределение
 	private var lock:Boolean = true;
 	public function set yA(yBoost:Number){
-		if(!this.lock){
+		if(!this.lock || !life){
 			super.yA = yBoost;
 		}
 	}
@@ -24,18 +24,18 @@
 	//Переопределение
 	public function landing(){
 		if(this.yBoost<runPower){
-			this.yBoost = jumpPower;
+			this.yBoost = jumpPower/4;
 		} else if(this.yBoost<0){
-			this.yBoost += runPower/1.5;
+			this.yBoost += runPower/4;
 		}
 	}
 
 	//Переопределение
 	public function jump(){
 		if(this.yBoost>-runPower){
-			this.yBoost = -runPower;
+			this.yBoost = -runPower/4;
 		} else if(this.yBoost>0){
-			this.yBoost -= runPower/1.5;
+			this.yBoost -= runPower/4;
 		}
 	}
 

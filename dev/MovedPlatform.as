@@ -23,17 +23,22 @@
 	}
 	
 	public function MovedPlatform(){
+		this.areaNeeded = true;
 		this.startX = this._x;
 		this.startY = this._y;
 		
 		this.triggerX = (Math.round(Math.random()*10)>5);
 		this.triggerY = (Math.round(Math.random()*10)>5);
-		//this.speedX = 1+Math.round(Math.random()*9);
-		//this.speedY = 1+Math.round(Math.random()*4);
 		
-		if(this._name.length>=4)this.additionalName = this._name.substr(0,4);
-		if(this._name.length>=8)this.areaXName = this._name.substr(4,8);
-		this.compileBounds(_root[this.areaXName]);
+		for(var i in _root){	
+			var object = _root[i];
+			if(object  
+			&& (object instanceof AreaObject || object.isArea)
+			&& this.hitTest(object)){//&& object instanceof GameObject){
+				this.compileBounds(object);
+			}
+		}
+		
 		//trace(this.additionalName + "|" + this.areaXName+"|"+ this._name);
 	}
 	

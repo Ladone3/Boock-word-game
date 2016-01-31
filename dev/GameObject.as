@@ -6,9 +6,11 @@
 	// Объект на котором лежит данный объект. Если mov = true;
 	public var downObject:GameObject = null;
 	public var prevDownObject:GameObject = null;
+	
 	// Объект трансформер цветов
 	public var _color:ColorTransformer; 
 	
+	public var areaNeeded:Boolean = false;
 	public var myPrivateObjList = null;
 	public var stopBounds = null;
 	
@@ -217,7 +219,7 @@
 		var downObject = null;
 		var nXMin = myBounds.xMin + np.x;
 		var nYMin = myBounds.yMin + np.y-bottomMargin;
-		var objList = (this.myPrivateObjList ? this.myPrivateObjList : _global.abstractLaw);
+		var objList = (this.myPrivateObjList && this.areaNeeded ? this.myPrivateObjList : _global.abstractLaw);
 		//trace("ObjListLength: "+objList.length+" LawListLength: "+_global.abstractLaw.length);
 		for(var i=0; i<objList.length; i++){
 			//if(this==_global.player)trace(objList[i]._name+":1");

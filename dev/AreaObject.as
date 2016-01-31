@@ -1,13 +1,15 @@
 ﻿class AreaObject extends MovieClip{
+	public var isArea:Boolean = true;
+	
 	public function AreaObject(){
 		this._visible = false;
-
-		for(var i=0; i<_root.length; i++){	
+		for(var i in _root){	
 			var object = _root[i];
-			if(object && object instanceof GameObject){
-				if(object.areaXName 
-				&& object.areaXName==this._name
-				) object.compileBounds(this);
+			if(object 
+			&& i.indexOf("gameObject")!=-1 
+			&& object.areaNeeded
+			&& this.hitTest(object)){//&& object instanceof GameObject){
+				object.compileBounds(this);
 			}
 		}
 	}

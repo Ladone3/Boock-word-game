@@ -75,6 +75,7 @@
 	}
 	
 	public function MonstrSpawn(){
+		this.areaNeeded = true;
 		if(this._name.length>=4)this.additionalName = this._name.substr(0,4);
 		if(this._name.length>=8)this.areaXName = this._name.substr(4,8);	
 		this.calcObj = false;

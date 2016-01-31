@@ -139,7 +139,7 @@
 			var object = _root[i];
 			//trace("Name:"+i+" class: "+typeof(object)+" io GameObject "+(object instanceof GameObject));
 			//trace("_name: "+i+"  indexOf: "+i.indexOf("gameObject"));
-			if(object && i.indexOf("gameObject")!=-1){//&& object instanceof GameObject){
+			if(object && (object instanceof GameObject || i.indexOf("gameObject")!=-1)){
 				trace("From abstractLaw ");
 				this.pushMe(object);
 				if(object instanceof Player)this.addCreatures(object);
