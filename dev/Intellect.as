@@ -131,6 +131,7 @@
 	}
 
 	public function activitys(){
+		//trace("Timer: "+this.timer.delay);
 		if(!(this.timer.notOver)){
 			this.moves();
 		}

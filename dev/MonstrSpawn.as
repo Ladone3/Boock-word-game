@@ -10,6 +10,7 @@
 	private var additionalName:String = "";
 	private var areaXName:String = "";
 	private var areaObject:AreaObject = null;
+	private var EFFECTIVE_RADIUS = 1000;
 	
 	public function getMCS():Array{
 		return this.mcs;
@@ -49,7 +50,8 @@
 		this.mClass="Computer";
 	}
 		
-	public function compileBounds(areaObject:AreaObject){
+	public function compileBounds(areaObject){
+		trace("=======> Compile "+areaObject._name);
 		if(areaObject){
 			this.areaObject=areaObject;
 			this.stopBounds = {};
@@ -58,7 +60,6 @@
 			this.stopBounds.minY = bounds.yMin;
 			this.stopBounds.maxX = bounds.xMax;
 			this.stopBounds.maxY = bounds.yMax;
-					
 		}
 	}
 	private var objectListForBounds:Array = null;
@@ -76,10 +77,15 @@
 	
 	public function MonstrSpawn(){
 		this.areaNeeded = true;
-		if(this._name.length>=4)this.additionalName = this._name.substr(0,4);
-		if(this._name.length>=8)this.areaXName = this._name.substr(4,8);	
+		for(var i in _root){	
+			var object = _root[i];
+			if(object  
+			&& (object instanceof AreaObject || object.isArea)
+			&& this.hitTest(object)){//&& object instanceof GameObject){
+				this.compileBounds(object);
+			}
+		}	
 		this.calcObj = false;
-		compileBounds(_root[areaXName]);
 		this.init();
 	}
 	
@@ -106,7 +112,7 @@
 	
 	public function onEnterFrameCatchPlayer(){
 		if(this.once){
-			if(_global.player!=null && this.onRadius(_global.player, 400)){
+			if(_global.player!=null && this.onRadius(_global.player, EFFECTIVE_RADIUS)){
 				this.spawn();
 				this.once=false;
 			}	
@@ -146,10 +152,11 @@
 		a.setScale(k);
 		a._alpha=0;
 		if(this.stopBounds){
+			trace("1111");
 			a.stopBounds = this.stopBounds;
-			var l = this.getPrivateListForBounds();
-			a.myPrivateObjList = (l.length>0 ? l : _global.abstractLaw);
+			a.myPrivateObjList = this.getPrivateListForBounds();
 		}else{
+			trace("2222");
 			a.myPrivateObjList = _global.abstractLaw;
 		}
 	}

@@ -219,23 +219,24 @@
 	
 	//public var traceClip1; public var traceClip2;
 	public function chaseCamera(){
+		var TARGET = _global.player; //this.creatures[1];
 		this.stageBounds = { xMax: (Stage.width-_root._x), xMin: (-_root._x), yMax: (Stage.height-_root._y), yMin: (-_root._y)};
 		var offset = this.getCameraOffset(this.stageBounds);
 		if(stopFrame) offset = this.noNoYouEvenSoMayMoved(offset);
 		if(stopFrame){
-			var pbounds = _global.player.getBounds(_root);
+			var pbounds = TARGET.getBounds(_root);
 			if(pbounds.xMin<stageBounds.xMin){
-				_global.player._x += stageBounds.xMin - pbounds.xMin;
+				TARGET._x += stageBounds.xMin - pbounds.xMin;
 			}
 			if(pbounds.xMax>stageBounds.xMax){
-				_global.player._x += stageBounds.xMax - pbounds.xMax;
+				TARGET._x += stageBounds.xMax - pbounds.xMax;
 			}
 			/*
 			if(pbounds.yMin<stageBounds.yMin){
-				_global.player._y += stageBounds.yMin - pbounds.yMin;
+				TARGET._y += stageBounds.yMin - pbounds.yMin;
 			}
 			if(pbounds.yMax>stageBounds.yMax){
-				_global.player._y += stageBounds.yMax - pbounds.yMax;
+				TARGET._y += stageBounds.yMax - pbounds.yMax;
 			}
 			*/
 		}
@@ -258,32 +259,33 @@
 	}
 	
 	public function getCameraOffset(stageBounds){
+		var TARGET = _global.player;//this.creatures[1];
 		var xoffset = 0;
 		var yoffset = 0;
 		
-		if(_global.player._x < this.borderXMin){
+		if(TARGET._x < this.borderXMin){
 			//trace("stageBounds.xMin = "+stageBounds.xMin + " this.cameraBorder.xMin = "+this.cameraBorder.xMin);
 			if(this.cameraBorder==0 || this.cameraBorder.xMin < stageBounds.xMin){
-				xoffset = (this.borderXMin - _global.player._x);
+				xoffset = (this.borderXMin - TARGET._x);
 				if(cameraThreshold<=xoffset) xoffset = cameraSpid;
 			}
 		}
-		if(_global.player._x > this.borderXMax){
+		if(TARGET._x > this.borderXMax){
 			//trace("stageBounds.xMax = "+stageBounds.xMax + " this.cameraBorder.xMax = "+this.cameraBorder.xMax);
 			if(this.cameraBorder==0 || this.cameraBorder.xMax > stageBounds.xMax){
-				xoffset = -(_global.player._x - this.borderXMax);
+				xoffset = -(TARGET._x - this.borderXMax);
 				if(cameraThreshold<=-xoffset) xoffset = -cameraSpid;
 			}
 		}
-		if(_global.player._y < this.borderYMin){
+		if(TARGET._y < this.borderYMin){
 			if(this.cameraBorder==0 || this.cameraBorder.yMin < stageBounds.yMin){
-				yoffset = (this.borderYMin-_global.player._y);
+				yoffset = (this.borderYMin-TARGET._y);
 				if(cameraThreshold<=yoffset) yoffset = cameraSpid;
 			}
 		}
-		if(_global.player._y > this.borderYMax){
+		if(TARGET._y > this.borderYMax){
 			if(this.cameraBorder==0 || this.cameraBorder.yMax > stageBounds.yMax){
-				yoffset = -(_global.player._y-this.borderYMax);
+				yoffset = -(TARGET._y-this.borderYMax);
 				if(cameraThreshold<=-yoffset) yoffset = -cameraSpid;
 			}
 		}

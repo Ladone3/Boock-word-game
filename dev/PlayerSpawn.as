@@ -21,6 +21,7 @@
 	}
 	
 	public function PlayerSpawn(){
+		this.areaNeeded = false;
 	}
 	
 	//Переопределение

@@ -14,7 +14,7 @@
 	
 	public function onEnterFrameCatchPlayer(){
 		if(this.notStateSpawn){
-			if(_global.player!=null && this.hitTest(_global.player)){
+			if(_global.player!=null && this.onRadius(_global.player, this.spawnDistCatch)){
 				this.notStateSpawn=false;
 				_global.abstractLaw.stopFrame = true;
 				_global.abstractLaw.idealCameraXY = { ix: this._x, iy: this._y};

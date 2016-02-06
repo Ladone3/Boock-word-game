@@ -2,128 +2,71 @@
 	public var DO_DOWN:Number = 5;
 	public var DO_RUN_DOWN:Number = 6;
 	public var DO_RUN_JUMP:Number = 7;
-	public var STEP:Number = 1;
-	public var ANGLE_STEP:Number = 0.01;
-	public var MIN_X_DISTANCE = 0;
-	public var MAX_X_DISTANCE = 500;
-	public var MIN_Y_DISTANCE = -500;
-	public var MAX_Y_DISTANCE = 0;
-	public var DIST_ERROR = 400;
-	public var DIST_SUPER_ERROR = 200;
-
+	public var DIST_ERROR:Number = 50;
+	public var RADIUS:Number = 20;
+	public var state_timer:Number = 0;
+	
 	public function GhostIntellect(slave:Computer){
 		super(slave);
 	}
 
+	var rand_x = 0;
+	var rand_y = 0;
 	// Переопределение
 	public function moves(){
 		var dist:Object = _global.abstractLaw.getOffsets(this.getSlave());
 		this.distance = dist;
-		this.anyMoves(dist.xo, dist.yo);
-	}
-
-	private var currentNeededXDistance:Number=MAX_X_DISTANCE;
-	private var currentNeededYDistance:Number=MIN_Y_DISTANCE;
-	private var triggerXDist:Boolean = false;
-	private var triggerYDist:Boolean = false;
-	private var angleITerator = 0;
-	public function iterateNeededDistance(){
-		if(triggerXDist){
-			currentNeededXDistance+=STEP;
-			if(currentNeededXDistance>MAX_X_DISTANCE)triggerXDist=false;
-		}else{
-			currentNeededXDistance-=STEP;
-			if(currentNeededXDistance<MIN_X_DISTANCE)triggerXDist=true;
-		}
-		if(triggerYDist){
-			currentNeededYDistance+=STEP;
-			if(currentNeededYDistance>MAX_Y_DISTANCE)triggerYDist=false;
-		}else{
-			currentNeededYDistance-=STEP;
-			if(currentNeededYDistance<MIN_Y_DISTANCE)triggerYDist=true;
+		this.state_timer++;		
+		if(this.state_timer<50*15){
+			var opp = Math.round(Math.random()*100);
+			if(opp>90){
+				//trace("_1");
+				this.rand_x=(Math.random()*RADIUS-RADIUS/2)*100;
+				this.rand_y=(Math.random()*RADIUS/2-RADIUS/20)*100;
+			}else {
+				//trace("_2");
+				this.goToPlace(dist.xo, dist.yo, this.rand_x, this.rand_y);
+			}
+		} else if(this.state_timer<50*20){
+			this.goToPlace(dist.xo, dist.yo, 0, 0);
+		} else {
+			this.state_timer = 0;
+			this.rand_x=(Math.random()*RADIUS-RADIUS/2)*100;
+			this.rand_y=(Math.random()*RADIUS/2-RADIUS/20)*100;
 		}
 	}
 
-	//private var traceClip;
-	public function getNeededXY(){
-		this.iterateNeededDistance();
-		this.angleITerator+=ANGLE_STEP;
-		var dx = Math.sin(this.angleITerator)*this.currentNeededXDistance;
-		var dy = -Math.abs(Math.cos(this.angleITerator))*this.currentNeededYDistance;
-		var result = {
-			x:_global.player._x - dx,
-			y:_global.player._y - dy
-		};
-		/*
-		if(!traceClip){
-			traceClip = _root.attachMovie("Target", "TraceTarget", _root.getNextHighestDepth());
-		}else{
-			traceClip._x = result.dx;
-			traceClip._y = result.dy;
-		}
-		*/
-		return result;
-	}
-	
-	public function getNeededDistance(){
-		this.iterateNeededDistance();
-		this.angleITerator+=ANGLE_STEP;
-		var result = {
-			dx:Math.sin(this.angleITerator)*this.currentNeededXDistance,
-			dy:-Math.abs(Math.cos(this.angleITerator))*this.currentNeededYDistance
-		};
-		/*
-		if(!traceClip){
-			traceClip = _root.attachMovie("Target", "TraceTarget", _root.getNextHighestDepth());
-		}else{
-			traceClip._x = _global.player._x - result.dx;
-			traceClip._y = _global.player._y - result.dy;
-		}
-		*/
-		return result;
-	}
-
-	// Переопределение
-	private var flagError = false;
-	public function getError(){
-		if(flagError){
-			return this.DIST_ERROR;
-		}else{
-			return this.DIST_SUPER_ERROR;
-		}
-	}
-
-	public function anyMoves(xo:Number,yo:Number){
-		var nd = getNeededDistance();
-		var err_x = Math.abs(nd.dx-xo);
-		var err_y = Math.abs(nd.dy-yo);
-		if(err_x<=this.getError() && err_y<=this.getError()){
-			this.flagError = true;
-			if((xo<0 && slave.direct)||(xo>0 && !slave.direct)){
+	public function goToPlace(xo:Number,yo:Number, xt:Number,yt:Number){
+		//trace("xt: "+xt+" yt:"+yt);
+		//trace("xo: "+xo+" yo:"+yo);
+		var err_x = Math.abs(xo);
+		var err_y = Math.abs(yo);
+		if(err_x<=this.DIST_ERROR || err_y<=this.DIST_ERROR){
+			if((xo<xt && slave.direct)||(xo>xt && !slave.direct)){
 				this.stateActivity = DO_REDIRECT;
 			}else{
 				this.fightMoves(xo,yo);
 			}
 		}else{
-			this.flagError = false;
 			//trace("err_x: "+err_x+" err_y: "+err_y+" slave.direct:"+slave.direct);
 			var up_flag:Boolean = false;
 			var down_flag:Boolean = false;
 			var run_flag:Boolean = false;
 			var nothing_flag:Boolean = false;
 
-			if(err_x>this.getError()){
-				if((nd.dx>xo && slave.direct)||(nd.dx<xo && !slave.direct)){
+			if(err_x>this.DIST_ERROR){
+				if((xt>xo && slave.direct)||(xt<xo && !slave.direct)){
 					nothing_flag=true;
 				}else{
 					run_flag = true;
 				}
 			}
-
-			if(err_y>this.getError()){
-				if(nd.dy<yo){
+			if(err_y>this.DIST_ERROR){
+				if(yt<yo){
+					//trace("Down");
 					down_flag = true;
-				}else if(nd.dy>yo){
+				}else if(yt>yo){
+					//trace("Up");
 					up_flag = true;
 				}
 			}
@@ -154,8 +97,21 @@
 			}
 		}
 	}
+	
+	//var blowTimer:Number = 0;
+	private function blows(){
+		//if(blowTimer>0) return;
+		if(!(this.slave.kFight))this.clearButtons();
+		this.slave.kFight = true;
+		if(!this.timer.notOver)this.timer.delay = 10;
+	}
+	
 	public function fightMoves(xo:Number,yo:Number){
-		this.stateActivity = DO_BLOW;
+		if((xo<0 && slave.direct)||(xo>0 && !slave.direct)){
+			this.stateActivity = DO_REDIRECT;
+		}else{
+			this.stateActivity = DO_BLOW;
+		}
 	}
 
 	// Переопределение
@@ -163,27 +119,35 @@
 		//this.stateActivity =999;
 		switch (this.stateActivity) {
 				case (DO_STAY):
+					//trace("DO_STAY");
 					this.clearButtons();
 					break ;
 				case (DO_RUN):
+					//trace("DO_RUN");
 					this.run();
 					break ;
 				case (DO_JUMP):
+					//trace("DO_JUMP");
 					this.jumps();
 					break ;
 				case (DO_DOWN):
+					//trace("DO_DOWN");
 					this.landings();
 					break ;
 				case (DO_BLOW):
+					//trace("DO_BLOW");
 					this.blows();
 					break ;
 				case (DO_RUN_DOWN):
+					//trace("DO_RUN_DOWN");
 					this.landingsRun();
 					break;
 				case (DO_RUN_JUMP):
+					//trace("DO_RUN_JUMP");
 					this.jumpsRun();
 					break;
 				case (DO_REDIRECT):
+					//trace("DO_REDIRECT");
 					this.revers();
 					break ;
 

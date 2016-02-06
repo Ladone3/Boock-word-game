@@ -49,7 +49,9 @@
 		*/
 		this.frameoutDamageTeleport = 0;
 		this.frameoutTeleport = 0;
-		var coord = this.ghostIntellect.getNeededXY();
+		var coord = {x:_global.Player._x+Math.round(Math.random()*200)-100, 
+					 y:_global.Player._y+Math.round(Math.random()*200)-100}; 
+					 //this.ghostIntellect.getNeededXY();
 		//trace("coord.dx="+coord.dx+" coord.dy="+coord.dy)
 		this._x = coord.x;
 		this._y = coord.y;

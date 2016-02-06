@@ -11,6 +11,8 @@
 	private var ACTIVE_K_Y_DIST = 3;
 	private	var ghostIntellect:GhostIntellect = null;
 	
+	private var bulletClass = "GhostBullet";
+	
 	//Переопределение
 	public function onEnterFrameAction(){
 		super.onEnterFrameAction();
@@ -40,7 +42,7 @@
 	
 
 	public function createBullet(){
-		var chieldBullet = _root.attachMovie("GhostBullet", "ghostbullet"+(Bullet.count), _root.getNextHighestDepth());
+		var chieldBullet = _root.attachMovie(bulletClass, "ghostbullet"+(Bullet.count), _root.getNextHighestDepth());
 		chieldBullet._xscale = this._xscale;
 		chieldBullet._yscale = this._xscale;
 		var d = _global.abstractLaw.getOffsets(this);

@@ -57,16 +57,13 @@
 						stayOrNo = 0;
 					}
 
-					if(kLeft
-						&& (!(kRight||kJump))
-					){
+					if(kLeft && !kRight){
 						this.runLeft();
 					}
-					if(kRight
-						&& (!(kLeft||kJump))
-					){
+					if(kRight && !kLeft){
 						this.runRight();
 					}
+					
 					if(kRight && kLeft && (!kJump)){
 						setfreeState();
 					}
@@ -75,5 +72,24 @@
 				setfreeState();
 			}
 		}
+	}
+	
+	// Переопределение
+	public function permissionToMov(np):Object{
+		var result = super.permissionToMov(np);
+		if(this.stopBounds){
+			var myBounds = this.getBounds(_root);
+			//trace("t_min_x:"+myBounds.xMin+",t_min_y:"+myBounds.yMin+",t_max_x:"+myBounds.xMax+",t_max_y:"+myBounds.yMax);
+			//trace("min_x:"+this.stopBounds.minX+",min_y:"+this.stopBounds.minY+",max_x:"+this.stopBounds.maxX+",max_y:"+this.stopBounds.maxY);
+			if(myBounds.yMin+result.y<this.stopBounds.minY){
+				//trace("!!!");
+				result.y = this.stopBounds.minY - myBounds.yMin;
+			}
+			if(myBounds.yMax+result.y>this.stopBounds.maxY){
+				//trace("!!!33");
+				result.y = this.stopBounds.maxY - myBounds.yMax;
+			}
+		}
+		return result;
 	}
 }
