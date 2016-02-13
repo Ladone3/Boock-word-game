@@ -271,13 +271,13 @@
 				if((nXMin >= temp2.xMin - nWidth)&&(nYMin >= temp2.yMin - nHeight)
 				&&(nXMin <= temp2.xMax)&&(nYMin <= temp2.yMax)&&(_global.abstractLaw[i].life)){
 					temp = true;
-					if(_global.abstractLaw[i].getType()==2){
+					//if(_global.abstractLaw[i].getType()==2){
 						if(temp2.xMin<=nXMin){
 							_global.abstractLaw[i].setDamage(this.damage,true);
 						}else{
 							_global.abstractLaw[i].setDamage(this.damage,false);
 						}
-					}
+					//}
 					if(_global.abstractLaw[i].mov){
 						_global.abstractLaw[i].xA = this.xS/2;
 						_global.abstractLaw[i].yA = this.yS/2;

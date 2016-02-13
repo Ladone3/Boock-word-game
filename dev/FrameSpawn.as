@@ -20,6 +20,8 @@
 				_global.abstractLaw.idealCameraXY = { ix: this._x, iy: this._y};
 			}	
 		}else{
+			_global.abstractLaw.stopFrame = true;
+			_global.abstractLaw.idealCameraXY = { ix: this._x, iy: this._y};
 			if(this.mCount<=0 || (allSpawnersTrue && this.getMCS().length==this.mCount)){
 				complete = true;
 				this.switcher.state = 2;
