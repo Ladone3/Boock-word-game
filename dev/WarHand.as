@@ -22,7 +22,7 @@
 	private var parentSwitcher:Switcher;
 	public function set parent(parentSwitcher:Switcher){
 		this.parentSwitcher = parentSwitcher;
-		var MaxState:Number = (this.parentSwitcher.Max) + 8;
+		var MaxState:Number = 24;
 		this.switcher = new Switcher(MaxState,this,this.counter);
 	}
 
@@ -145,13 +145,13 @@
 				}
 
 			} else {
-				if(this.parentSwitcher.state!=18 && this.parentSwitcher.state!=19){
+				if(this.parentSwitcher.state!=19 && this.parentSwitcher.state!=20){
 					this.switcher.state = this.parentSwitcher.state;
 				}else{
-					if(this.parentSwitcher.state==18){
+					if(this.parentSwitcher.state==19){
 						this.switcher.state=24;
 					}
-					if(this.parentSwitcher.state==19){
+					if(this.parentSwitcher.state==20){
 						this.switcher.state=23;
 					}
 				}

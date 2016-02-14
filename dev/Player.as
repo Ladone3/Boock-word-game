@@ -62,6 +62,12 @@
 		}
 	}
 	
+	// Переопределение	
+	private function remove(){
+		_global.abstractLaw.popCreature(this);
+		super.remove();
+	}
+	
 	
 	//=====================================================
 	public function breakCounter(){
@@ -246,7 +252,7 @@
 		this.switcher.state = 1;
 		this.initHPLine();
 		if(_global.abstractLaw){
-			_global.abstractLaw.addCreatures(this);
+			_global.abstractLaw.addCreature(this);
 		}
 	}	
 	

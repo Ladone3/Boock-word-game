@@ -9,6 +9,19 @@
 		return this.getActiveCreaturesLength()<=MAX_ACTIVE_CREATURES_IN_LEVEL;
 	}
 	
+	public function addCreature(me){
+		var bool:Boolean = true;
+		for(var obj in this.creatures){
+			if(obj===me._name) bool = false;
+		}
+		if(bool){
+			this.creatures.push(me);
+			trace("Pushed_c "+me._name+"("+this.length+")");
+		}else{
+			trace("Not pushed_c "+me._name);
+		}
+	}
+	
 	public function pushMe(me){
 		var bool:Boolean = true;
 		for(var obj in this){
@@ -22,10 +35,21 @@
 		}
 	}
 	
+	public function popCreature(me){
+		for(var i=0; i<this.creatures.length; i++){
+			if(me==this.creatures[i]){
+				trace("Pop_c "+me._name);
+				this.creatures.splice(i,1);
+				return;
+			}
+		}
+	}
+	
 	public function popMe(me){
 		for(var i=0; i<this.length; i++){
 			if(me==this[i]){
-				//this.splice(i);
+				trace("Pop "+me._name);
+				this.splice(i,1);
 				return;
 			}
 		}
@@ -95,19 +119,6 @@
 		}
 	}
 	
-	public function addCreatures(p:Player){
-		var bool:Boolean = true;
-		for(var obj in this.creatures){
-			if(obj===p._name) bool = false;
-		}
-		if(bool){
-			this.creatures.push(p);
-			trace("Pushed_c "+p._name);
-		}else{
-			trace("Not pushed_c "+p._name);
-		}
-	}
-	
 	public function movePlayerToLastPlace(){
 		//trace(_global.player.prevDownObject);
 		if(!_global.player.prevDownObject){
@@ -142,7 +153,7 @@
 			if(object && (object instanceof GameObject || i.indexOf("gameObject")!=-1)){
 				trace("From abstractLaw ");
 				this.pushMe(object);
-				if(object instanceof Player)this.addCreatures(object);
+				if(object instanceof Player)this.addCreature(object);
 			}
 		}
 		if(_root["FonImage"]){

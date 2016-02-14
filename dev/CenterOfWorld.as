@@ -1,8 +1,12 @@
 ﻿class CenterOfWorld extends MovieClip {
 	private var kEsk:Number = 27;	
 	
-	public function CenterOfWorld(){
+	public function createAbstractLaw() {
 		_global.abstractLaw = new AbstractLaw();
+	}
+	
+	public function CenterOfWorld(){
+		this.createAbstractLaw();
 		this._name = "CenterOfWorld";
 		_root._color.brightness=0;
 		this._visible=false;
