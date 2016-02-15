@@ -21,7 +21,7 @@
 		return this.movieClipState;
 	}
 	public function set state(movieClipState:Number){
-		if(this.timer && !this.timer.notOver){
+		if((this.timer && !this.timer.notOver) || (!this.timer)){
 			if((movieClipState>0)&&(movieClipState<=MaxState)){
 				this.movieClipState = movieClipState;
 			}else{
