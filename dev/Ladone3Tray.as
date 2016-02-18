@@ -21,13 +21,22 @@
 	public var damage:Number = 30;
 	public var radius:Number = 10;
 	public var hpmax:Number = 150;
+	public var runingSound;
 	
 	// Переопределение	
 	public function getType():Number{
 		return 5;
 	}
-			
+		
+	public function setfreeState(){
+		super.setfreeState();
+		this.runingSound.stop();
+	}
+		
 	public function Ladone3Tray(){
+		this.runingSound = new Sound();
+		this.runingSound.attachSound("Runing");
+		this.runingSound.stop();
 	}
 	
 	//Переопределение
@@ -106,6 +115,7 @@
 			this.switcher.state = 4;
 		}
 		this.readyToJump = true;
+		this.runingSound.start(0,1);
 	}
 	
 	// Переопределение
@@ -133,6 +143,7 @@
 			this.switcher.state = 3;
 		}
 		this.readyToJump = true;
+		this.runingSound.start(0,1);
 	}
 	
 	// Можно будет выделить в отдельный универсальный модуль - пока копипаст будет
