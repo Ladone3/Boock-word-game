@@ -1,11 +1,13 @@
 ﻿class CenterOfWorld extends MovieClip {
 	private var kEsk:Number = 27;	
+	private var playerBrightness = 100;
 	
 	public function createAbstractLaw() {
 		_global.abstractLaw = new AbstractLaw();
 	}
 	
 	public function CenterOfWorld(){
+		if(_global.playerBrightness)this.playerBrightness = _global.playerBrightness;
 		this.createAbstractLaw();
 		this._name = "CenterOfWorld";
 		_root._color.brightness=0;
@@ -25,6 +27,7 @@
 			if(!this.startFrame && _root._color.brightness>0){
 				_root._color.brightness-=10;
 				if(_root._color.brightness<=0){
+					_global.player._color.brightness = this.playerBrightness;
 					this.startFrame=true;
 					_global.player.hpline._x += _root._x;
 					_global.player.hpline._y += _root._y;

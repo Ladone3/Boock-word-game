@@ -181,6 +181,7 @@
 				this._x = wantX;
 				this._y = wantY;
 			}
+			//trace("this.xA = "+this.xA+" this.yA = " + this.yA);
 	}
 	
 	public function onEnterFrameNoAction(){

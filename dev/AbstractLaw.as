@@ -69,8 +69,8 @@
 	public function forceIteration(){
 		for(var i=0; i<this.length; i++){
 			//trace("_global.player: "+_global.player._name+" Name("+i+"):" + this[i]._name);
-			this.attractiveForce(this[i]);
-			this.frictionForce(this[i]);
+			if(!_global.gravity_disable)this.attractiveForce(this[i]);
+			if(!_global.friction_disable)this.frictionForce(this[i]);
 		}
 	}
 	
@@ -89,13 +89,13 @@
 	}
 	
 	private function attractiveForce(obj:GameObject) {
-		//trace("1) Yahooo i'm in!");
+		trace("1) Yahooo i'm in!");
 		if(obj && obj.mov){
 			if(obj.yA<=this.MaxAttractiveSpeed)obj.yA+=AttractiveForce;
 		}
 	}
 	private function frictionForce(obj) {
-		//trace("2) Yahooo i'm in!");
+		trace("2) Yahooo i'm in!");
 		if((obj)&&(obj.mov) && (obj.touchDown)){
 			var nullBoost = 0;
 			if(obj.downObject && obj.downObject.xA) nullBoost = obj.downObject.xA;
@@ -228,6 +228,23 @@
 		return { x: xoffset, y: yoffset };
 	}
 	
+	public function cameraStoper(TARGET){
+		var pbounds = TARGET.getBounds(_root);
+		if(pbounds.xMin<stageBounds.xMin){
+			TARGET._x += stageBounds.xMin - pbounds.xMin;
+		}
+		if(pbounds.xMax>stageBounds.xMax){
+			TARGET._x += stageBounds.xMax - pbounds.xMax;
+		}
+		/*
+		if(pbounds.yMin<stageBounds.yMin){
+			TARGET._y += stageBounds.yMin - pbounds.yMin;
+		}
+		if(pbounds.yMax>stageBounds.yMax){
+			TARGET._y += stageBounds.yMax - pbounds.yMax;
+		}*/
+	}
+	
 	//public var traceClip1; public var traceClip2;
 	public function chaseCamera(){
 		var TARGET = _global.player; //this.creatures[1];
@@ -235,21 +252,7 @@
 		var offset = this.getCameraOffset(this.stageBounds);
 		if(stopFrame) offset = this.noNoYouEvenSoMayMoved(offset);
 		if(stopFrame){
-			var pbounds = TARGET.getBounds(_root);
-			if(pbounds.xMin<stageBounds.xMin){
-				TARGET._x += stageBounds.xMin - pbounds.xMin;
-			}
-			if(pbounds.xMax>stageBounds.xMax){
-				TARGET._x += stageBounds.xMax - pbounds.xMax;
-			}
-			/*
-			if(pbounds.yMin<stageBounds.yMin){
-				TARGET._y += stageBounds.yMin - pbounds.yMin;
-			}
-			if(pbounds.yMax>stageBounds.yMax){
-				TARGET._y += stageBounds.yMax - pbounds.yMax;
-			}
-			*/
+			this.cameraStoper(TARGET);
 		}
 		if(offset.x!=0){
 			_root._x+=offset.x;

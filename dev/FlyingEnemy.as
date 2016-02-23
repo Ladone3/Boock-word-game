@@ -21,23 +21,40 @@
 		}
 	}
 
-	//Переопределение
+//Переопределение
 	public function landing(){
-		if(this.yBoost<runPower){
-			this.yBoost = jumpPower/4;
-		} else if(this.yBoost<0){
-			this.yBoost += runPower/4;
+		trace("DOWN");
+		if(this.yBoost<runPower/2){
+			if((this.yBoost+runPower/2)<=(runPower/2)){
+				this.yBoost+=runPower/2;
+			}else{
+				this.yBoost=runPower/2;
+			}
+		}
+		if(this.direct){
+			this.switcher.state = 9;
+		}else{
+			this.switcher.state = 10;
 		}
 	}
 
 	//Переопределение
 	public function jump(){
-		if(this.yBoost>-runPower){
-			this.yBoost = -runPower/4;
-		} else if(this.yBoost>0){
-			this.yBoost -= runPower/4;
+		trace("UP");
+		if(this.yBoost>-runPower/2){
+			if((this.yBoost-runPower/2)>=(-runPower/2)){
+				this.yBoost-=runPower/2;
+			}else{
+				this.yBoost=-runPower/2;
+			}
+		}
+		if(this.direct){
+			this.switcher.state = 5;
+		}else{
+			this.switcher.state = 6;
 		}
 	}
+
 
 	public function keyReading(){
 		if(!this.counter.notOver){
