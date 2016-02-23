@@ -1,6 +1,12 @@
 ﻿class FallingPlayerSpawn extends PlayerSpawn{
 	public function FallingPlayerSpawn(){
-		if(_global.player)_global.player.remove();
+		if(_global.player){
+			trace("Spawn clear");
+			_global.player.hpline.removeMovieClip();
+			_global.player.hpline = null;
+			_global.player.remove();
+			_global.player = null;
+		}
 	}
 
 	// Переопределение

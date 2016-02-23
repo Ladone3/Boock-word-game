@@ -89,13 +89,13 @@
 	}
 	
 	private function attractiveForce(obj:GameObject) {
-		trace("1) Yahooo i'm in!");
+		//trace("1) Yahooo i'm in!");
 		if(obj && obj.mov){
 			if(obj.yA<=this.MaxAttractiveSpeed)obj.yA+=AttractiveForce;
 		}
 	}
 	private function frictionForce(obj) {
-		trace("2) Yahooo i'm in!");
+		//trace("2) Yahooo i'm in!");
 		if((obj)&&(obj.mov) && (obj.touchDown)){
 			var nullBoost = 0;
 			if(obj.downObject && obj.downObject.xA) nullBoost = obj.downObject.xA;

@@ -26,7 +26,9 @@
 	
 	//Переопределение
 	public function onEnterFrameCatchPlayer(){
+		
 		if(this.once){
+			trace("Spawn "+(!_global.player?"true":"false"));
 			if(!_global.player){
 				_global.player=this.spawn()[0];
 			}else{
