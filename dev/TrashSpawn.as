@@ -5,9 +5,10 @@
 	var trashCount = 0;
 	var timer = 0;
 	var trashMaxCount = 100;
-	var bullets = ['GhostBullet',
+	/*var bullets = ['GhostBullet',
 				   'MaskitBullet',
-				   'Bullet'];
+				   'Bullet'];*/
+	var bullets = ['StoneBullet'];
 	
 	public function createBullet(){
 		if(bullets.length>0){
