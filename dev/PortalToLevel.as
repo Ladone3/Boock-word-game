@@ -37,7 +37,7 @@
 	}
 	
 	// Переопределение
-	public function getType():Number{
-		return 100;
+	public function getType():String{
+		return "PortalToLevel";
 	}
 }

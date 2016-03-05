@@ -1,10 +1,10 @@
 class MedicineBoxForTray extends MedicineBox{
 	// Переопределение
-	public function getType():Number{
-		return 6;
+	public function getType():String{
+		return "MedicineBoxForTray";
 	}
 	// Переопределение
 	private function acceptMedBox(gameObject1, gameObject2):Boolean{
-		return (gameObject1.getType()==6 && gameObject2.getType()==5);
+		return (gameObject1.getType()==="MedcineBoxForTray" && gameObject2.getType()=="Ladone3Player");
 	}
 }

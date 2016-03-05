@@ -22,6 +22,14 @@
 	
 	public function PlayerSpawn(){
 		this.areaNeeded = false;
+		if(_global.player && _global.player.getType()==="FlyingLifePlayer"){
+			trace("Spawn clear");
+			_global.abstractLaw.popCreature(_global.player);
+			_global.player.hpline.removeMovieClip();
+			_global.player.hpline = null;
+			_global.player.remove();
+			_global.player = null;
+		}
 	}
 	
 	//Переопределение

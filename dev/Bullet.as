@@ -136,11 +136,12 @@
 
 	public function onIterate():Boolean{
 		var temp:Boolean = false;
-		if((this._x < (_global.abstractLaw.borderX1-_global.abstractLaw.widthWindow*(3/5)))
-		|| (this._x > _global.abstractLaw.borderX2+_global.abstractLaw.widthWindow*(3/5))
-		|| (this._y < _global.abstractLaw.borderY1-_global.abstractLaw.heightWindow*(3/5))
-		|| (this._y > _global.abstractLaw.borderY2+_global.abstractLaw.heightWindow*(3/5))
+		if((this._x < _global.abstractLaw.stageBounds.xMin-200)
+		|| (this._x > _global.abstractLaw.stageBounds.xMax+200)
+		|| (this._y < _global.abstractLaw.stageBounds.yMin-200)
+		|| (this._y > _global.abstractLaw.stageBounds.yMax+200)
 		){
+			trace("Remove!!! Bullet!!!");
 			this.remove();
 		}
 		var nWidth = this._width;
@@ -148,7 +149,7 @@
 		var temp1 = this.getBounds(_root);
 		for(var i=0; i<_global.abstractLaw.length; i++){
 			if(_global.abstractLaw[i]!= this.pmc && _global.abstractLaw[i]!= this.pmc.pmc
-			&& _global.abstractLaw[i]!=null && ((takeWall)||((!takeWall) && _global.abstractLaw[i].getType()!=0))
+			&& _global.abstractLaw[i]!=null && ((takeWall)||((!takeWall) && _global.abstractLaw[i].getType()!=="GameObject"))
 			&& _global.abstractLaw[i].calcObj){
 				var nXMin = temp1.xMin;
 				var nYMin = temp1.yMin;

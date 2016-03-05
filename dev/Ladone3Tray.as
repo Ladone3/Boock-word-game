@@ -24,8 +24,8 @@
 	public var runingSound;
 	
 	// Переопределение	
-	public function getType():Number{
-		return 5;
+	public function getType():String{
+		return "Ladone3Tray";
 	}
 		
 	public function setfreeState(){

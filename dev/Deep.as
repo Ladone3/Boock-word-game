@@ -28,7 +28,7 @@
 	}
 
 	// Переопределение
-	public function getType():Number{
-		return 101;
+	public function getType():String{
+		return "Deep";
 	}
 }

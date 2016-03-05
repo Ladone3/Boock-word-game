@@ -25,8 +25,8 @@
 	public var frictionModificator:Number = 2;
 	
 	// Переопределение	
-	public function getType():Number{
-		return 3;
+	public function getType():String{
+		return "Ladone3Player";
 	}
 			
 	// Переопределение

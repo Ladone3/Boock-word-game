@@ -37,7 +37,7 @@ class DethLine extends GameObject{
 	}
 
 	// Переопределение
-	public function getType():Number{
-		return 101;
+	public function getType():String{
+		return "DethLine";
 	}
 }

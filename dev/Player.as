@@ -52,8 +52,8 @@
 	}
 	
 	// Переопределение	
-	public function getType():Number{
-		return 1;
+	public function getType():String{
+		return "Player";
 	}
 	
 	private function lifeOrDie(){

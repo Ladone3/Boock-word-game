@@ -27,13 +27,13 @@
 	}
 	
 	// Переопределение
-	public function getType():Number{
-		return 4;
+	public function getType():String{
+		return "MedcineBox";
 	}
 	
 	// Переопределение
 	public function takeObject(object:GameObject):Boolean{
-		return (object.getType()==0);
+		return (object.getType()==="GameObject");
 	}
 	
 	// Переопределение
@@ -67,6 +67,6 @@
 	}
 	
 	private function acceptMedBox(gameObject1, gameObject2):Boolean{
-		return (gameObject1.getType()==4 && gameObject2.getType()==3);
+		return (gameObject1.getType()=="MedcineBox" && gameObject2.getType()==="Ladone3Tray");
 	}
 }

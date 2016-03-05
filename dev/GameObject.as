@@ -14,8 +14,8 @@
 	public var myPrivateObjList = null;
 	public var stopBounds = null;
 	
-	public function getType():Number{
-		return 0;
+	public function getType():String{
+		return "GameObject";
 	}
 	
 	public function setScale(s:Number){

@@ -14,7 +14,7 @@
 
 	// Переопределение
 	public function takeObject(object:GameObject):Boolean{
-		return (object.getType()==0);
+		return (object.getType()==="GameObject");
 	}
 
 	// Переопределение

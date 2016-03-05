@@ -1,5 +1,12 @@
 ﻿class FlyingLifePlayer extends Ladone3Tray{
 	//public var flying:Boolean = true;
+	private var runPower:Number = 8;
+	public var stunDelay:Number = 1;
+	
+	// Переопределение	
+	public function getType():String{
+		return "FlyingLifePlayer";
+	}
 	
 	//Переопределение
 	private function aeroState(nameValue:String, lastState:Boolean, newState:Boolean, dop):Boolean{
