@@ -4,6 +4,7 @@
 	public var FrictionForce:Number=1;
 	public var MAX_ACTIVE_CREATURES_IN_LEVEL = 4;
 	public var creatures:Array;
+	
 	// getActiveCreaturesLength() MAX_ACTIVE_CREATURES_IN_LEVEL
 	public function canICreateOneMoreCreatures():Boolean{
 		return this.getActiveCreaturesLength()<=MAX_ACTIVE_CREATURES_IN_LEVEL;
