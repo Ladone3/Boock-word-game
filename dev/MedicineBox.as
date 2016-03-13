@@ -67,6 +67,6 @@
 	}
 	
 	private function acceptMedBox(gameObject1, gameObject2):Boolean{
-		return (gameObject1.getType()=="MedcineBox" && gameObject2.getType()==="Ladone3Tray");
+		return (gameObject1.getType()==="MedcineBox" && gameObject2.getType()==="Ladone3Player");
 	}
 }

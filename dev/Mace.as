@@ -139,7 +139,9 @@
 		ypos2 -= 4*d*sin;
 		var alpha = 0;
 		_root.line_mc.lineStyle(2, 70, alpha, true, "normal", "round", "miter", 1);
+		var iteration = 0;
 		for(var i=0; (i+2)*(d*2)<=ln; i++){
+			if(iteration>1000) break; else iteration++;
 			if(visible){
 				alpha+=2;
 				_root.line_mc.lineStyle(2, 70, alpha, true, "normal", "round", "miter", 1);
@@ -165,7 +167,7 @@
 		}
 	}
 	private function drawRope(visible:Boolean){
-		drawSpring(this._x,this._y,this.parentMovieClip._x, this.parentMovieClip._y,visible);
+		if(this.parentMovieClip)drawSpring(this._x,this._y,this.parentMovieClip._x, this.parentMovieClip._y,visible);
 	}
 	
 	public function remove(){
@@ -271,13 +273,11 @@
 				if((nXMin >= temp2.xMin - nWidth)&&(nYMin >= temp2.yMin - nHeight)
 				&&(nXMin <= temp2.xMax)&&(nYMin <= temp2.yMax)&&(_global.abstractLaw[i].life)){
 					temp = true;
-					//if(_global.abstractLaw[i].getType()==2){
 						if(temp2.xMin<=nXMin){
 							_global.abstractLaw[i].setDamage(this.damage,true);
 						}else{
 							_global.abstractLaw[i].setDamage(this.damage,false);
 						}
-					//}
 					if(_global.abstractLaw[i].mov){
 						_global.abstractLaw[i].xA = this.xS/2;
 						_global.abstractLaw[i].yA = this.yS/2;

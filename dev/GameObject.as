@@ -2,6 +2,7 @@
 	// Подсчет количества объектов класса 
 	//=======================================================
 	private static var gameObjectCount:Number=0;
+	public var _oldname = null;
 
 	// Объект на котором лежит данный объект. Если mov = true;
 	public var downObject:GameObject = null;
@@ -140,6 +141,7 @@
 		this.ySpeed = 0;
 		this.movable = false;
 		this.lifeState = true;
+		this._oldname = this._name;
 		this._name = "gameObject_"+(gameObjectCount++);
 		if(_global.abstractLaw){
 			//trace(_global.abstractLaw.length);

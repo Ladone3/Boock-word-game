@@ -157,8 +157,10 @@
 				if(object instanceof Player)this.addCreature(object);
 			}
 		}
-		if(_root["FonImage"]){
-			this.fonImage = _root["FonImage"];
+		for(var i=0; i<FonImage.fonImageCount; i++){
+			if(_root["fonImage"+i]){
+				this.fonImages.push(_root["fonImage"+i]);
+			}
 		}
 		if(_root["CameraBorder"]){
 			this.cameraBorder = _root["CameraBorder"].getBounds(_root);
@@ -172,9 +174,7 @@
 
 	// Работа камеры
 	//=============================================================================
-	public var fonImage:MovieClip=null;
-	public var xfonOffsetDelay = 0.8;
-	public var yfonOffsetDelay = 0.5;
+	public var fonImages = [];
 	public var MenuPlace:MovieClip=null;
 	public var cameraBorder:Object=0;
 	public var borderXMin:Number = Stage.width*(2/5);
@@ -259,7 +259,9 @@
 			_root._x+=offset.x;
 			_global.player.hpline._x -= offset.x;
 			this.MenuPlace._x -= offset.x;
-			this.fonImage._x -= (offset.x)*xfonOffsetDelay;
+			for(var i=0; i<this.fonImages.length; i++){
+				this.fonImages[i]._x -= (offset.x)*this.fonImages[i].xDelay;
+			}
 			this.borderXMin -= offset.x;
 			this.borderXMax -= offset.x;
 		}
@@ -267,7 +269,9 @@
 			_root._y+= offset.y;
 			_global.player.hpline._y -= offset.y;
 			this.MenuPlace._y -= offset.y;
-			this.fonImage._y -= (offset.y)*yfonOffsetDelay;
+			for(var i=0; i<this.fonImages.length; i++){
+				this.fonImages[i]._y -= (offset.y)*this.fonImages[i].yDelay;
+			}
 			this.borderYMin -= offset.y;
 			this.borderYMax -= offset.y;
 		}
