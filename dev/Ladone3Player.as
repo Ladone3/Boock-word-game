@@ -21,7 +21,7 @@
 	private var runPower:Number = 10;
 	public var radius:Number = 25;
 	public var damage:Number = 60;
-	public var hpmax:Number = 1000;
+	public var hpmax:Number = 500;//1000;
 	public var frictionModificator:Number = 2;
 	
 	// Переопределение	

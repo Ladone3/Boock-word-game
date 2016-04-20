@@ -1,5 +1,6 @@
 ﻿class FallingPlayerSpawn extends PlayerSpawn{
 	public function FallingPlayerSpawn(){
+		_global.LOT = false;
 		if(_global.player && (_global.player.getType()==="Ladone3Tray" || _global.player.getType()==="Ladone3Player")){
 			trace("Spawn clear");
 			_global.abstractLaw.popCreature(_global.player);

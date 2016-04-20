@@ -79,7 +79,7 @@
 		if(_global.LOT){
 			if(this.hpline && this.hpline.HP!=undefined && this.hpline.HP<=0 && this.life){
 				var powerdown = _root.attachMovie("PowerDown", "PowerDown", _root.getNextHighestDepth());
-				trace("create changer");
+				//trace("create changer");
 				powerdown.visible = false;
 				powerdown._x = this._x;
 				powerdown._y = this._y;

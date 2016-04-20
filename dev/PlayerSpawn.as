@@ -9,6 +9,7 @@
 			//this.mClass="Player";
 			//this.mMC="Ladone3Tray2";
 			//this.mClass="Ladone3Tray";
+			//_global.player.setDamage(_global.player.hpline.HPM);
 		}else{
 			this.mMC="Ladone3Tray";
 			this.mClass="Ladone3Tray";

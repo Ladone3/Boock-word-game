@@ -29,7 +29,7 @@ class DethLine extends GameObject{
 				if(this.hitTest(_global.player)&&(_root._color.brightness>=100)){
 					this.nocatch = false;
 					_global.player.stopTrigger();
-					_global.player.setDamage(_global.player.hpline.HPM)
+					_global.player.setDamage(_global.player.hpline.HPM);
 				}else{
 					this.nocatch = true;
 				}

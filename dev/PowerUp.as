@@ -74,19 +74,16 @@
 				if(!_global.LOT){
 					this.steppedSpawn();
 				}else{
-					if(_global.player.hpline.HP<_global.player.hpline.HPM){
-						_global.player.hpline.treatment(5);
-					}else{
-						this.stateNumber++;
-					}
+					this.stateNumber++;
 				}
 				break;
 			case 3:
-				if(this.varIterator>100){
+				if(this.varIterator>100 || _global.player.hpline.HP<_global.player.hpline.HPM){
 					this._alpha-=1;
 					_global.player._color.brightness = (this.varIterator-=10);
 					_global.player.ladoneHandL._color.brightness = (this.varIterator);
 					_global.player.ladoneHandR._color.brightness = (this.varIterator);
+					_global.player.hpline.treatment(5);
 				}else{             
 					this.stateNumber++;
 					_global.player._color.brightness = 100;
