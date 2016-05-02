@@ -2,7 +2,7 @@
 	public var DO_DOWN:Number = 5;
 	public var DO_RUN_DOWN:Number = 6;
 	public var DO_RUN_JUMP:Number = 7;
-	public var DIST_ERROR:Number = 50;
+	public var DIST_ERROR:Number = 150;
 	public var RADIUS:Number = 20;
 	public var state_timer:Number = 0;
 	

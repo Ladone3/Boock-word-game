@@ -1,5 +1,5 @@
 ﻿class FlyingEnemy extends Computer{
-
+	private var runPower:Number = 20;
 	//Переопределение
 	private function aeroState(nameValue:String, lastState:Boolean, newState:Boolean, dop):Boolean{
 		this.inAero = false;
@@ -16,7 +16,11 @@
 	//Переопределение
 	private var lock:Boolean = true;
 	public function set yA(yBoost:Number){
-		if(!this.lock || !life){
+		if((!this.lock) || 
+		   (!this.hpline) || 
+		   (this.hpline.HP==undefined) || 
+		   (this.hpline.HP<=0) || 
+		   (!this.life)){
 			super.yA = yBoost;
 		}
 	}
@@ -24,6 +28,7 @@
 //Переопределение
 	public function landing(){
 		trace("DOWN");
+		this.lock = false;
 		if(this.yBoost<runPower/2){
 			if((this.yBoost+runPower/2)<=(runPower/2)){
 				this.yBoost+=runPower/2;
@@ -36,11 +41,13 @@
 		}else{
 			this.switcher.state = 10;
 		}
+		this.lock = true;
 	}
 
 	//Переопределение
 	public function jump(){
 		trace("UP");
+		this.lock = false;
 		if(this.yBoost>-runPower/2){
 			if((this.yBoost-runPower/2)>=(-runPower/2)){
 				this.yBoost-=runPower/2;
@@ -53,6 +60,7 @@
 		}else{
 			this.switcher.state = 6;
 		}
+		this.lock = true;
 	}
 
 
