@@ -156,34 +156,37 @@
 	// Рассчет текущей скорости
 	//=======================================================
 	private function calcSpeeds(){
-			this.xSpeed = /*this.xSpeed + */this.xBoost;
-			this.ySpeed = /*this.ySpeed + */this.yBoost;
+		this.xSpeed = this.xBoost;
+		this.ySpeed = this.yBoost;
 	}
 	
 	public function onEnterFrameAction(){
-			calcSpeeds();
-			var wantX = this.xSpeed;
-			var wantY = this.ySpeed;
-			//trace("this.downObject: "+this.downObject);
-			//trace("this.prevDownObject: "+this.prevDownObject);
-			if(this.downObject)this.prevDownObject = this.downObject;
-			this.downObject = null;			
-			if(_global.abstractLaw){
-				var p = this.permissionToMov({x:wantX, y:wantY});
-				this.downObject = p.object;
-				//trace("Global.length:"+_global.abstractLaw.length+this.downObject._name);
-				this._x = this._x + p.x;
-				this._y = this._y + p.y;
-				touchLeft = p.left;
-				touchRight = p.right;
-				touchUp = p.up;
-				touchDown = p.down;
-				stopOnDirection();
-			} else {
-				this._x = wantX;
-				this._y = wantY;
-			}
-			//trace("this.xA = "+this.xA+" this.yA = " + this.yA);
+		this.movements();
+	}
+	
+	public function movements(){
+		this.calcSpeeds();
+		var wantX = this.xSpeed;
+		var wantY = this.ySpeed;
+
+		if(this.downObject)this.prevDownObject = this.downObject;
+		this.downObject = null;	
+		
+		if(_global.abstractLaw){
+			var p = this.permissionToMov({x:wantX, y:wantY});
+			this.downObject = p.object;
+
+			this._x = this._x + p.x;
+			this._y = this._y + p.y;
+			touchLeft = p.left;
+			touchRight = p.right;
+			touchUp = p.up;
+			touchDown = p.down;
+			stopOnDirection();
+		} else {
+			this._x = wantX;
+			this._y = wantY;
+		}
 	}
 	
 	public function onEnterFrameNoAction(){
@@ -194,9 +197,11 @@
 	public function onEnterFrame() {
 		if(!_global.doPause){
 			if(movable && life){
-				onEnterFrameAction();
+				this.onEnterFrameAction();
+			}else if(movable){
+				this.movements();
 			}else{
-				onEnterFrameNoAction();
+				this.onEnterFrameNoAction();
 			}
 			this.lifeOrDie();
 		}
@@ -223,14 +228,11 @@
 		var nXMin = myBounds.xMin + np.x;
 		var nYMin = myBounds.yMin + np.y-bottomMargin;
 		var objList = (this.myPrivateObjList && this.areaNeeded ? this.myPrivateObjList : _global.abstractLaw);
-		//trace("ObjListLength: "+objList.length+" LawListLength: "+_global.abstractLaw.length);
+
 		for(var i=0; i<objList.length; i++){
-			//if(this==_global.player)trace(objList[i]._name+":1");
 			if(objList[i]!=null && objList[i].calcObj && objList[i]!=this && (takeObject(objList[i]))){		
-				//if(this==_global.player)trace(objList[i]._name+":2");
 				var objBounds = objList[i].getBounds(_root);
 				if((nXMin >= objBounds.xMin - nWidth)&&(nYMin >= objBounds.yMin - nHeight)&&(nXMin <= objBounds.xMax)&&(nYMin <= objBounds.yMax)){
-					//if(this==_global.player)trace(objList[i]._name+":3");
 					var razn1 = nXMin - (objBounds.xMin - nWidth);
 					var razn2 = nYMin - (objBounds.yMin - nHeight);
 					var razn3 = objBounds.xMax - nXMin;

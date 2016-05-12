@@ -339,10 +339,9 @@
 	//Переопределение
 	public function onEnterFrameAction(){
 		super.onEnterFrameAction();
-		if(_global.player==this 
-		|| (Math.abs(_global.player._x-this._x)<Stage.width*ACTIVE_K_X_DIST
-			&& Math.abs(_global.player._y-this._y)<Stage.height*ACTIVE_K_Y_DIST
-			)){
+		if(_global.player==this ||
+		 (Math.abs(_global.player._x-this._x)<Stage.width*ACTIVE_K_X_DIST &&
+		  Math.abs(_global.player._y-this._y)<Stage.height*ACTIVE_K_Y_DIST)){
 			this.active = true;
 			this.keyReading();
 			this.checkForDeath();
@@ -369,14 +368,17 @@
 				var nXMin = temp1.xMin + this._width/2 - radius + offset;
 				var nYMin = temp1.yMin + this._height/2 - radius;
 				var temp2 = _global.abstractLaw[i].getBounds(_root);
-				if((nXMin >= temp2.xMin - nWidth)&&(nYMin >= temp2.yMin - nHeight)&&(nXMin <= temp2.xMax)&&(nYMin <= temp2.yMax)&&(this[i].life)){                                                                                              
-						_global.abstractLaw[i].setDamage(damage,(_global.abstractLaw[i].direct!=direct));
-						if(direct){
-							_global.abstractLaw[i].xA = damage/2*k;
-						}else{
-							_global.abstractLaw[i].xA = -damage/2*k;
-						}
-						return true;
+				if((nXMin >= temp2.xMin - nWidth)&&
+				   (nYMin >= temp2.yMin - nHeight)&&
+				   (nXMin <= temp2.xMax)&&
+				   (nYMin <= temp2.yMax)/*&&(this[i].life)*/){                                                                                              
+					_global.abstractLaw[i].setDamage(damage,(_global.abstractLaw[i].direct!=direct));
+					if(direct){
+						_global.abstractLaw[i].xA = damage/2*k;
+					}else{
+						_global.abstractLaw[i].xA = -damage/2*k;
+					}
+					return true;
 				}
 			}
 		}

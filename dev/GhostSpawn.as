@@ -2,7 +2,7 @@
 	// Переопределение
 	public function init(){
 		this.mCount=4;
-		this.mMC="GhostMonstrBoss";
+		this.mMC="GhostMonstr";
 		this.mClass="Ghost";
 	}
 	

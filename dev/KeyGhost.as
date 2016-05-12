@@ -1,29 +1,39 @@
 ﻿class KeyGhost extends Ghost{
-	public var hpmax:Number = 20;
+	public var hpmax:Number = 520;
 	// Переопределение
 	public function getBrain():Intellect{
 		this.ghostIntellect = new GhostIntellect(this);
 		return this.ghostIntellect;
 	}
 	
+	/*
 	//Переопределение
-	private var onlyOneSpawn:Boolean = true;
 	private function lifeOrDie(){
 		if((!life)&&(!this.counter.notOver) && (this.onlyOneSpawn)){
-			
-			if(!this.counter.notOver /*&& _global.abstractLaw.creatures.length<2*/){
+			if(!this.counter.notOver && _global.abstractLaw.creatures.length<2){
 				super.lifeOrDie();
 				_root["CenterOfWorld"].goToAndStopToNextFrame();
 			}
-			/*
-			var egg = _root.attachMovie("GhostSpawn", "GhostSpawn", _root.getNextHighestDepth());
-			egg.visible = false;
-			egg._x = this._x;
-			egg._y = this._y;
-			this.counter.delay = 100;
-			trace("Create ghosts!!");
-			*/
 		}
+	}
+	*/
+	//Переопределение
+	private var onlyOneSpawn:Boolean = true;
+	public function setDie(){
+		this.counter.delay = 0;
+		if(this.direct){
+			this.switcher.state = 13;
+		}else{
+			this.switcher.state = 14;
+		}
+		
+		var egg = _root.attachMovie("GhostSpawn", "GhostSpawn", _root.getNextHighestDepth());
+		egg.visible = false;
+		egg._x = this._x;
+		egg._y = this._y-100;
+		trace("Create ghosts!!");
+			
+		this.counter.delay=34;
 	}
 	
 	private var frameoutTeleport:Number = 0;
