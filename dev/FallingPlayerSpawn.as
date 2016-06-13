@@ -1,4 +1,4 @@
-﻿class FallingPlayerSpawn extends PlayerSpawn{
+﻿class FallingPlayerSpawn extends PlayerSpawnShadow{
 	public function FallingPlayerSpawn(){
 		_global.LOT = false;
 		if(_global.player && (_global.player.getType()==="Ladone3Tray" || _global.player.getType()==="Ladone3Player")){

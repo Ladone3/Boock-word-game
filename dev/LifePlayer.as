@@ -32,6 +32,7 @@
 	
 	private var alphatrigger = true;
 	private function alphaChaose(){
+		/*
 		if(this.dontTuchMe.notOver){
 			if(alphatrigger){
 				if(this._color.red>150){
@@ -54,6 +55,24 @@
 			this._color.red = 100;
 			this._color.green = 100;
 			this._color.blue = 100;
+		}
+		*/
+		if(this.dontTuchMe.notOver){
+			if(alphatrigger){
+				if(this._alpha>=100){
+					alphatrigger=false;
+				}else{
+					this._alpha+=10;
+				}
+			}else{
+				if(this._alpha<50){
+					alphatrigger=true;
+				}else{
+					this._alpha-=10;
+				}
+			}
+		}else if(this._alpha!=100){
+			this._alpha=100;
 		}
 	}
 

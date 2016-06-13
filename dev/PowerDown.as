@@ -39,7 +39,11 @@
 				}
 				break;
 			case 2:
-				this.steppedSpawn();
+				if(_global.LOT){
+					this.steppedSpawn();
+				}else{
+					this.stateNumber++;
+				}
 				break;
 			case 3:
 				if(this.varIterator>100){

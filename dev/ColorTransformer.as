@@ -63,20 +63,7 @@
 	public function get alpha():Number{
 		return this.col.getTransform().aa;
 	}
-	/*
-	public function set brightness(b:Number){
-		var br = 5.1*b-255;
-		var curTransform = this.col.getTransform();
-		curTransform.rb = br;
-		curTransform.gb = br;
-		curTransform.bb = br;
-		this.col.setTransform(curTransform);
-	}
-	
-	public function get brightness():Number{
-		return (this.col.getTransform().bb +255)/5.1;
-	}
-	*/
+
 	public function set brightness(b:Number){
 		var curTransform = this.col.getTransform();
 		curTransform.ra = b;
