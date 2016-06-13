@@ -43,8 +43,10 @@
 	public function remove(){
 		this.hpline.removeMovieClip();
 		this.hpline = null;
+		this.ladoneHandL._visible = false;
 		this.ladoneHandL.removeMovieClip();
 		this.ladoneHandL = null;
+		this.ladoneHandR._visible = false;
 		this.ladoneHandR.removeMovieClip();
 		this.ladoneHandR = null;
 		super.remove();
