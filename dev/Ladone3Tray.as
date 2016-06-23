@@ -57,7 +57,7 @@
 	}
 	
 	public function planLeft(){
-		if(this.runState){
+		if(this.runState || this.accelerated){
 			if(this.xBoost>-runPower*2.5  && this.xBoost<=0){
 				this.xBoost = -runPower*2.5;
 			}else if(this.xBoost>0){
@@ -74,7 +74,7 @@
 	}
 	
 	public function planRight(){
-		if(this.runState){
+		if(this.runState || this.accelerated){
 			if(this.xBoost<runPower*2.5  && this.xBoost>=0){
 				this.xBoost = runPower*2.5;
 			}else if(this.xBoost<0){
@@ -99,7 +99,7 @@
 			//this.saveRun2 = 0;
 			//this.runState = false;
 		}
-		if(this.runState){
+		if(this.runState || this.accelerated){
 			if(this.xBoost>-runPower*2.5  && this.xBoost<=0){
 				this.xBoost = -runPower*2.5;
 			}else if(this.xBoost>0){
@@ -127,7 +127,7 @@
 			//this.saveRun2 = 0;
 			//this.runState = false;
 		}
-		if(this.runState){
+		if(this.runState || this.accelerated){
 			if(this.xBoost<runPower*2.5  && this.xBoost>=0){
 				this.xBoost = runPower*2.5;
 			}else if(this.xBoost<0){
@@ -228,11 +228,11 @@
 		if(this.direct){
 			b._xscale=this._xscale;
 			this.switcher.state = 21;
-			b.StartBullet(0, 1, this._x+(!this.runState ? 50 : 75), this._y,this.damage,this,20);
+			b.StartBullet(0, 1, this._x+(!this.runState || this.accelerated ? 50 : 75), this._y,this.damage,this,20);
 		}else{
 			b._xscale=-this._xscale;
 			this.switcher.state = 22;
-			b.StartBullet(0, -1, this._x-(!this.runState ? 50 : 75), this._y,this.damage,this,20);
+			b.StartBullet(0, -1, this._x-(!this.runState || this.accelerated ? 50 : 75), this._y,this.damage,this,20);
 		}
 		this.counter.delay=20;
 	}
@@ -242,11 +242,11 @@
 		if(this.direct){
 			b._xscale=this._xscale;
 			this.switcher.state = 23;
-			b.StartBullet(0, 1, this._x+(!this.runState ? 50 : 75), this._y,this.damage*2,this,25);
+			b.StartBullet(0, 1, this._x+(!this.runState || this.accelerated ? 50 : 75), this._y,this.damage*2,this,25);
 		}else{
 			b._xscale=-this._xscale;
 			this.switcher.state = 24;
-			b.StartBullet(0, -1, this._x-(!this.runState ? 50 : 75), this._y,this.damage*2,this,25);
+			b.StartBullet(0, -1, this._x-(!this.runState || this.accelerated ? 50 : 75), this._y,this.damage*2,this,25);
 		}
 		this.counter.delay=30;
 	}
@@ -281,11 +281,11 @@
 		if(this.direct){
 			b._xscale=this._xscale;
 			this.switcher.state = 25;
-			b.StartBullet(0, 5, this._x+(!this.runState ? 0 : 50), this._y,this.damage,this,20);
+			b.StartBullet(0, 5, this._x+(!this.runState || this.accelerated ? 0 : 50), this._y,this.damage,this,20);
 		}else{
 			b._xscale=-this._xscale;
 			this.switcher.state = 26;
-			b.StartBullet(0, -5, this._x-(!this.runState ? 0 : 50), this._y,this.damage,this,20);
+			b.StartBullet(0, -5, this._x-(!this.runState || this.accelerated ? 0 : 50), this._y,this.damage,this,20);
 		}
 		this.counter.delay=20;
 	}
@@ -296,6 +296,7 @@
 	private var saveRun1:Number = 0;
 	private var saveRun2:Number = 0;
 	private var comboBlock:Boolean = false;
+	
 	
 	private function runRunCatching(left:Boolean, right:Boolean){
 		
@@ -333,6 +334,20 @@
 		}
 	}
 	
+	private var acceleration:Number = 0;
+	private var accelerated:Boolean = false;
+	private function accelerationCatching(left:Boolean, right:Boolean){
+		if(this.direct && left || !this.direct && right || right && left || !right && !left){
+			acceleration = 0;
+		}else{
+			acceleration++;
+		}
+		if(acceleration > 30){
+			accelerated=true;
+		}else{
+			accelerated=false;
+		}
+	}
 	
 	// Переопределение
 	//==============================================
@@ -343,6 +358,7 @@
 		
 			this.blowCatching(fight && !this.blowing);
 			this.runRunCatching(Key.isDown(kLeft),Key.isDown(kRight));
+			this.accelerationCatching(Key.isDown(kLeft),Key.isDown(kRight));
 			//if(Key.isDown(kDown)) this.runState = false;
 			//else this.runState = true;
 			
