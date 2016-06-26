@@ -34,6 +34,13 @@
 	}
 		
 	public function Ladone3Tray(){
+		if(_global.Up)this.kUp = _global.Up;
+		if(_global.Down)this.kDown = _global.Down;
+		if(_global.Left)this.kLeft = _global.Left;
+		if(_global.Right)this.kRight = _global.Right;
+		if(_global.Blow)this.kFight = _global.Blow;
+		if(_global.Jump)this.kJump = _global.Jump;
+	
 		this.runingSound = new Sound();
 		this.runingSound.attachSound("Runing");
 		this.runingSound.stop();

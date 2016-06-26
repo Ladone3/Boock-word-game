@@ -50,6 +50,13 @@
 	}
 	
 	public function Ladone3Player(){
+		if(_global.Up)this.kUp = _global.Up;
+		if(_global.Down)this.kDown = _global.Down;
+		if(_global.Left)this.kLeft = _global.Left;
+		if(_global.Right)this.kRight = _global.Right;
+		if(_global.Blow)this.kFight = _global.Blow;
+		if(_global.Jump)this.kJump = _global.Jump;
+	
 		this.ladoneHandL = _root.attachMovie("Ladone3HandL", "WarHandLeft", _root.getNextHighestDepth());
 		this.ladoneHandL.create(this, this.switcher, (this.direct), this.damage);
 		this.ladoneHandR = _root.attachMovie("Ladone3HandR", "WarHandRight", _root.getNextHighestDepth());
