@@ -1,6 +1,10 @@
 class PortalToLastLevel extends PortalToLevel{
 	// Переопределение
 	public function doTeleportation(){
-		_root["CenterOfWorld"].goToLastLevel();
+		if(_global.continous != 0){  
+			_root["CenterOfWorld"].goToLastLevel();
+		}else{
+			_root["CenterOfWorld"].goToAndStopFrame(_global.startFrame);
+		}
 	}
 }
