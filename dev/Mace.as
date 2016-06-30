@@ -170,8 +170,8 @@
 		if(this.parentMovieClip)drawSpring(this._x,this._y,this.parentMovieClip._x, this.parentMovieClip._y,visible);
 	}
 	
-	public function remove(){
-		if((!this.parentMovieClip)||((Math.abs(this._x-this.parentMovieClip._x)<100) && (Math.abs(this._y-this.parentMovieClip._y)<200))){
+	public function remove(removeRemoveRemove:Boolean){
+		if((removeRemoveRemove)||(!this.parentMovieClip)||((Math.abs(this._x-this.parentMovieClip._x)<100) && (Math.abs(this._y-this.parentMovieClip._y)<200))){
 			if(this.parentMovieClip)this.parentMovieClip.cmc = null;
 			this.drawRope(false);
 			if(this.ID!=(MaceCount-1)){

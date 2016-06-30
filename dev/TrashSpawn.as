@@ -40,7 +40,6 @@
 		if(this.timer<=0){
 			if(this.trashCount<this.trashMaxCount){
 				this.createBullet();
-				trace("Bang-bang");
 				this.trashCount++;
 			}else{
 				_root["CenterOfWorld"].goToAndStopToNextFrame();

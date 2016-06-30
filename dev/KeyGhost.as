@@ -31,7 +31,6 @@
 		egg.visible = false;
 		egg._x = this._x;
 		egg._y = this._y-100;
-		trace("Create ghosts!!");
 			
 		this.counter.delay=34;
 	}
@@ -40,7 +39,6 @@
 	private var frameoutDamageTeleport:Number = 0;
 	public function setDamage(d:Number,dd:Boolean){
 		super.setDamage(d,dd);
-		trace(this.frameoutDamageTeleport);
 		if(this.frameoutDamageTeleport>4){
 			this.teleport();
 		}else{

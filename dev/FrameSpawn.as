@@ -14,7 +14,7 @@
 	
 	public function onEnterFrameCatchPlayer(){
 		if(this.notStateSpawn){
-			if(_global.player!=null && this.onRadius(_global.player, this.spawnDistCatch)){
+			if(_global.player!=null && this.onRadius(_global.player, this.spawnDistCatch) && _root._color.brightness>=100){
 				this.notStateSpawn=false;
 				_global.abstractLaw.stopFrame = true;
 				_global.abstractLaw.idealCameraXY = { ix: this._x, iy: this._y};
@@ -25,7 +25,6 @@
 			if(this.mCount<=0 || (allSpawnersTrue && this.getMCS().length==this.mCount)){
 				complete = true;
 				this.switcher.state = 2;
-				trace("EndSpawn");		
 				_global.abstractLaw.idealCameraXY = null;
 				_global.abstractLaw.stopFrame = false;
 			}

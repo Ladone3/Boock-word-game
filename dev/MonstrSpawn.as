@@ -51,7 +51,6 @@
 	}
 		
 	public function compileBounds(areaObject){
-		trace("=======> Compile "+areaObject._name);
 		if(areaObject){
 			this.areaObject=areaObject;
 			this.stopBounds = {};
@@ -152,11 +151,9 @@
 		a.setScale(k);
 		a._alpha=0;
 		if(this.stopBounds){
-			trace("1111");
 			a.stopBounds = this.stopBounds;
 			a.myPrivateObjList = this.getPrivateListForBounds();
 		}else{
-			trace("2222");
 			a.myPrivateObjList = _global.abstractLaw;
 		}
 	}

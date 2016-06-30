@@ -168,8 +168,8 @@
 		this._y = this.parentMovieClip._y;
 	}
 
-	public function removeMovieClip(){
-		this.cmc.remove();
+	public function remove(){
+		this.cmc.remove(true);
 		super.removeMovieClip();
 	}
 }

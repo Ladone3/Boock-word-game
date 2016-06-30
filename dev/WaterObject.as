@@ -11,10 +11,8 @@
 		if(bounds.yMin >= thisBounds.yMin){
 			if(object.h2oReserv==undefined) object.h2oReserv = 250;
 			if(object.h2oReserv<=0){
-				trace("!!!!");
 				object.hpline.damage(0.2);
 			}else{
-				trace("///// H20:"+object.h2oReserv);
 				object.h2oReserv--;
 			}
 

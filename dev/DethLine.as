@@ -1,6 +1,7 @@
 class DethLine extends GameObject{
 	private var nocatch:Boolean = true;
 	public function DethLine(){
+		this._visible = false;
 	}
 
 	//Переопределение

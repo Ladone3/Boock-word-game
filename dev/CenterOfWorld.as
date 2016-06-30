@@ -45,6 +45,7 @@
 		_global.player.youMayTuchMe();
 		_global.player._alpha = 100;
 		this.startFrame = false;
+		_global.abstractLaw.stopFrame = false;
 		_global.nextframe=frame;
 	}
 	public function goToAndStopToNextFrame(){
@@ -63,10 +64,11 @@
 	}
 
 	public function goToLimbo(){
-		_global.player.hpline._visible = false;
+		if(_root._currentframe!=26 && _root._currentframe!=27) _global.player.hpline._visible = false;
 		_global.player.life = true;
 		_global.player.hpline.treatment(_global.player.hpline.HPM);
-		this.goToAndStopFrame(_global.limbo_level);
+		if(_global.continous == 0 || _root._currentframe!=26 && _root._currentframe!=27) this.goToAndStopFrame(_global.limbo_level);
+		else this.goToAndStopFrame(27);
 	}
 	
 	public function goToMenu(){
